@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Zagadki</title>
+	<link rel="stylesheet" href="style.css">
+	<script>
+		if (!window.location.search) {
+			window.location.search = "?question=0";
+		}
+	</script>
+</head>
+<body>
+	<h1>Zagadki</h1>
+	<form>
+		<h2>Kiedy powstała nasza szkoła?</h2>
+		<input type="text" name="answer" required>
+		<button type="submit">Sprawdź</button>
+		<p class="result"></p>
+		<input type="hidden" name="question" value="0">
+	</form>
+
+	<script src="script.js"></script>
+</body>
+</html>
