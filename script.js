@@ -3,16 +3,16 @@ function getCorrectAnswer() {
     const urlParams = new URLSearchParams(window.location.search);
     const currentQuestion = urlParams.get("question");
 
-    if (currentQuestion === "0") {
-        return { answer: "1878", nextUrl: "pytanie2.html" };
-    } else if (currentQuestion === "1") {
-        return { answer: "krzysztof", nextUrl: "pytanie3.html" };
-    } else if (currentQuestion === "2") {
-        return { answer: "Tkaczyk", nextUrl: "pytanie4.html" };
-    } else {
-        return { answer: "", nextUrl: "" };
-    }
+if (currentQuestion === "0") {
+    return { answer: "1878", nextUrl: "pytanie2.html" };
+} else if (currentQuestion === "1") {
+    return { answer: "krzysztof", nextUrl: "pytanie3.html" };
+} else if (currentQuestion === "2") {
+    return { answer: "Tkaczyk", nextUrl: "pytanie4.html" };
+} else {
+    return { answer: "", nextUrl: "" };
 }
+
 
 
 const form = document.querySelector("form");
