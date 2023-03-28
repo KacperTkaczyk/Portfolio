@@ -1,4 +1,4 @@
-// Funkcja zwracająca poprawną odpowiedź dla danej zagadki oraz adres URL kolejnej strony z zagadką
+// Kod sprawdza poprawne hasło i przenosi na kolejną stronę.
 function getCorrectAnswer() {
     const urlParams = new URLSearchParams(window.location.search);
     const currentQuestion = urlParams.get("question");
@@ -14,7 +14,7 @@ function getCorrectAnswer() {
     }
 }
 
-// Obsługa formularza
+
 const form = document.querySelector("form");
 const answerInput = form.querySelector('input[name="answer"]');
 const result = form.querySelector(".result");
@@ -27,14 +27,14 @@ form.addEventListener("submit", function(event) {
 
     if (userAnswer === correctAnswer) {
         if (nextUrl !== "") {
-            // Przekierowanie na kolejną stronę z zagadką, jeśli jest dostępna
+            // Przenoszenie na kolejną stronę.
             window.location.href = nextUrl;
         } else {
-            // Wyświetlenie komunikatu, gdy użytkownik rozwiązał już wszystkie zagadki
+            // Wyświetlanie komunikatu gdy rozwiąże się wszystkie zagadki.
             result.innerText = "Brawo! Rozwiązałeś wszystkie zagadki!";
         }
     } else {
-        // Wyświetlenie komunikatu o niepoprawnej odpowiedzi
+        // Wyświetlenie komunikatu gdy użytkownik wszpiesze błędną odpowiedź.
         result.innerText = "Odpowiedź niepoprawna. Spróbuj jeszcze raz.";
     }
 });
