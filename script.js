@@ -6,7 +6,7 @@ function getCorrectAnswer() {
     if (currentQuestion === "0") {
         return { answer: "1878", nextUrl: "pytanie2.html" };
     } else if (currentQuestion === "1") {
-        return { answer: "Krzysztof", nextUrl: "pytanie3.html" };
+        return { answer: "krzysztof", nextUrl: "pytanie3.html" };
     } else if (currentQuestion === "2") {
         return { answer: "Tkaczyk", nextUrl: "pytanie4.html" };
     } else {
