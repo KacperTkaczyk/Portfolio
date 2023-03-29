@@ -5,12 +5,41 @@
 #id_02{
   position: relative;
   left: 8px;
-  border: 3px solid #73AD21;
-
 }
 
-.cl_01 {
-  background-color: #596222;
+#menu-toggle {
+  display: none;
+  cursor: pointer;
 }
 
+#menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
 
+#menu li {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+  #menu {
+    display: none;
+  }
+  #menu-toggle {
+    display: block;
+  }
+  #menu-toggle:active + #menu {
+    display: block;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 10px;
+    z-index: 1;
+  }
+}
