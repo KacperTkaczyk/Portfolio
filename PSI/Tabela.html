@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tabela</title>
+<style>
+table, th, td {
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}						
 
+#Wysrodkowanie {
+  text-align: center;
+}						
+
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}						<!-- table=wysrodkowanie tabeli #=wysrodkowanie tekstu centered=wysrodkowanie zdjecia-->
+
+</style>
+</head>
+<body>
+
+<img src="https://tinypic.host/images/2022/12/11/3TBP.png" alt="3TBP.png" width="180" height="200" class="centered" />
+
+<div id="Wysrodkowanie">
+<table>
+  <colgroup>
+    <col style="background:#dab48a"> <!-- Kolumna 1 -->
+    <col style="background:#f8e7d5"> <!-- Kolumna 2 -->
+  </colgroup>
+  
+	<tr style="background:#dab48a;">
+		<th>Nr</th>
+		<th style="width:80px">Godz</th>
+		<th colspan="2" style="width:110px">Poniedziałek</th>
+		<th colspan="2" style="width:110px">Wtorek</th>
+		<th colspan="2" style="width:110px">Środa</th>
+		<th colspan="2" style="width:110px">Czwartek</th>
+		<th colspan="2" style="width:110px">Piątek</th>
+	</tr>
+
+  	<tr style="background:#f8e7d5">
+		<th style="background:#dab48a"></th>
+		<th></th>
+		<th style="width:70px">GR.1</th>
+		<th style="width:70px">GR.2</th>
+		<th style="width:70px">GR.1</th>
+		<th style="width:70px">GR.2</th>
+		<th style="width:70px">GR.1</th>
+		<th style="width:70px">GR.2</th>
+		<th style="width:70px">GR.1</th>
+		<th style="width:70px">GR.2</th>
+		<th style="width:70px">GR.1</th>
+		<th style="width:70px">GR.2</th>
+	</tr>
+	
+	<!-- 7:30 -->
+	<tr>
+		<td>1</td>
+		<td>7:30- 8:15</td>
+		<td colspan="2" rowspan="2">Matematyka</td>			<!-- Poniedziałek -->
+		<td rowspan="2">ASSO</td>							<!-- Wtorek Gr.1 -->
+		<td>-</td>											<!-- Wtorek Gr.2 -->
+		<td colspan="2" rowspan="2">J.Polski</td>			<!-- Środa -->
+		<td colspan="2">-</td>								<!-- Czwartek -->
+		<td colspan="2">Fizyka</td>							<!-- Piątek -->
+	</tr>
+	
+	<!-- 8:25 -->
+	<tr>
+		<td>2</td>
+		<td>8:25- 9:10</td>
+		<td>-</td>											<!-- Wtorek Gr.2 -->
+		<td colspan="2">-</td>								<!-- Czwartek -->
+		<td rowspan="2">J.Angielski</td>					<!-- Piątek Gr.1 -->
+		<td rowspan="2">J.Angielski</td>					<!-- Piątek Gr.2 -->
+	</tr>
+	
+	<!-- 9:20 -->
+	<tr>
+		<td>3</td>
+		<td>9:20-10:05</td>
+		<td rowspan="2">J.Angielski</td>					<!-- Poniedziałek Gr.1 -->
+		<td rowspan="2">J.Angielski</td>					<!-- Poniedziałek Gr.2 -->
+		<td rowspan="3">PAI</td>							<!-- Wtorek Gr.1 -->
+		<td rowspan="2">ASSO</td>							<!-- Wtorek Gr.2 -->
+		<td colspan="2">Fizyka</td>							<!-- Środa -->
+		<td colspan="2">-</td>								<!-- Czwartek -->
+ 	</tr>
+	
+	<!-- 10:15 -->
+	<tr>
+		<td>4</td>
+		<td>10:15-11:00</td>
+		<td colspan="2">Matematyka</td>			<!-- Środa -->
+		<td>Informatyka</td>					<!-- Czwartek Gr.1 -->
+		<td>-</td>								<!-- Czwartek Gr.2 -->
+		<td colspan="2">Chemia</td>				<!-- Piątek -->
+	</tr>
+	
+	<!-- 11:15 -->
+	<tr>
+		<td>5</td>
+		<td>11:15-12:00</td>
+		<td colspan="2">p_p</td>				<!-- Poniedziałek -->
+		<td rowspan="2">WF</td>					<!-- Wtorek Gr.2 -->
+		<td>WF</td>								<!-- Środa Gr.1 -->
+		<td>SK</td>								<!-- Środa Gr.2 -->
+		<td rowspan="2">WF</td>					<!-- Czwartek Gr.1 -->
+		<td>ELSK</td>							<!-- Czwartek Gr.2 -->
+		<td colspan="2">Historia</td>			<!-- Piątek -->
+	</tr>
+	
+	<!-- 12:10 -->
+	<tr>
+		<td>6</td>
+		<td>12:10-12:55</td>
+		<td colspan="2">Chemia</td> 			<!-- Poniedziałek -->
+		<td>NUTK</td>							<!-- Wtorek Gr.1 -->
+		<td>SK</td>								<!-- Środa Gr.1 -->
+		<td>Informatyka</td>					<!-- Środa Gr.2 -->
+		<td>WF</td>								<!-- Czwartek Gr.2 -->
+		<td colspan="2">J.Polski</td>			<!-- Piątek -->
+	</tr>
+	
+	<!-- 13:05 -->
+	<tr>
+		<td>7</td>
+		<td>13:05-13:50</td>
+		<td rowspan="2">J.Niemiecki</td>					<!-- Poniedziałek Gr.1 -->
+		<td rowspan="2">J.Niemiecki</td>					<!-- Poniedziałek Gr.2 -->
+		<td>-</td>											<!-- Wtorek Gr.1 -->
+		<td>NUTK</td>										<!-- Wtorek Gr.2 -->
+		<td>PSI</td>										<!-- Środa Gr.1 -->
+		<td rowspan="3">PAI</td>							<!-- Środa Gr.2 -->
+		<td colspan="2">Matematyka</td>						<!-- Czwartek -->
+		<td colspan="2" rowspan="2">Religia</td>			<!-- Piątek -->
+	</tr>
+	
+	<!-- 14:00 -->
+	<tr>
+		<td>8</td>
+		<td>14:00-14:45</td>
+		<td colspan="2">-</td>					<!-- Wtorek Gr.1 -->
+		<td>-</td>								<!-- Środa Gr.1 -->
+		<td colspan="2">Godz.wych</td>			<!-- Czwartek -->
+	</tr>
+	
+	<!-- 15:00 -->
+	<tr>
+		<td>9</td>
+		<td>15:00-15:45</td>
+		<td colspan="2">Historia</td>			<!-- Poniedziałek -->
+		<td colspan="2">-</td>					<!-- Wtorek -->
+		<td>-</td>								<!-- Środa Gr.1 -->
+		<td>ELSK</td>							<!-- Czwartek Gr.1 -->
+		<td rowspan="2">PiABD</td>				<!-- Czwartek Gr.2 -->
+		<td colspan="2">-</td>					<!-- Piątek -->
+	</tr>
+	
+	<!-- 15:55 -->
+	<tr>
+		<td>10</td>
+		<td>15:55-16:40</td>
+		<td colspan="2">-</td>					<!-- Poniedziałek -->
+		<td colspan="2">-</td>					<!-- Wtorek -->
+		<td colspan="2">-</td>					<!-- Środa -->
+		<td>EUS</td>							<!-- Czwartek Gr.1 -->
+		<td colspan="2">-</td>					<!-- Piątek -->
+	</tr>
+	
+	<!-- 16:50 -->
+	<tr>
+		<td>11</td>
+		<td>16:50-17:35</td>
+		<td colspan="2">-</td>					<!-- Poniedziałek -->
+		<td colspan="2">-</td>					<!-- Wtorek -->
+		<td colspan="2">-</td>					<!-- Środa -->
+		<td rowspan="2">PiABD</td>				<!-- Czwartek Gr.1 -->
+		<td>PSI</td>							<!-- Czwartek Gr.2 -->
+		<td colspan="2">-</td>					<!-- Piątek -->
+	</tr>
+	
+	<!-- 17:45 -->
+	<tr>
+		<td>12</td>
+		<td>17:45-18:30</td>
+		<td colspan="2">-</td>					<!-- Poniedziałek -->
+		<td colspan="2">-</td>					<!-- Wtorek -->
+		<td colspan="2">-</td>					<!-- Środa -->
+		<td>EUS</td>							<!-- Czwartek Gr.2 -->
+		<td colspan="2">-</td>					<!-- Piątek -->
+	</tr>
+</table>
+</div>
+</body>
+</html>
