@@ -1,18 +1,11 @@
 /* Stylizacja menu nawigacyjnego */
 header {
-  background-image: linear-gradient(to bottom right, #333, #444);
+  background-color: #333;
   color: #fff;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-header:hover {
-  transform: scale(1.05);
-  transition: all 0.3s ease;
 }
 
 h1 {
@@ -27,18 +20,53 @@ ul {
 }
 
 li {
-  margin: 0 auto;
+  margin: 0 10px;
 }
 
 a {
   color: #fff;
   text-decoration: none;
   padding: 5px;
-  transition: all 0.3s ease;
 }
 
 a:hover {
   background-color: #fff;
   color: #333;
-  transition: all 0.3s ease;
+}
+
+/* Stylizacja sekcji */
+section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+section ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+section li {
+  flex-basis: calc(33.33% - 10px);
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+section a {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+}
+
+section a:hover {
+  background-color: #333;
+  color: #fff;
 }
