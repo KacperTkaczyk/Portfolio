@@ -1,11 +1,18 @@
 /* Stylizacja menu nawigacyjnego */
 header {
-  background-color: #333;
+  background-image: linear-gradient(to bottom right, #333, #444);
   color: #fff;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+header:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
 }
 
 h1 {
@@ -20,16 +27,18 @@ ul {
 }
 
 li {
-  margin: 0 10px;
+  margin: 0 auto;
 }
 
 a {
   color: #fff;
   text-decoration: none;
   padding: 5px;
+  transition: all 0.3s ease;
 }
 
 a:hover {
   background-color: #fff;
   color: #333;
+  transition: all 0.3s ease;
 }
