@@ -10,7 +10,7 @@ function newNumber() {
   document.getElementById("akapit1").innerHTML = "";
   document.getElementById("akapit2").innerHTML = "";
   document.getElementById("akapit3").innerHTML = "";
-  document.getElementById("checkButton").removeAttribute("disabled");
+  document.getElementById("sprawdzButton").removeAttribute("disabled");
 }
 
 
@@ -29,7 +29,7 @@ function chooseRange(range) {
   document.getElementById("akapit1").innerHTML = "";
   document.getElementById("akapit2").innerHTML = "";
   document.getElementById("akapit3").innerHTML = "";
-  document.getElementById("checkButton").setAttribute("disabled", true);
+  document.getElementById("sprawdzButton").setAttribute("disabled", true);
 }
 
 function myFunc() {
@@ -43,7 +43,7 @@ function myFunc() {
     if (guess == a) {
       document.getElementById("akapit1").innerHTML = "Gratulacje! Zgadłeś!";
       document.getElementById("pole1").value = "";
-      document.getElementById("checkButton").setAttribute("disabled", true);
+      document.getElementById("sprawdzButton").setAttribute("disabled", true);
     } else if (guess < a) {
       document.getElementById("akapit1").innerHTML = "Za mała!";
       document.getElementById("pole1").value = "";
