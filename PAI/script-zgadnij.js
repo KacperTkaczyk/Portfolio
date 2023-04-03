@@ -1,12 +1,12 @@
 let minZakres = 1;
 let maxZakres = 1;
 let a;
-let usedGuesses = [];
+let uzyteProby = [];
 
 function newNumber() {
   a = Math.floor(Math.random() * (maxZakres - minZakres + 1)) + minZakres;
   console.log(a);
-  usedGuesses = [];
+  uzyteProby = [];
   document.getElementById("akapit1").innerHTML = "";
   document.getElementById("akapit2").innerHTML = "";
   document.getElementById("akapit3").innerHTML = "";
@@ -25,7 +25,7 @@ function wybierzZakres(zakres) {
     minZakres = 1;
     maxZakres = 100;
   }
-  usedGuesses = [];
+  uzyteProby = [];
   document.getElementById("akapit1").innerHTML = "";
   document.getElementById("akapit2").innerHTML = "";
   document.getElementById("akapit3").innerHTML = "";
@@ -37,9 +37,9 @@ function myFunc() {
   if (isNaN(guess)) {
     document.getElementById("akapit1").innerHTML = "Wprowadź liczbę!";
     document.getElementById("pole1").value = "";
-    usedGuesses = [];
+    uzyteProby = [];
   } else {
-    usedGuesses.push(guess);
+    uzyteProby.push(guess);
     if (guess == a) {
       document.getElementById("akapit1").innerHTML = "Gratulacje! Zgadłeś!";
       document.getElementById("pole1").value = "";
