@@ -1,5 +1,5 @@
-let minRange = 0;
-let maxRange = 0;
+let minRange = 1;
+let maxRange = 1;
 let a;
 let usedGuesses = [];
 
