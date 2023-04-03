@@ -1,10 +1,10 @@
-let minRange = 1;
-let maxRange = 1;
+let minZakres = 1;
+let maxZakres = 1;
 let a;
 let usedGuesses = [];
 
 function newNumber() {
-  a = Math.floor(Math.random() * (maxRange - minRange + 1)) + minRange;
+  a = Math.floor(Math.random() * (maxZakres - minZakres + 1)) + minZakres;
   console.log(a);
   usedGuesses = [];
   document.getElementById("akapit1").innerHTML = "";
@@ -14,16 +14,16 @@ function newNumber() {
 }
 
 
-function chooseRange(range) {
-  if (range === 1) {
-    minRange = 1;
-    maxRange = 10;
-  } else if (range === 2) {
-    minRange = 1;
-    maxRange = 20;
-  } else if (range === 3) {
-    minRange = 1;
-    maxRange = 100;
+function chooseRange(zakres) {
+  if (zakres === 1) {
+    minZakres = 1;
+    maxZakres = 10;
+  } else if (zakres === 2) {
+    minZakres = 1;
+    maxZakres = 20;
+  } else if (zakres === 3) {
+    minZakres = 1;
+    maxZakres = 100;
   }
   usedGuesses = [];
   document.getElementById("akapit1").innerHTML = "";
