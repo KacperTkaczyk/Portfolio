@@ -1,5 +1,5 @@
 let minZakres = 1;
-let maxZakres = 1;
+let maxZakres = 10;
 let a;
 let uzyteProby = [];
 
@@ -12,7 +12,6 @@ function newNumber() {
   document.getElementById("akapit3").innerHTML = "";
   document.getElementById("sprawdzButton").removeAttribute("disabled");
 }
-
 
 function wybierzZakres(zakres) {
   if (zakres === 1) {
