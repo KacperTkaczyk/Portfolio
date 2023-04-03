@@ -14,7 +14,7 @@ function newNumber() {
 }
 
 
-function chooseRange(zakres) {
+function wybierzZakres(zakres) {
   if (zakres === 1) {
     minZakres = 1;
     maxZakres = 10;
