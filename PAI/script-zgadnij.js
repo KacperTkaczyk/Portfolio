@@ -33,18 +33,18 @@ function wybierzZakres(zakres) {
 }
 
 function myFunc() {
-  let guess = document.getElementById("pole1").value;
-  if (isNaN(guess)) {
+  let proba = document.getElementById("pole1").value;
+  if (isNaN(proba)) {
     document.getElementById("akapit1").innerHTML = "Wprowadź liczbę!";
     document.getElementById("pole1").value = "";
     uzyteProby = [];
   } else {
-    uzyteProby.push(guess);
-    if (guess == a) {
+    uzyteProby.push(proba);
+    if (proba == a) {
       document.getElementById("akapit1").innerHTML = "Gratulacje! Zgadłeś!";
       document.getElementById("pole1").value = "";
       document.getElementById("sprawdzButton").setAttribute("disabled", true);
-    } else if (guess < a) {
+    } else if (proba < a) {
       document.getElementById("akapit1").innerHTML = "Za mała!";
       document.getElementById("pole1").value = "";
     } else {
@@ -52,6 +52,6 @@ function myFunc() {
       document.getElementById("pole1").value = "";
     }
   }
-  document.getElementById("akapit2").innerHTML = "Twoje próby: " + usedGuesses.join(", ");
-  document.getElementById("akapit3").innerHTML = "Liczba prób: " + usedGuesses.length;
+  document.getElementById("akapit2").innerHTML = "Twoje próby: " + uzyteProby.join(", ");
+  document.getElementById("akapit3").innerHTML = "Liczba prób: " + uzyteProby.length;
 }
