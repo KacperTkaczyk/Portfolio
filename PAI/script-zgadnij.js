@@ -36,20 +36,20 @@ function myFunc() {
   let guess = document.getElementById("pole1").value;
   if (isNaN(guess)) {
     document.getElementById("akapit1").innerHTML = "Wprowadź liczbę!";
-    document.getElementById("pole1").value = "";
+    
     usedGuesses = [];
   } else {
     usedGuesses.push(guess);
     if (guess == a) {
       document.getElementById("akapit1").innerHTML = "Gratulacje! Zgadłeś!";
-      document.getElementById("pole1").value = "";
+      
       document.getElementById("checkButton").setAttribute("disabled", true);
     } else if (guess < a) {
-      document.getElementById("akapit1").innerHTML = "Za mało!";
-      document.getElementById("pole1").value = "";
+      document.getElementById("akapit1").innerHTML = "Za mała!";
+      
     } else {
-      document.getElementById("akapit1").innerHTML = "Za dużo!";
-      document.getElementById("pole1").value = "";
+      document.getElementById("akapit1").innerHTML = "Za duża!";
+      
     }
   }
   document.getElementById("akapit2").innerHTML = "Twoje próby: " + usedGuesses.join(", ");
