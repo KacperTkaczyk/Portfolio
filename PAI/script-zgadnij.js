@@ -11,7 +11,7 @@ a = Math.floor(Math.random() * (maxZakres - minZakres + 1)) + minZakres;
 console.log(a);
 uzyteProby = [];
 liczbaProb = 0; // resetuje liczbę prób
-document.getElementById("akapit1").innerHTML = "";
+document.getElementById("akapit1", "akapit1-1").innerHTML = "";
 document.getElementById("akapit2").innerHTML = "";
 document.getElementById("akapit3").innerHTML = "";
 document.getElementById("sprawdzButton").removeAttribute("disabled");
@@ -31,7 +31,7 @@ maxZakres = 100;
 }
 uzyteProby = [];
 liczbaProb = 0; // resetuje liczbę prób
-document.getElementById("akapit1").innerHTML = "";
+document.getElementById("akapit1", "akapit1-1").innerHTML = "";
 document.getElementById("akapit2").innerHTML = "";
 document.getElementById("akapit3").innerHTML = "";
 document.getElementById("sprawdzButton").setAttribute("disabled", true);
@@ -49,7 +49,7 @@ liczbaProb = 0; // resetuje liczbę prób
 uzyteProby.push(proba);
 liczbaProb++; // zwiększa liczbę prób
 if (proba == a) {
-document.getElementById("akapit1").innerHTML = "Gratulacje! Zgadłeś!";
+document.getElementById("akapit1","akapit1-1").innerHTML = "Gratulacje! Zgadłeś!";
 document.getElementById("pole1").value = "";
 document.getElementById("sprawdzButton").setAttribute("disabled", true);
 } else if (proba < a) {
