@@ -14,7 +14,6 @@ liczbaProb = 0; // resetuje liczbę prób
 document.getElementById("akapit1").innerHTML = "";
 document.getElementById("akapit2").innerHTML = "";
 document.getElementById("akapit3").innerHTML = "";
-document.getElementById("pole1").removeAttribute("disabled");
 document.getElementById("sprawdzButton").removeAttribute("disabled");
 }
 
