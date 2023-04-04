@@ -49,7 +49,7 @@ liczbaProb = 0; // resetuje liczbę prób
 uzyteProby.push(proba);
 liczbaProb++; // zwiększa liczbę prób
 if (proba == a) {
-document.getElementById("akapit1").innerHTML = "Gratulacje! Zgadłeś!";
+document.getElementById("akapit1-1").innerHTML = "Gratulacje! Zgadłeś!";
 document.getElementById("pole1").value = "";
 document.getElementById("sprawdzButton").setAttribute("disabled", true);
 } else if (proba < a) {
