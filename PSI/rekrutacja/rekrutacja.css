@@ -79,3 +79,39 @@ text-align: center;
 color: white;
 font-size: 18px;
 }
+
+.popup {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  width: 300px;
+  height: 100px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.close {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: red;
+}
+
+.scrolling-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 70px;
+}
+
+.scrolling-list li {
+  margin: 12px 0;
+}
