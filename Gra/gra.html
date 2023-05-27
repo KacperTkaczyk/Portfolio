@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gra z punktacją</title>
+  <style>
+    #square {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      margin: 50px auto;
+      cursor: pointer;
+    }
+    #score {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gra z punktacją</h1>
+  <div id="square"></div>
+  <div id="score">Punkty: <span id="points">0</span></div>
 
+  <script>
+    var square = document.getElementById("square");
+    var pointsDisplay = document.getElementById("points");
+    var points = 0;
+
+    square.addEventListener("click", function() {
+      points++;
+      pointsDisplay.textContent = points;
+    });
+  </script>
+</body>
+</html>
