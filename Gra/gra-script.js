@@ -11,7 +11,7 @@ let cenaZdrapki = 50; // cena zdrapki
 let zdrapkaZdrapana = false; // flaga, czy zdrapka została zdrapana
 
 kwadrat.addEventListener('click', function() {
-  if (szansaNa2x > 0) {
+  if (szansaNa2x > 1) {
     let losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
 
     if (losowaLiczba < szansaNa2x) {
