@@ -67,7 +67,7 @@
     });
 
     function login(username, password) {
-      // Wywołanie skryptu PHP, który obsłuży dane logowania
+      // Wywołanie skryptu PHP który obsłuży dane logowania
       fetch("Gra/login.php", {
         method: "POST",
         body: JSON.stringify({ username: username, password: password })
