@@ -3,6 +3,7 @@
 <head>
   <title>Gra Klikanie</title>
   <style>
+    /* Styl dla gry klikanie */
     #kwadrat {
       width: 200px;
       height: 200px;
@@ -14,12 +15,12 @@
       margin-left: -100px;
       cursor: pointer;
     }
-    
+
     #punkty {
       font-size: 24px;
       text-align: center;
     }
-    
+
     #sklep {
       position: absolute;
       top: 50%;
@@ -30,17 +31,13 @@
       background-color: #f9f9f9;
       width: 200px;
     }
-    
+
     #sklep-naglowek {
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 10px;
     }
-    
-    #szansa-na-2x {
-      margin-bottom: 10px;
-    }
-    
+
     .kup-button {
       display: block;
       width: 100%;
@@ -51,17 +48,54 @@
       text-decoration: none;
       cursor: pointer;
     }
+
+    /* Styl dla okienka "gier" */
+    #gry {
+      position: fixed;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+
+    #gry-naglowek {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .gra-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 5px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 5px;
+    }
   </style>
 </head>
 <body>
   <center><h1>KLIKAJ W TEN KWADRAT</h1></center>
   <div id="kwadrat"></div>
   <p id="punkty">Punkty: 0</p>
-  
+
   <div id="sklep">
     <center><div id="sklep-naglowek">SKLEP</div></center>
     <div id="szansa-na-2x">Szansa na 2x punkty: 15%</div>
     <button class="kup-button" onclick="kupPrzedmiot(0)">Kup za 100 punktów</button>
+  </div>
+
+  <!-- Okienko z grami -->
+  <div id="gry">
+    <center><div id="gry-naglowek">GIERKI</div></center>
+    <a class="gra-button" href="#">Loteria</a>
+    <a class="gra-button" href="#">Zdrapka</a>
   </div>
 
   <script>
@@ -75,13 +109,13 @@
 
     kwadrat.addEventListener('click', function() {
       var losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
-      
+
       if (losowaLiczba < szansaNa2x) {
         liczbaPunktow += 2;
       } else {
         liczbaPunktow++;
       }
-      
+
       punkty.textContent = 'Punkty: ' + liczbaPunktow;
     });
 
