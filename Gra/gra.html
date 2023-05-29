@@ -31,6 +31,12 @@
       width: 200px;
     }
     
+    #sklep-naglowek {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
     #szansa-na-2x {
       margin-bottom: 10px;
     }
@@ -53,6 +59,7 @@
   <p id="punkty">Punkty: 0</p>
   
   <div id="sklep">
+    <div id="sklep-naglowek">SKLEP</div>
     <div id="szansa-na-2x">Szansa na 2x punkty: 15%</div>
     <button id="kup-button">Kup za 100 punktów</button>
   </div>
@@ -60,6 +67,7 @@
   <script>
     var kwadrat = document.getElementById('kwadrat');
     var punkty = document.getElementById('punkty');
+    var sklep = document.getElementById('sklep');
     var kupButton = document.getElementById('kup-button');
     var liczbaPunktow = 0;
     var szansaNa2x = 0.15; // 15% szansa na zdobycie 2x punktów
@@ -82,6 +90,7 @@
         liczbaPunktow -= cena2x;
         szansaNa2x += 0.15; // zwiększenie szansy na 2x punkty o 15%
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
+        sklep.style.display = 'none'; // ukrycie pola sklepu
       } else {
         alert('Nie masz wystarczającej liczby punktów!');
       }
