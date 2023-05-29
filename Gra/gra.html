@@ -67,16 +67,36 @@
     }
 
     .gra-button {
-  display: block;
-  margin: 0 auto; /* Wycentrowanie przycisku */
-  text-align: center;
-  padding: 5px;
-  background-color: #4caf50;
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-  margin-bottom: 10px; /* Dodany odstęp między przyciskami */
-}
+      display: block;
+      margin: 0 auto; /* Wycentrowanie przycisku */
+      text-align: center;
+      padding: 5px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 10px; /* Dodany odstęp między przyciskami */
+    }
+
+    /* Styl dla zdrapki */
+    #zdrapka {
+      width: 200px;
+      height: 200px;
+      background-color: yellow;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Przesunięcie o połowę szerokości i wysokości */
+      cursor: pointer;
+      display: none; /* Początkowo ukryta */
+    }
+
+    #zdrapka-tekst {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
   </style>
 </head>
 <body>
@@ -94,9 +114,13 @@
   <div id="gry">
     <center><div id="gry-naglowek">GIERKI</div></center>
     <center>
-      <a class="gra-button" href="#">Loteria</a>
-      <a class="gra-button" href="#">Zdrapka</a>
+      <a class="gra-button" href="#" onclick="pokazZdrapke()">Zdrapka</a>
     </center>
+  </div>
+
+  <!-- Zdrapka -->
+  <div id="zdrapka">
+    <div id="zdrapka-tekst">Zdrap tutaj!</div>
   </div>
 
   <script>
@@ -107,6 +131,9 @@
     let liczbaPunktow = 0;
     let szansaNa2x = 0.15; // 15% szansa na zdobycie 2x punktów
     let cena2x = 100; // cena za "szansę na 2x punkty"
+    let zdrapka = document.getElementById('zdrapka');
+    let zdrapkaTekst = document.getElementById('zdrapka-tekst');
+    let cenaZdrapki = 200; // cena zdrapki
 
     kwadrat.addEventListener('click', function() {
       let losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
@@ -126,6 +153,29 @@
         szansaNa2x += 0.15; // zwiększenie szansy na 2x punkty o 15%
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
         kupButton[index].style.display = 'none'; // ukrycie kupionego przycisku
+      } else {
+        alert('Nie masz wystarczającej liczby punktów!');
+      }
+    }
+
+    function pokazZdrapke() {
+      if (liczbaPunktow >= cenaZdrapki) {
+        liczbaPunktow -= cenaZdrapki;
+        punkty.textContent = 'Punkty: ' + liczbaPunktow;
+        zdrapka.style.display = 'block'; // Pokazanie zdrapki
+        zdrapka.addEventListener('click', function() {
+          let losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
+
+          if (losowaLiczba < 0.5) {
+            liczbaPunktow += 10; // Wygrana 10 punktów
+            zdrapkaTekst.textContent = 'Wygrałeś 10 punktów!';
+          } else {
+            zdrapkaTekst.textContent = 'Przegrałeś...';
+          }
+
+          punkty.textContent = 'Punkty: ' + liczbaPunktow;
+          zdrapka.style.display = 'none'; // Ukrycie zdrapki
+        });
       } else {
         alert('Nie masz wystarczającej liczby punktów!');
       }
