@@ -119,7 +119,7 @@
   <div id="gry">
     <center><div id="gry-naglowek">GIERKI</div></center>
     <center>
-      <a class="gra-button" href="#" onclick="pokazZdrapke()">Zdrapka</a>
+      <a class="gra-button" href="#" onclick="pokazZdrapke()">Zdrapka za 50 punktów</a>
     </center>
   </div>
 
@@ -168,38 +168,10 @@
         liczbaPunktow -= cenaZdrapki;
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
         zdrapka.style.display = 'block'; // Pokazanie zdrapki
-        let isDragging = false; // Czy użytkownik przeciąga kursorem po zdrapce
 
-        zdrapka.addEventListener('mousedown', function() {
-          isDragging = true;
-        });
-
-        zdrapka.addEventListener('mouseup', function() {
-          isDragging = false;
-        });
-
-        zdrapka.addEventListener('mousemove', function(event) {
-          if (isDragging) {
-            let xPos = event.clientX - zdrapka.offsetLeft; // Pozycja X myszki względem zdrapki
-            let yPos = event.clientY - zdrapka.offsetTop; // Pozycja Y myszki względem zdrapki
-            let width = zdrapka.offsetWidth; // Szerokość zdrapki
-            let height = zdrapka.offsetHeight; // Wysokość zdrapki
-
-            // Obliczenie procentowego pokrycia zdrapki
-            let coveredPercentage = (xPos / width) * 100;
-
-            if (coveredPercentage > 20) {
-              zdrapka.classList.add('uncovered');
-            }
-
-            if (coveredPercentage > 70) {
-              zdrapkaTekst.textContent = 'Wygrałeś 10 punktów!';
-            }
-          }
-        });
-
-        zdrapka.addEventListener('mouseleave', function() {
-          isDragging = false;
+        zdrapka.addEventListener('click', function() {
+          zdrapka.classList.add('uncovered');
+          zdrapkaTekst.textContent = 'Wygrałeś 10 punktów!';
         });
       } else {
         alert('Nie masz wystarczającej liczby punktów!');
