@@ -89,6 +89,7 @@
       transform: translate(-50%, -50%); /* Przesunięcie o połowę szerokości i wysokości */
       cursor: pointer;
       display: none; /* Początkowo ukryta */
+      overflow: hidden; /* Ukrycie tekstu, który wystaje poza zdrapką */
     }
 
     #zdrapka-tekst {
@@ -139,6 +140,7 @@
     let zdrapka = document.getElementById('zdrapka');
     let zdrapkaTekst = document.getElementById('zdrapka-tekst');
     let cenaZdrapki = 50; // cena zdrapki
+    let zdrapkaZdrapana = false; // zmienna wskazująca, czy zdrapka została już zdrapana
 
     kwadrat.addEventListener('click', function() {
       let losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
@@ -168,10 +170,14 @@
         liczbaPunktow -= cenaZdrapki;
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
         zdrapka.style.display = 'block'; // Pokazanie zdrapki
+        zdrapkaZdrapana = false; // Ustawienie, że zdrapka jeszcze nie została zdrapana
 
         zdrapka.addEventListener('click', function() {
-          zdrapka.classList.add('uncovered');
-          zdrapkaTekst.textContent = 'Wygrałeś 10 punktów!';
+          if (!zdrapkaZdrapana) {
+            zdrapka.classList.add('uncovered');
+            zdrapkaTekst.textContent = 'Wygrałeś 10 punktów!';
+            zdrapkaZdrapana = true; // Oznaczenie, że zdrapka została zdrapana
+          }
         });
       } else {
         alert('Nie masz wystarczającej liczby punktów!');
