@@ -25,6 +25,7 @@
   <h1>Gra z punktacją</h1>
   <div id="square"></div>
   <div id="score">Punkty: <span id="points">0</span></div>
+
   <div id="login-form">
     <h2>Zaloguj się lub utwórz konto</h2>
     <label for="username">Nazwa użytkownika:</label>
@@ -34,6 +35,7 @@
     <button id="login-button">Zaloguj się</button>
     <button id="signup-button">Utwórz konto</button>
   </div>
+
   <script>
     var square = document.getElementById("square");
     var pointsDisplay = document.getElementById("points");
@@ -51,57 +53,61 @@
     loginButton.addEventListener("click", function() {
       var username = document.getElementById("username").value;
       var password = document.getElementById("password").value;
-      // Przesłanie danych logowania do serwera i przetworzenie ich
-      // np. przez wywołanie odpowiedniego API
+
+      // Wywołanie funkcji logowania w PHP
       login(username, password);
     });
 
     signupButton.addEventListener("click", function() {
       var username = document.getElementById("username").value;
       var password = document.getElementById("password").value;
-      // Przesłanie danych rejestracji do serwera i przetworzenie ich
-      // np. przez wywołanie odpowiedniego API
+
+      // Wywołanie funkcji rejestracji w PHP
       signup(username, password);
     });
 
     function login(username, password) {
-      // Logika logowania użytkownika
-      // Przykładowo, można wysłać dane logowania do serwera i sprawdzić poprawność
-      // oraz otrzymać odpowiedź w formie tokena sesji lub innej formy identyfikacji zalogowanego użytkownika
-      // Można również użyć localStorage lub cookies do przechowywania informacji o zalogowanym użytkowniku w przeglądarce
-
-      // Tutaj można dodać logikę, która sprawdza czy dane logowania są poprawne
-      // i wykonuje odpowiednie akcje, takie jak wyświetlenie gry
-      // lub komunikat o nieprawidłowym logowaniu
-
-      // Przykładowo:
-      if (username === "przykladowy_uzytkownik" && password === "tajnehaslo") {
-        showGame(); // Wyświetlanie gry po zalogowaniu
-      } else {
-        alert("Nieprawidłowa nazwa użytkownika lub hasło");
-      }
+      // Wywołanie skryptu PHP, który obsłuży dane logowania
+      fetch("Gra/login.php", {
+        method: "POST",
+        body: JSON.stringify({ username: username, password: password })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            showGame();
+          } else {
+            alert("Nieprawidłowa nazwa użytkownika lub hasło");
+          }
+        })
+        .catch(error => {
+          console.error("Błąd logowania:", error);
+        });
     }
 
     function signup(username, password) {
-      // Logika rejestracji nowego konta użytkownika
-      // Przykładowo, można wysłać dane rejestracji do serwera i utworzyć nowe konto w bazie danych
-
-      // Tutaj można dodać logikę, która sprawdza czy dane rejestracji są poprawne
-      // i wykonuje odpowiednie akcje, takie jak utworzenie konta użytkownika
-      // lub komunikat o nieprawidłowej rejestracji
-
-      // Przykładowo:
-      if (username !== "" && password !== "") {
-        alert("Konto zostało utworzone. Możesz się teraz zalogować.");
-      } else {
-        alert("Nieprawidłowe dane rejestracji");
-      }
+      // Wywołanie skryptu PHP, który obsłuży proces rejestracji
+      fetch("Gra/signup.php", {
+        method: "POST",
+        body: JSON.stringify({ username: username, password: password })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("Konto zostało utworzone. Możesz się teraz zalogować.");
+          } else {
+            alert("Nieprawidłowe dane rejestracji");
+          }
+        })
+        .catch(error => {
+          console.error("Błąd rejestracji:", error);
+        });
     }
 
     function showGame() {
-      loginForm.style.display = "none"; // Ukrycie formularza logowania/rejestracji
-      square.style.display = "block"; // Wyświetlanie gry
-      pointsDisplay.textContent = points; // Przywrócenie liczby punktów
+      loginForm.style.display = "none";
+      square.style.display = "block";
+      pointsDisplay.textContent = points;
     }
   </script>
 </body>
