@@ -99,16 +99,16 @@
   </div>
 
   <script>
-    var kwadrat = document.getElementById('kwadrat');
-    var punkty = document.getElementById('punkty');
-    var sklep = document.getElementById('sklep');
-    var kupButton = document.getElementsByClassName('kup-button');
-    var liczbaPunktow = 0;
-    var szansaNa2x = 0.15; // 15% szansa na zdobycie 2x punktów
-    var cena2x = 100; // cena za "szansę na 2x punkty"
+    let kwadrat = document.getElementById('kwadrat');
+    let punkty = document.getElementById('punkty');
+    let sklep = document.getElementById('sklep');
+    let kupButton = document.getElementsByClassName('kup-button');
+    let liczbaPunktow = 0;
+    let szansaNa2x = 0.15; // 15% szansa na zdobycie 2x punktów
+    let cena2x = 100; // cena za "szansę na 2x punkty"
 
     kwadrat.addEventListener('click', function() {
-      var losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
+      let losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
 
       if (losowaLiczba < szansaNa2x) {
         liczbaPunktow += 2;
