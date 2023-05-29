@@ -11,15 +11,17 @@ let cenaZdrapki = 50; // cena zdrapki
 let zdrapkaZdrapana = false; // flaga, czy zdrapka została zdrapana
 
 kwadrat.addEventListener('click', function() {
-  let losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
+  if (szansaNa2x > 0) {
+    let losowaLiczba = Math.random(); // losowanie liczby od 0 do 1
 
-  if (losowaLiczba < szansaNa2x) {
-    liczbaPunktow += 2;
-  } else {
-    liczbaPunktow++;
+    if (losowaLiczba < szansaNa2x) {
+      liczbaPunktow += 2;
+    } else {
+      liczbaPunktow++;
+    }
+
+    punkty.textContent = 'Punkty: ' + liczbaPunktow;
   }
-
-  punkty.textContent = 'Punkty: ' + liczbaPunktow;
 });
 
 function kupPrzedmiot(index) {
