@@ -10,7 +10,7 @@ $storedUsername = "przykladowy_uzytkownik";
 $storedPassword = "tajnehaslo";
 
 if ($username === $storedUsername && $password === $storedPassword) {
-  // Wysłanie odpowiedzi JSON o sukcesie logowania
+  // Wysłanie odpowiedzi JSON o logowania
   $response = ["success" => true];
   echo json_encode($response);
 } else {
