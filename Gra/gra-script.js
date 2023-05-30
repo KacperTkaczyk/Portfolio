@@ -3,9 +3,8 @@ let punkty = document.getElementById('punkty');
 let sklep = document.getElementById('sklep');
 let kupButton = document.getElementsByClassName('kup-button');
 let liczbaPunktow = 0;
-let szansaNa2x = 0; 
+let szansaNa2x = 0;
 let cena2x = 10;
-
 
 kwadrat.addEventListener('click', function() {
   let losowaLiczba = Math.random();
@@ -24,7 +23,7 @@ function kupPrzedmiot(index) {
     liczbaPunktow -= cena2x;
     szansaNa2x = 0.15;
     punkty.textContent = 'Punkty: ' + liczbaPunktow;
-    kupButton[index].style.display = 'none'; 
+    kupButton[index].style.display = 'none';
   } else {
     alert('Nie masz wystarczającej liczby punktów!');
   }
