@@ -10,6 +10,17 @@
   cursor: pointer;
 }
 
+#kwadrat1 {
+  width: 200px;
+  height: 200px;
+  background-color: blue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Przesunięcie o połowę szerokości i wysokości */
+  cursor: pointer;
+}
+
 #punkty {
   font-size: 24px;
   text-align: center;
