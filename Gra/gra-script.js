@@ -19,7 +19,7 @@ kwadrat.addEventListener('click', function() {
   punkty.textContent = 'Punkty: ' + liczbaPunktow;
 });
 
-function kupPrzedmiot(index) {
+function kupPrzedmiot(0) {
   if (liczbaPunktow >= cena2x) {
     liczbaPunktow -= cena2x;
     szansaNa2x = 0.15;
@@ -29,7 +29,7 @@ function kupPrzedmiot(index) {
     alert('Nie masz wystarczającej liczby punktów!');
   }
 }
-function kupPrzedmiot(index) {
+function kupPrzedmiot(1) {
   if (liczbaPunktow >= Niebieski ) {
     liczbaPunktow -= Niebieski;
     document.getElementById('kwadrat1');
