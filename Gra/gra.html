@@ -138,8 +138,8 @@
   <div id="sklep">
     <center><div id="sklep-naglowek">SKLEP</div></center>
     <div id="szansa-na-2x">Szansa na 2x punkty: 15%</div>
-    <button class="kup-button" onclick="kupPrzedmiot(0)">Kup za 100 punktów</button>
-    <button class="kup-button" onclick="kupPrzedmiot(1)">Kup za 300 punktów</button>
+    <button class="kup-button" onclick="kupPrzedmiot(0)">Kup x2 punkty za 100 punktów</button>
+    <button class="kup-button" onclick="kupPrzedmiot(1)">Kup niebieski skin za 300 punktów</button>
     <button class="kup-button" onclick="kupPunkty2x()">Kup x2 punkty za 10 punktów</button>
   </div>
 
@@ -170,7 +170,7 @@
     let menuSkiny = document.getElementById('menu-skiny');
     let skinButtons = document.getElementsByClassName('skin-button');
     let liczbaPunktow = 0;
-    let szansaNa2x = 0;
+    let szansaNa2x = 0.15;
     let cena2x = 10;
     let obecnySkin = 'red';
     let kupionySkin = false;
@@ -193,14 +193,11 @@
     });
 
     function kupPrzedmiot(index) {
-      if (index === 0 && !kupionySkin && liczbaPunktow >= 100) {
+      if (index === 0 && !kupionyPunkty2x && liczbaPunktow >= 100) {
         liczbaPunktow -= 100;
-        szansaNa2x = 0.15;
+        kupionyPunkty2x = true;
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
-        kupButton[index].style.display = 'none';
-        kwadrat.style.backgroundColor = 'blue';
-        kupionySkin = true;
-        skin01.textContent = 'Skin: Niebieski (kupiony)';
+        szansaNa2x = 0.3;
         menuSkiny.style.display = 'block';
       } else if (index === 1 && !kupionySkin && liczbaPunktow >= 300) {
         liczbaPunktow -= 300;
