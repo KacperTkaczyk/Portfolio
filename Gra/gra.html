@@ -109,6 +109,7 @@
     <center><div id="sklep-naglowek">SKLEP</div></center>
     <div id="szansa-na-2x">Szansa na 2x punkty: 15%</div>
     <button class="kup-button" onclick="kupPrzedmiot(0)">Kup x2 punkty za 100 punktów</button>
+    <button class="kup-button" onclick="kupPrzedmiot(1)">Kup skin 'Niebieski Kwadrat' za 200 punktów</button>
   </div>
 
   <div id="gry">
@@ -130,9 +131,10 @@
     let kupButton = document.getElementsByClassName('kup-button');
     let liczbaPunktow = 0;
     let szansaNa2x = 0.15;
-    let cena2x = 10;
+    let cena2x = 100;
     let obecnySkin = 'red';
     let kupionyPunkty2x = false;
+    let kupionySkinNiebieski = false;
 
     kwadrat.addEventListener('click', function() {
       let losowaLiczba = Math.random();
@@ -151,8 +153,8 @@
     });
 
     function kupPrzedmiot(index) {
-      if (index === 0 && !kupionyPunkty2x && liczbaPunktow >= 100) {
-        liczbaPunktow -= 100;
+      if (index === 0 && !kupionyPunkty2x && liczbaPunktow >= cena2x) {
+        liczbaPunktow -= cena2x;
         kupionyPunkty2x = true;
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
         szansaNa2x = 0.15;
@@ -160,6 +162,16 @@
         
         // Ukryj przycisk "Kup x2 punkty za 100 punktów"
         let kupButton = document.getElementsByClassName('kup-button')[0];
+        kupButton.style.display = 'none';
+      } else if (index === 1 && !kupionySkinNiebieski && liczbaPunktow >= 200) {
+        liczbaPunktow -= 200;
+        kupionySkinNiebieski = true;
+        punkty.textContent = 'Punkty: ' + liczbaPunktow;
+        obecnySkin = 'blue';
+        kwadrat.style.backgroundColor = obecnySkin;
+        
+        // Ukryj przycisk "Kup skin 'Niebieski Kwadrat' za 200 punktów"
+        let kupButton = document.getElementsByClassName('kup-button')[1];
         kupButton.style.display = 'none';
       } else {
         alert('Nie masz wystarczającej liczby punktów lub przedmiot został już kupiony!');
