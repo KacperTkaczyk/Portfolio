@@ -99,35 +99,6 @@
     .uncovered {
       background-color: white;
     }
-
-    #menu-skiny {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      background-color: #f9f9f9;
-      width: 200px;
-      display: none;
-    }
-
-    #menu-skiny-naglowek {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .skin-button {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 5px;
-      background-color: #4caf50;
-      color: white;
-      text-decoration: none;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
   </style>
 </head>
 <body>
@@ -139,8 +110,6 @@
     <center><div id="sklep-naglowek">SKLEP</div></center>
     <div id="szansa-na-2x">Szansa na 2x punkty: 15%</div>
     <button class="kup-button" onclick="kupPrzedmiot(0)">Kup x2 punkty za 100 punktów</button>
-    <button class="kup-button" onclick="kupPrzedmiot(1)">Kup niebieski skin za 300 punktów</button>
-    <button class="kup-button" onclick="kupPunkty2x()">Kup x2 punkty za 10 punktów</button>
   </div>
 
   <div id="gry">
@@ -154,26 +123,16 @@
     <div id="zdrapka-tekst">Zdrap tutaj!</div>
   </div>
 
-  <div id="menu-skiny">
-    <div id="menu-skiny-naglowek">SKINY</div>
-    <button class="skin-button" onclick="zmienSkin('red')">Domyślny</button>
-    <button class="skin-button" onclick="zmienSkin('blue')">Niebieski</button>
-  </div>
-
   <script>
     // JavaScript code for the clicking game
     let kwadrat = document.getElementById('kwadrat');
     let punkty = document.getElementById('punkty');
     let sklep = document.getElementById('sklep');
     let kupButton = document.getElementsByClassName('kup-button');
-    let skin01 = document.getElementById('skin01');
-    let menuSkiny = document.getElementById('menu-skiny');
-    let skinButtons = document.getElementsByClassName('skin-button');
     let liczbaPunktow = 0;
     let szansaNa2x = 0.15;
     let cena2x = 10;
     let obecnySkin = 'red';
-    let kupionySkin = false;
     let kupionyPunkty2x = false;
 
     kwadrat.addEventListener('click', function() {
@@ -198,36 +157,9 @@
         kupionyPunkty2x = true;
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
         szansaNa2x = 0.3;
-        menuSkiny.style.display = 'block';
-      } else if (index === 1 && !kupionySkin && liczbaPunktow >= 300) {
-        liczbaPunktow -= 300;
-        szansaNa2x = 0.15;
-        punkty.textContent = 'Punkty: ' + liczbaPunktow;
-        kupButton[index].style.display = 'none';
-        kwadrat.style.backgroundColor = 'blue';
-        kupionySkin = true;
-        skin01.textContent = 'Skin: Niebieski (kupiony)';
-        menuSkiny.style.display = 'block';
       } else {
         alert('Nie masz wystarczającej liczby punktów lub przedmiot został już kupiony!');
       }
-    }
-
-    function kupPunkty2x() {
-      if (!kupionyPunkty2x && liczbaPunktow >= cena2x) {
-        liczbaPunktow -= cena2x;
-        kupionyPunkty2x = true;
-        punkty.textContent = 'Punkty: ' + liczbaPunktow;
-        szansaNa2x = 0.3;
-        menuSkiny.style.display = 'block';
-      } else {
-        alert('Nie masz wystarczającej liczby punktów lub przedmiot został już kupiony!');
-      }
-    }
-
-    function zmienSkin(skin) {
-      kwadrat.style.backgroundColor = skin;
-      obecnySkin = skin;
     }
   </script>
 </body>
