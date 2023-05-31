@@ -3,7 +3,6 @@
 <head>
   <title>Gra Klikanie</title>
   <style>
-    /* CSS styles for the clicking game */
     #kwadrat {
       width: 200px;
       height: 200px;
@@ -158,6 +157,10 @@
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
         szansaNa2x = 0.15;
         document.getElementById("szansa-na-2x").textContent = "Szansa na 2x punkty: 15%";
+        
+        // Ukryj przycisk "Kup x2 punkty za 100 punktów"
+        let kupButton = document.getElementsByClassName('kup-button')[0];
+        kupButton.style.display = 'none';
       } else {
         alert('Nie masz wystarczającej liczby punktów lub przedmiot został już kupiony!');
       }
