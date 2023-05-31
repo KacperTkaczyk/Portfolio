@@ -2,7 +2,104 @@
 <html>
 <head>
   <title>Gra Klikanie</title>
-  <link rel="stylesheet" type="text/css" href="gra-style.css">
+  <style>
+    /* CSS styles for the clicking game */
+    #kwadrat {
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    #punkty {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    #sklep {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      width: 200px;
+    }
+
+    #sklep-naglowek {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .kup-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 5px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    #gry {
+      position: fixed;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+
+    #gry-naglowek {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .gra-button {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      padding: 5px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    #zdrapka {
+      width: 200px;
+      height: 200px;
+      background-color: yellow;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      display: none;
+    }
+
+    #zdrapka-tekst {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 80px;
+      pointer-events: none;
+    }
+
+    .uncovered {
+      background-color: white;
+    }
+  </style>
 </head>
 <body>
   <center><h1>KLIKAJ W TEN KWADRAT</h1></center>
@@ -17,7 +114,6 @@
     <button class="kup-button" onclick="kupPrzedmiot(1)">Kup za 300 punktów</button>
   </div>
 
-  <!-- Okienko z grami -->
   <div id="gry">
     <center><div id="gry-naglowek">GIERKI</div></center>
     <center>
@@ -25,11 +121,44 @@
     </center>
   </div>
 
-  <!-- Zdrapka -->
   <div id="zdrapka">
     <div id="zdrapka-tekst">Zdrap tutaj!</div>
   </div>
 
-  <script src="gra-script.js"></script>
+  <script>
+    // JavaScript code for the clicking game
+    let kwadrat = document.getElementById('kwadrat');
+    let punkty = document.getElementById('punkty');
+    let sklep = document.getElementById('sklep');
+    let kupButton = document.getElementsByClassName('kup-button');
+    let liczbaPunktow = 0;
+    let szansaNa2x = 0;
+    let cena2x = 10;
+
+    kwadrat.addEventListener('click', function() {
+      let losowaLiczba = Math.random();
+
+      if (losowaLiczba < szansaNa2x) {
+        liczbaPunktow += 2;
+      } else {
+        liczbaPunktow++;
+      }
+
+      punkty.textContent = 'Punkty: ' + liczbaPunktow;
+    });
+
+    function kupPrzedmiot(index) {
+      if (index === 1 && liczbaPunktow >= 300) {
+        liczbaPunktow -= 300;
+        szansaNa2x = 0.15;
+        punkty.textContent = 'Punkty: ' + liczbaPunktow;
+        kupButton[index].style.display = 'none';
+        kwadrat.style.backgroundColor = 'blue';
+        kwadrat.removeEventListener('click', handleClick);
+      } else {
+        alert('Nie masz wystarczającej liczby punktów lub nieprawidłowy indeks przedmiotu!');
+      }
+    }
+  </script>
 </body>
 </html>
