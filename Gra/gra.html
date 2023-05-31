@@ -99,6 +99,34 @@
     .uncovered {
       background-color: white;
     }
+
+    #menu-skiny {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      width: 200px;
+    }
+
+    #menu-skiny-naglowek {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .skin-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 5px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -125,6 +153,11 @@
     <div id="zdrapka-tekst">Zdrap tutaj!</div>
   </div>
 
+  <div id="menu-skiny">
+    <div id="menu-skiny-naglowek">SKINY</div>
+    <button class="skin-button" onclick="zmienSkin('red')">Domyślny</button>
+  </div>
+
   <script>
     // JavaScript code for the clicking game
     let kwadrat = document.getElementById('kwadrat');
@@ -134,6 +167,7 @@
     let liczbaPunktow = 0;
     let szansaNa2x = 0;
     let cena2x = 10;
+    let obecnySkin = 'red';
 
     kwadrat.addEventListener('click', function() {
       let losowaLiczba = Math.random();
@@ -158,6 +192,11 @@
       } else {
         alert('Nie masz wystarczającej liczby punktów lub nieprawidłowy indeks przedmiotu!');
       }
+    }
+
+    function zmienSkin(skin) {
+      kwadrat.style.backgroundColor = skin;
+      obecnySkin = skin;
     }
   </script>
 </body>
