@@ -138,7 +138,7 @@
     <center><div id="sklep-naglowek">SKLEP</div></center>
     <div id="szansa-na-2x">Szansa na 2x punkty: 15%</div>
     <button class="kup-button" onclick="kupPrzedmiot(0)">Kup za 100 punktów</button>
-    <div id="skin01">Skin:Niebieski</div>
+    <div id="skin01">Skin: Niebieski</div>
     <button class="kup-button" onclick="kupPrzedmiot(1)">Kup za 300 punktów</button>
   </div>
 
@@ -156,6 +156,7 @@
   <div id="menu-skiny">
     <div id="menu-skiny-naglowek">SKINY</div>
     <button class="skin-button" onclick="zmienSkin('red')">Domyślny</button>
+    <button class="skin-button" onclick="zmienSkin('blue')">Niebieski</button>
   </div>
 
   <script>
@@ -182,13 +183,18 @@
     });
 
     function kupPrzedmiot(index) {
-      if (index === 1 && liczbaPunktow >= 300) {
+      if (index === 0 && liczbaPunktow >= 100) {
+        liczbaPunktow -= 100;
+        szansaNa2x = 0.15;
+        punkty.textContent = 'Punkty: ' + liczbaPunktow;
+        kupButton[index].style.display = 'none';
+      } else if (index === 1 && liczbaPunktow >= 300) {
         liczbaPunktow -= 300;
         szansaNa2x = 0.15;
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
         kupButton[index].style.display = 'none';
+        document.getElementById('skin01').textContent = 'Skin: Niebieski';
         kwadrat.style.backgroundColor = 'blue';
-        kwadrat.removeEventListener('click', handleClick);
       } else {
         alert('Nie masz wystarczającej liczby punktów lub nieprawidłowy indeks przedmiotu!');
       }
