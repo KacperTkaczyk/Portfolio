@@ -140,9 +140,9 @@
 
       if (losowaLiczba < szansaNa2x) {
         if (kupionyPunkty2x) {
-          liczbaPunktow += 4;
-        } else {
           liczbaPunktow += 2;
+        } else {
+          liczbaPunktow++;
         }
       } else {
         liczbaPunktow++;
@@ -156,7 +156,8 @@
         liczbaPunktow -= 100;
         kupionyPunkty2x = true;
         punkty.textContent = 'Punkty: ' + liczbaPunktow;
-        szansaNa2x = 0.3;
+        szansaNa2x = 0.15;
+        document.getElementById("szansa-na-2x").textContent = "Szansa na 2x punkty: 15%";
       } else {
         alert('Nie masz wystarczającej liczby punktów lub przedmiot został już kupiony!');
       }
