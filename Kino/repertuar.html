@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kino XYZ - Repertuar</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .expandable {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kino XYZ</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="filmy.html">Filmy</a></li>
+        <li><a href="repertuar.html">Repertuar</a></li>
+        <li><a href="bilety.html">Bilety</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="content">
+    <h2>Repertuar</h2>
+
+    <div class="day">
+      <h3 class="expandable" onclick="toggleDay('day1')">5 czerwca</h3>
+      <table id="day1" class="hidden">
+        <tr>
+          <th>Godzina</th>
+          <th>Tytuł filmu</th>
+          <th>Sala</th>
+
+        </tr>
+        <tr>
+          <td>12:00</td>
+          <td>SZYBCY I WŚCIEKLI 10</td>
+          <td>Sala 1</td>
+        </tr>
+        <tr>
+          <td>15:00</td>
+          <td>SPIDER-MAN: POPRZEZ MULTIWERSUM</td>
+          <td>Sala 2</td>
+        </tr>
+
+
+      </table>
+    </div>
+
+    <div class="day">
+      <h3 class="expandable" onclick="toggleDay('day2')">6 czerwca</h3>
+      <table id="day2" class="hidden">
+        <tr>
+          <th>Godzina</th>
+          <th>Tytuł filmu</th>
+          <th>Sala</th>
+
+        </tr>
+        <tr>
+          <td>13:00</td>
+          <td>SPIDER-MAN: POPRZEZ MULTIWERSUM</td>
+          <td>Sala 3</td>
+
+        </tr>
+        <tr>
+          <td>16:00</td>
+          <td>STRAŻNICY GALAKTYKI: VOLUME 3</td>
+          <td>Sala 2</td>
+
+        </tr>
+
+      </table>
+    </div>
+
+
+
+  </section>
+
+  <script>
+    // Funkcja ukrywająca lub pokazująca repertuar dla danego dnia
+    function toggleDay(day) {
+      var table = document.getElementById(day);
+      table.classList.toggle('hidden');
+    }
+  </script>
+
+  <footer>
+    <p>© 2023 Kino XYZ. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+</body>
+</html>

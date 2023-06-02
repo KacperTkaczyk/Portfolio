@@ -1,0 +1,131 @@
+/* Resetowanie domyślnych styli */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Podstawowe style dla strony */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #333;
+  padding: 20px;
+  color: #fff;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+section {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+h1, h2, h3 {
+  margin-bottom: 10px;
+}
+
+#content {
+  text-align: center;
+  flex-grow: 1;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+}
+
+.film {
+  display: inline-block;
+  width: 250px;
+  height: 360px;
+  margin: 10px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.film img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+@media (max-width: 768px) {
+  .film {
+    width: calc(50% - 20px); /* Na mniejszych ekranach zmień na dwie kolumny (50%) */
+  }
+}
+
+@media (max-width: 480px) {
+  .film {
+    width: 100%; /* Na najmniejszych ekranach zmień na pełną szerokość */
+  }
+}
+
+.film h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.film p {
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Ustaw ilość wierszy, po których opis filmu się zawinie */
+  -webkit-box-orient: vertical;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+td a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+

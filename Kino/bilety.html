@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kino KinoKapePL - Bilety</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    .seat {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      background-color: #ccc;
+      border: 1px solid #aaa;
+      cursor: pointer;
+    }
+    .selected {
+      background-color: #ff0000;
+    }
+	
+  #content {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+
+  #content h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  #content form {
+    margin-top: 20px;
+  }
+
+  #content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+	  #content input[type="text"],
+	#content select {
+	  width: 50%;
+	  padding: 10px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  font-size: 16px;
+	  margin-bottom: 10px;
+	}
+
+
+  #content button[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #content button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Kino KapePL</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="filmy.html">Filmy</a></li>
+        <li><a href="repertuar.html">Repertuar</a></li>
+        <li><a href="bilety.html">Bilety</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="content">
+    <h2>Kup bilet</h2>
+    <form action="kup-bilet.php" method="post">
+      <label for="imie">Imię:</label>
+      <input type="text" id="imie" name="imie" required>
+      <label for="nazwisko">Nazwisko:</label>
+      <input type="text" id="nazwisko" name="nazwisko" required>
+      <label for="film">Wybierz film:</label>
+      <select id="film" name="film">
+		<option value="film1">WYBIERZ</option>
+        <option value="film1">Tytuł filmu 1</option>
+        <option value="film2">Tytuł filmu 2</option>
+        <!-- Dodaj więcej filmów -->
+      </select>
+      <label for="sala">Wybierz salę:</label>
+      <select id="sala" name="sala">
+        <option value>WYBIERZ</option>
+        <option value="sala1">Sala 1</option>
+        <option value="sala2">Sala 2</option>
+        <option value="sala3">Sala 3</option>
+        <!-- Dodaj więcej sal -->
+      </select>
+      <label for="miejsce">Wybierz miejsce:</label>
+      <div id="seat-map">
+        <!-- Tutaj zostanie wstawiona siatka miejsc -->
+      </div>
+      <input type="hidden" id="selected-seats" name="selected-seats">
+      <button type="submit">Kup bilet</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2023 Kino KapePL. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+
+ <script>
+  // Skrypt obsługujący wybór miejsc
+  const seatMap = document.getElementById('seat-map');
+  const selectedSeatsInput = document.getElementById('selected-seats');
+  const seatsData = {
+    sala1: [
+      ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
+      ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+      ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+      ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+    ],
+    sala2: [
+      ['A1', 'A2', '', '', 'A5', 'A6'],
+      ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+      ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+      ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+    ],
+    sala3: [
+      ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
+      ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+      ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+      ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
+	  ['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
+	  ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']
+    ]
+  }; // Dane dotyczące miejsc w różnych salach
+
+  const salaSelect = document.getElementById('sala');
+  salaSelect.addEventListener('change', () => {
+    const selectedSala = salaSelect.value;
+    generateSeats(selectedSala);
+  });
+
+  function generateSeats(selectedSala) {
+    seatMap.innerHTML = ''; // Wyczyść poprzednie miejsca
+
+    const seats = seatsData[selectedSala];
+
+    seats.forEach(row => {
+      const seatRow = document.createElement('div');
+      seatRow.classList.add('seat-row');
+      row.forEach(seat => {
+        const seatElement = document.createElement('div');
+        seatElement.classList.add('seat');
+        seatElement.textContent = seat;
+        seatElement.addEventListener('click', () => toggleSeat(seat));
+        seatRow.appendChild(seatElement);
+      });
+      seatMap.appendChild(seatRow);
+    });
+
+    selectedSeats = [];
+    updateSelectedSeatsInput();
+    updateSeatStyles();
+  }
+
+  let selectedSeats = [];
+
+  function toggleSeat(seat) {
+    const index = selectedSeats.indexOf(seat);
+    if (index > -1) {
+      selectedSeats.splice(index, 1);
+    } else {
+      selectedSeats.push(seat);
+    }
+    updateSelectedSeatsInput();
+    updateSeatStyles();
+  }
+
+  function updateSelectedSeatsInput() {
+    selectedSeatsInput.value = selectedSeats.join(',');
+  }
+
+  function updateSeatStyles() {
+    const seatElements = seatMap.getElementsByClassName('seat');
+    Array.from(seatElements).forEach(seatElement => {
+      const seat = seatElement.textContent;
+      if (selectedSeats.includes(seat)) {
+        seatElement.classList.add('selected');
+      } else {
+        seatElement.classList.remove('selected');
+      }
+    });
+  }
+  
+</script>
+
+
+</body>
+</html>
