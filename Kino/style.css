@@ -96,7 +96,7 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5; /* Ustaw ilość wierszy, po których opis filmu się zawinie */
+  -webkit-line-clamp: 6; /* Ustaw ilość wierszy, po których opis filmu się zawinie */
   -webkit-box-orient: vertical;
 }
 
