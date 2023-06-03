@@ -22,13 +22,23 @@
 
   <section id="content">
     <h2>Kup bilet</h2>
+    <label for="miesiac">Wybierz miesiąc:</label>
+    <select id="miesiac" name="miesiac" onchange="generateDayButtons()">
+      <option value="6">Czerwiec</option>
+      <!-- Dodaj opcje dla innych miesięcy -->
+    </select>
+
+    <div id="dni">
+      <!-- Tutaj zostaną wstawione przyciski na wybór dnia -->
+    </div>
+
     <form action="kup-bilet.php" method="post">
       <label for="imie">Imię:</label>
       <input type="text" id="imie" name="imie" required>
       <label for="nazwisko">Nazwisko:</label>
       <input type="text" id="nazwisko" name="nazwisko" required>
       <label for="data">Wybierz datę:</label>
-      <input type="date" id="data" name="data">
+      <input type="date" id="data" name="data" required>
       <label for="film">Wybierz film:</label>
       <select id="film" name="film" disabled>
         <option value="">Wybierz film</option>
@@ -38,8 +48,11 @@
         <option value="">Wybierz godzinę</option>
       </select>
       <label for="sala">Wybierz salę:</label>
-      <select id="sala" name="sala" disabled>
+      <select id="sala" name="sala" onchange="generateSeats()">
         <option value="">Wybierz salę</option>
+        <option value="sala1">Sala 1</option>
+        <option value="sala2">Sala 2</option>
+        <option value="sala3">Sala 3</option>
       </select>
       <label for="miejsce">Wybierz miejsce:</label>
       <div id="seat-map">
@@ -51,99 +64,42 @@
     </form>
   </section>
 
-  <footer>
-    <p>© 2023 Kino KapePL. Wszelkie prawa zastrzeżone.</p>
-  </footer>
-
   <script>
-    // Skrypt obsługujący wybór miejsc
-    const seatMap = document.getElementById('seat-map');
-    const selectedSeatsInput = document.getElementById('selected-seats');
-    const filmSelect = document.getElementById('film');
-    const godzinaSelect = document.getElementById('godzina');
-    const salaSelect = document.getElementById('sala');
+    function generateDayButtons() {
+      const miesiacSelect = document.getElementById('miesiac');
+      const selectedMonth = parseInt(miesiacSelect.value);
 
-    const filmsData = {
-      '2023-06-05': [
-        { title: 'Tytuł filmu 1', showtimes: ['18:00', '20:00', '22:00'], salas: ['sala1', 'sala2', 'sala3'] },
-      ],
-      '2023-06-06': [
-        { title: 'Tytuł filmu 2', showtimes: ['18:00', '20:00'], salas: ['sala1', 'sala3'] },
-      ],
-      '2023-06-07': [
-        { title: 'Tytuł filmu 3', showtimes: ['20:00', '22:00'], salas: ['sala2', 'sala3'] },
-      ],
-    }; // Dane dotyczące filmów w różnych dniach
+      const dniContainer = document.getElementById('dni');
+      dniContainer.innerHTML = '';
 
-    const dataInput = document.getElementById('data');
-    dataInput.addEventListener('change', () => {
-      const selectedDate = dataInput.value;
-      generateFilmsOptions(selectedDate);
-      enableFilmSelect();
-    });
+      const startDay = 5; // Początkowy dzień (5 czerwca)
+      const endDay = 9; // Końcowy dzień (9 czerwca)
 
-    filmSelect.addEventListener('change', () => {
-      const selectedOption = filmSelect.options[filmSelect.selectedIndex];
-      const showtimes = selectedOption.getAttribute('data-showtimes').split(',');
-      const salas = selectedOption.getAttribute('data-salas').split(',');
-      generateShowtimesOptions(showtimes);
-      generateSalasOptions(salas);
-      enableGodzinaSelect();
-      enableSalaSelect();
-    });
-
-    function generateFilmsOptions(selectedDate) {
-      const films = filmsData[selectedDate];
-      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
-
-      if (films) {
-        films.forEach(film => {
-          const option = document.createElement('option');
-          option.value = film.title;
-          option.text = film.title;
-          option.setAttribute('data-showtimes', film.showtimes.join(','));
-          option.setAttribute('data-salas', film.salas.join(','));
-          filmSelect.appendChild(option);
-        });
+      for (let i = startDay; i <= endDay; i++) {
+        const button = document.createElement('button');
+        button.textContent = `${i} Czerwca`;
+        button.value = i;
+        button.addEventListener('click', () => selectDay(i));
+        dniContainer.appendChild(button);
       }
     }
 
-    function generateShowtimesOptions(showtimes) {
-      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+    function selectDay(day) {
+      const dataInput = document.getElementById('data');
+      const selectedDate = new Date(2023, 5, day);
+      const formattedDate = selectedDate.toISOString().split('T')[0];
+      dataInput.value = formattedDate;
 
-      showtimes.forEach(showtime => {
-        const option = document.createElement('option');
-        option.value = showtime;
-        option.text = showtime;
-        godzinaSelect.appendChild(option);
-      });
+      // Tutaj możesz dodać logikę obsługi wybranego dnia
+      console.log(`Wybrano ${day} czerwca`);
     }
 
-    function generateSalasOptions(salas) {
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+    // Skrypt obsługujący wybór miejsc
 
-      salas.forEach(sala => {
-        const option = document.createElement('option');
-        option.value = sala;
-        option.text = sala;
-        salaSelect.appendChild(option);
-      });
-    }
+    const seatsContainer = document.getElementById('seat-map');
+    const selectedSeatsInput = document.getElementById('selected-seats');
+    let selectedSeats = [];
 
-    function enableFilmSelect() {
-      filmSelect.disabled = false;
-    }
-
-    function enableGodzinaSelect() {
-      godzinaSelect.disabled = false;
-    }
-
-    function enableSalaSelect() {
-      salaSelect.disabled = false;
-    }
-
-    
-    // Kontynuacja skryptu obsługującego wybór miejsc
     const seatsData = {
       sala1: [
         ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
@@ -165,73 +121,49 @@
         ['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
         ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']
       ]
-    }; // Dane dotyczące miejsc w różnych salach
+    };
 
-    salaSelect.addEventListener('change', () => {
+    function generateSeats() {
+      seatsContainer.innerHTML = '';
+
+      const salaSelect = document.getElementById('sala');
       const selectedSala = salaSelect.value;
-      generateSeats(selectedSala);
-    });
+      const salaData = seatsData[selectedSala];
 
-    function generateSeats(selectedSala) {
-      seatMap.innerHTML = ''; // Wyczyść poprzednie miejsca
+      for (let i = 0; i < salaData.length; i++) {
+        const row = salaData[i];
+        const rowElement = document.createElement('div');
+        rowElement.classList.add('row');
 
-      const seats = seatsData[selectedSala];
-
-      seats.forEach(row => {
-        const seatRow = document.createElement('div');
-        seatRow.classList.add('seat-row');
-        row.forEach(seat => {
+        for (let j = 0; j < row.length; j++) {
+          const seat = row[j];
           const seatElement = document.createElement('div');
           seatElement.classList.add('seat');
           seatElement.textContent = seat;
-          seatElement.addEventListener('click', () => toggleSeat(seat));
-          seatRow.appendChild(seatElement);
-        });
-        seatMap.appendChild(seatRow);
-      });
+          seatElement.addEventListener('click', () => selectSeat(seat));
+          rowElement.appendChild(seatElement);
+        }
 
-      selectedSeats = [];
-      updateSelectedSeatsInput();
-      updateSeatStyles();
+        seatsContainer.appendChild(rowElement);
+      }
     }
 
-    let selectedSeats = [];
+    function selectSeat(seat) {
+      const seatElement = event.target;
 
-    function toggleSeat(seat) {
-      const index = selectedSeats.indexOf(seat);
-      if (index > -1) {
-        selectedSeats.splice(index, 1);
+      if (seatElement.classList.contains('selected')) {
+        seatElement.classList.remove('selected');
+        const index = selectedSeats.indexOf(seat);
+        if (index > -1) {
+          selectedSeats.splice(index, 1);
+        }
       } else {
+        seatElement.classList.add('selected');
         selectedSeats.push(seat);
       }
-      updateSelectedSeatsInput();
-      updateSeatStyles();
-    }
 
-    function updateSelectedSeatsInput() {
       selectedSeatsInput.value = selectedSeats.join(',');
     }
-
-    function updateSeatStyles() {
-      const seatElements = seatMap.getElementsByClassName('seat');
-      Array.from(seatElements).forEach(seatElement => {
-        const seat = seatElement.textContent;
-        if (selectedSeats.includes(seat)) {
-          seatElement.classList.add('selected');
-        } else {
-          seatElement.classList.remove('selected');
-        }
-      });
-    }
-
-    function updateShowtime(selectedGodzina) {
-      showtime.textContent += `, godzina: ${selectedGodzina}`;
-    }
-
-    const selectedDate = dataInput.value;
-    generateFilmsOptions(selectedDate);
-    enableFilmSelect();
   </script>
-
 </body>
 </html>
