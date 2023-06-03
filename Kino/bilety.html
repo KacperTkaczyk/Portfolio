@@ -87,93 +87,27 @@
       // Tutaj możesz dodać logikę obsługi wybranego dnia
       console.log(`Wybrano ${day} czerwca`);
 
-      // Poniżej znajduje się przykładowa logika wyboru filmu, godziny i sali na podstawie wybranego dnia
-      const filmSelect = document.getElementById('film');
-      const godzinaSelect = document.getElementById('godzina');
-      const salaSelect = document.getElementById('sala');
-
-      // Resetowanie wartości wyboru filmu, godziny i sali
-      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
-      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
-      salaSelect.disabled = true;
-      salaSelect.value = '';
-
-      // Przykładowe dane repertuarowe
-      const repertuar = {
-        5: {
-          film1: {
-            godziny: ['15:00', '18:00'],
-            sale: ['sala1', 'sala2']
-          },
-          film2: {
-            godziny: ['17:30'],
-            sale: ['sala3']
-          }
-        },
-        6: {
-          film3: {
-            godziny: ['14:00', '19:30'],
-            sale: ['sala1', 'sala3']
-          }
-        },
-        7: {
-          film4: {
-            godziny: ['20:00'],
-            sale: ['sala2']
-          }
-        }
-        // Dodaj dane dla innych dni
-      };
-
-      // Sprawdzanie, czy dla wybranego dnia istnieje repertuar
-      if (repertuar.hasOwnProperty(day)) {
-        const filmy = repertuar[day];
-
-        // Generowanie opcji wyboru filmu
-        for (const film in filmy) {
-          const option = document.createElement('option');
-          option.value = film;
-          option.textContent = film;
-          filmSelect.appendChild(option);
-        }
-      }
+      enableFilmSelection(); // Włącz możliwość wyboru filmu
     }
 
-    // Skrypt obsługujący wybór miejsc
+    function enableFilmSelection() {
+      const filmSelect = document.getElementById('film');
+      filmSelect.disabled = false;
 
-    const seatsContainer = document.getElementById('seat-map');
-    const selectedSeatsInput = document.getElementById('selected-seats');
-    let selectedSeats = [];
+      const salaSelect = document.getElementById('sala');
+      salaSelect.disabled = true;
 
-    const seatsData = {
-      sala1: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
-      ],
-      sala2: [
-        ['A1', 'A2', '', '', 'A5', 'A6'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
-      ],
-      sala3: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
-        ['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
-        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']
-      ]
-    };
+      const godzinaSelect = document.getElementById('godzina');
+      godzinaSelect.disabled = true;
+    }
 
     function generateSeats() {
-      seatsContainer.innerHTML = '';
-
       const salaSelect = document.getElementById('sala');
       const selectedSala = salaSelect.value;
       const salaData = seatsData[selectedSala];
+
+      const seatsContainer = document.getElementById('seat-map');
+      seatsContainer.innerHTML = '';
 
       for (let i = 0; i < salaData.length; i++) {
         const row = salaData[i];
@@ -207,10 +141,39 @@
         selectedSeats.push(seat);
       }
 
+      const selectedSeatsInput = document.getElementById('selected-seats');
       selectedSeatsInput.value = selectedSeats.join(',');
     }
 
+    const seatsData = {
+      sala1: [
+        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+      ],
+      sala2: [
+        ['A1', 'A2', '', '', 'A5', 'A6'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+      ],
+      sala3: [
+        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
+        ['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
+        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']
+      ]
+    };
+
     generateDayButtons();
   </script>
+  
+  <footer>
+    <p>© 2023 Kino KapePL. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+  
 </body>
 </html>
