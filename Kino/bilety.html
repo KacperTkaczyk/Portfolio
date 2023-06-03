@@ -46,7 +46,7 @@
         <option value="">Wybierz godzinę</option>
       </select>
       <label for="sala">Wybierz salę:</label>
-      <select id="sala" name="sala" onchange="generateSeats()">
+      <select id="sala" name="sala" onchange="generateSeats()" disabled>
         <option value="">Wybierz salę</option>
         <option value="sala1">Sala 1</option>
         <option value="sala2">Sala 2</option>
@@ -86,6 +86,57 @@
       const selectedDate = new Date(2023, 5, day);
       // Tutaj możesz dodać logikę obsługi wybranego dnia
       console.log(`Wybrano ${day} czerwca`);
+
+      // Poniżej znajduje się przykładowa logika wyboru filmu, godziny i sali na podstawie wybranego dnia
+      const filmSelect = document.getElementById('film');
+      const godzinaSelect = document.getElementById('godzina');
+      const salaSelect = document.getElementById('sala');
+
+      // Resetowanie wartości wyboru filmu, godziny i sali
+      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
+      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+      salaSelect.disabled = true;
+      salaSelect.value = '';
+
+      // Przykładowe dane repertuarowe
+      const repertuar = {
+        5: {
+          film1: {
+            godziny: ['15:00', '18:00'],
+            sale: ['sala1', 'sala2']
+          },
+          film2: {
+            godziny: ['17:30'],
+            sale: ['sala3']
+          }
+        },
+        6: {
+          film3: {
+            godziny: ['14:00', '19:30'],
+            sale: ['sala1', 'sala3']
+          }
+        },
+        7: {
+          film4: {
+            godziny: ['20:00'],
+            sale: ['sala2']
+          }
+        }
+        // Dodaj dane dla innych dni
+      };
+
+      // Sprawdzanie, czy dla wybranego dnia istnieje repertuar
+      if (repertuar.hasOwnProperty(day)) {
+        const filmy = repertuar[day];
+
+        // Generowanie opcji wyboru filmu
+        for (const film in filmy) {
+          const option = document.createElement('option');
+          option.value = film;
+          option.textContent = film;
+          filmSelect.appendChild(option);
+        }
+      }
     }
 
     // Skrypt obsługujący wybór miejsc
