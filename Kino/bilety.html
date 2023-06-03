@@ -5,70 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kino KinoKapePL - Bilety</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-
-    .seat {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      margin: 5px;
-      background-color: #ccc;
-      border: 1px solid #aaa;
-      cursor: pointer;
-    }
-    .selected {
-      background-color: #ff0000;
-    }
-	
-  #content {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-  }
-
-  #content h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  #content form {
-    margin-top: 20px;
-  }
-
-  #content label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-	  #content input[type="text"],
-	#content select {
-	  width: 50%;
-	  padding: 10px;
-	  border: 1px solid #ccc;
-	  border-radius: 4px;
-	  font-size: 16px;
-	  margin-bottom: 10px;
-	}
-
-
-  #content button[type="submit"] {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  #content button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-</style>
 </head>
 <body>
   <header>
@@ -93,10 +29,9 @@
       <input type="text" id="nazwisko" name="nazwisko" required>
       <label for="film">Wybierz film:</label>
       <select id="film" name="film">
-		<option value="film1">WYBIERZ</option>
-        <option value="film1">Tytuł filmu 1</option>
-        <option value="film2">Tytuł filmu 2</option>
-        <!-- Dodaj więcej filmów -->
+        <option value="film1" data-date="2023-06-05">Tytuł filmu 1 - 5 czerwca</option>
+        <option value="film2" data-date="2023-06-06">Tytuł filmu 2 - 6 czerwca</option>
+        <!-- Dodaj więcej filmów i dat -->
       </select>
       <label for="sala">Wybierz salę:</label>
       <select id="sala" name="sala">
@@ -113,99 +48,118 @@
       <input type="hidden" id="selected-seats" name="selected-seats">
       <button type="submit">Kup bilet</button>
     </form>
+
+    <div id="movie-info">
+      <h3>Opis filmu</h3>
+      <p id="movie-description"></p>
+      <h3>Godzina seansu</h3>
+      <p id="showtime"></p>
+    </div>
   </section>
 
   <footer>
     <p>© 2023 Kino KapePL. Wszelkie prawa zastrzeżone.</p>
   </footer>
 
- <script>
-  // Skrypt obsługujący wybór miejsc
-  const seatMap = document.getElementById('seat-map');
-  const selectedSeatsInput = document.getElementById('selected-seats');
-  const seatsData = {
-    sala1: [
-      ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
-      ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-      ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-      ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
-    ],
-    sala2: [
-      ['A1', 'A2', '', '', 'A5', 'A6'],
-      ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-      ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-      ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
-    ],
-    sala3: [
-      ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
-      ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-      ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-      ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
-	  ['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
-	  ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']
-    ]
-  }; // Dane dotyczące miejsc w różnych salach
+  <script>
+    // Skrypt obsługujący wybór miejsc
+    const seatMap = document.getElementById('seat-map');
+    const selectedSeatsInput = document.getElementById('selected-seats');
+    const seatsData = {
+      sala1: [
+        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+      ],
+      sala2: [
+        ['A1', 'A2', '', '', 'A5', 'A6'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+      ],
+      sala3: [
+        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
+        ['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
+        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']
+      ]
+    }; // Dane dotyczące miejsc w różnych salach
 
-  const salaSelect = document.getElementById('sala');
-  salaSelect.addEventListener('change', () => {
-    const selectedSala = salaSelect.value;
-    generateSeats(selectedSala);
-  });
+    const salaSelect = document.getElementById('sala');
+    const filmSelect = document.getElementById('film');
+    const movieDescription = document.getElementById('movie-description');
+    const showtime = document.getElementById('showtime');
 
-  function generateSeats(selectedSala) {
-    seatMap.innerHTML = ''; // Wyczyść poprzednie miejsca
+    salaSelect.addEventListener('change', () => {
+      const selectedSala = salaSelect.value;
+      generateSeats(selectedSala);
+    });
 
-    const seats = seatsData[selectedSala];
+    filmSelect.addEventListener('change', () => {
+      const selectedOption = filmSelect.options[filmSelect.selectedIndex];
+      const date = selectedOption.getAttribute('data-date');
+      const movieTitle = selectedOption.text.split(' - ')[0];
+      const showtimeText = "20:00"; // Przykładowa godzina seansu
 
-    seats.forEach(row => {
-      const seatRow = document.createElement('div');
-      seatRow.classList.add('seat-row');
-      row.forEach(seat => {
-        const seatElement = document.createElement('div');
-        seatElement.classList.add('seat');
-        seatElement.textContent = seat;
-        seatElement.addEventListener('click', () => toggleSeat(seat));
-        seatRow.appendChild(seatElement);
+      movieDescription.textContent = movieTitle;
+      showtime.textContent = `${date}, godzina ${showtimeText}`;
+    });
+
+    function generateSeats(selectedSala) {
+      seatMap.innerHTML = ''; // Wyczyść poprzednie miejsca
+
+      const seats = seatsData[selectedSala];
+
+      seats.forEach(row => {
+        const seatRow = document.createElement('div');
+        seatRow.classList.add('seat-row');
+        row.forEach(seat => {
+          const seatElement = document.createElement('div');
+          seatElement.classList.add('seat');
+          seatElement.textContent = seat;
+          seatElement.addEventListener('click', () => toggleSeat(seat));
+          seatRow.appendChild(seatElement);
+        });
+        seatMap.appendChild(seatRow);
       });
-      seatMap.appendChild(seatRow);
-    });
 
-    selectedSeats = [];
-    updateSelectedSeatsInput();
-    updateSeatStyles();
-  }
-
-  let selectedSeats = [];
-
-  function toggleSeat(seat) {
-    const index = selectedSeats.indexOf(seat);
-    if (index > -1) {
-      selectedSeats.splice(index, 1);
-    } else {
-      selectedSeats.push(seat);
+      selectedSeats = [];
+      updateSelectedSeatsInput();
+      updateSeatStyles();
     }
-    updateSelectedSeatsInput();
-    updateSeatStyles();
-  }
 
-  function updateSelectedSeatsInput() {
-    selectedSeatsInput.value = selectedSeats.join(',');
-  }
+    let selectedSeats = [];
 
-  function updateSeatStyles() {
-    const seatElements = seatMap.getElementsByClassName('seat');
-    Array.from(seatElements).forEach(seatElement => {
-      const seat = seatElement.textContent;
-      if (selectedSeats.includes(seat)) {
-        seatElement.classList.add('selected');
+    function toggleSeat(seat) {
+      const index = selectedSeats.indexOf(seat);
+      if (index > -1) {
+        selectedSeats.splice(index, 1);
       } else {
-        seatElement.classList.remove('selected');
+        selectedSeats.push(seat);
       }
-    });
-  }
-  
-</script>
+      updateSelectedSeatsInput();
+      updateSeatStyles();
+    }
 
+    function updateSelectedSeatsInput() {
+      selectedSeatsInput.value = selectedSeats.join(',');
+    }
+
+    function updateSeatStyles() {
+      const seatElements = seatMap.getElementsByClassName('seat');
+      Array.from(seatElements).forEach(seatElement => {
+        const seat = seatElement.textContent;
+        if (selectedSeats.includes(seat)) {
+          seatElement.classList.add('selected');
+        } else {
+          seatElement.classList.remove('selected');
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
