@@ -37,8 +37,6 @@
       <input type="text" id="imie" name="imie" required>
       <label for="nazwisko">Nazwisko:</label>
       <input type="text" id="nazwisko" name="nazwisko" required>
-      <label for="data">Wybierz datę:</label>
-      <input type="date" id="data" name="data" required>
       <label for="film">Wybierz film:</label>
       <select id="film" name="film" disabled>
         <option value="">Wybierz film</option>
@@ -85,11 +83,7 @@
     }
 
     function selectDay(day) {
-      const dataInput = document.getElementById('data');
       const selectedDate = new Date(2023, 5, day);
-      const formattedDate = selectedDate.toISOString().split('T')[0];
-      dataInput.value = formattedDate;
-
       // Tutaj możesz dodać logikę obsługi wybranego dnia
       console.log(`Wybrano ${day} czerwca`);
     }
@@ -164,6 +158,8 @@
 
       selectedSeatsInput.value = selectedSeats.join(',');
     }
+
+    generateDayButtons();
   </script>
 </body>
 </html>
