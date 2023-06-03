@@ -167,11 +167,6 @@
       ]
     }; // Dane dotyczące miejsc w różnych salach
 
-    const salaSelect = document.getElementById('sala');
-    const filmSelect = document.getElementById('film');
-    const godzinaSelect = document.getElementById('godzina');
-    const showtime = document.getElementById('showtime');
-
     salaSelect.addEventListener('change', () => {
       const selectedSala = salaSelect.value;
       generateSeats(selectedSala);
