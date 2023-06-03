@@ -31,11 +31,18 @@
       <select id="film" name="film">
         <option value="film1" data-date="2023-06-05">Tytuł filmu 1 - 5 czerwca</option>
         <option value="film2" data-date="2023-06-06">Tytuł filmu 2 - 6 czerwca</option>
-        <!-- Dodaj więcej filmów i dat -->
+        <option value="film3" data-date="2023-06-07">Tytuł filmu 3 - 7 czerwca</option>
+        <!-- Dodaj więcej filmów -->
+      </select>
+      <label for="godzina">Wybierz godzinę:</label>
+      <select id="godzina" name="godzina">
+        <option value="18:00">18:00</option>
+        <option value="20:00">20:00</option>
+        <option value="22:00">22:00</option>
+        <!-- Dodaj więcej godzin -->
       </select>
       <label for="sala">Wybierz salę:</label>
       <select id="sala" name="sala">
-        <option value>WYBIERZ</option>
         <option value="sala1">Sala 1</option>
         <option value="sala2">Sala 2</option>
         <option value="sala3">Sala 3</option>
@@ -48,13 +55,6 @@
       <input type="hidden" id="selected-seats" name="selected-seats">
       <button type="submit">Kup bilet</button>
     </form>
-
-    <div id="movie-info">
-      <h3>Opis filmu</h3>
-      <p id="movie-description"></p>
-      <h3>Godzina seansu</h3>
-      <p id="showtime"></p>
-    </div>
   </section>
 
   <footer>
@@ -90,7 +90,7 @@
 
     const salaSelect = document.getElementById('sala');
     const filmSelect = document.getElementById('film');
-    const movieDescription = document.getElementById('movie-description');
+    const godzinaSelect = document.getElementById('godzina');
     const showtime = document.getElementById('showtime');
 
     salaSelect.addEventListener('change', () => {
@@ -100,12 +100,14 @@
 
     filmSelect.addEventListener('change', () => {
       const selectedOption = filmSelect.options[filmSelect.selectedIndex];
-      const date = selectedOption.getAttribute('data-date');
       const movieTitle = selectedOption.text.split(' - ')[0];
-      const showtimeText = "20:00"; // Przykładowa godzina seansu
+      const date = selectedOption.getAttribute('data-date');
+      showtime.textContent = `${date}, film: ${movieTitle}`;
+    });
 
-      movieDescription.textContent = movieTitle;
-      showtime.textContent = `${date}, godzina ${showtimeText}`;
+    godzinaSelect.addEventListener('change', () => {
+      const selectedGodzina = godzinaSelect.value;
+      updateShowtime(selectedGodzina);
     });
 
     function generateSeats(selectedSala) {
@@ -158,6 +160,10 @@
           seatElement.classList.remove('selected');
         }
       });
+    }
+
+    function updateShowtime(selectedGodzina) {
+      showtime.textContent += `, godzina: ${selectedGodzina}`;
     }
   </script>
 
