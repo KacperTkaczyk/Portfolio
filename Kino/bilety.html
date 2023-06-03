@@ -1,116 +1,103 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wybór biletów</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Rezerwacja biletów</title>
+  <style>
+    .selected {
+      background-color: yellow;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="index.html">Strona główna</a></li>
-        <li><a href="repertuar.html">Repertuar</a></li>
-        <li><a href="bilety.html">Bilety</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section id="content">
-    <h2>Wybierz film, godzinę i miejsce</h2>
-    <form>
-      <label for="miesiac">Miesiąc:</label>
-      <select id="miesiac">
-        <option value="6">Czerwiec</option>
-      </select>
-
-      <label for="dni">Dzień:</label>
-      <div id="dni">
-        <!-- Dynamicznie generowane przyciski dni -->
-      </div>
-
-      <label for="film">Film:</label>
-      <select id="film" disabled>
-        <!-- Dynamicznie generowane opcje filmów -->
-      </select>
-
-      <label for="godzina">Godzina:</label>
-      <select id="godzina" disabled>
-        <!-- Dynamicznie generowane opcje godzin -->
-      </select>
-
-      <label for="sala">Sala:</label>
-      <select id="sala" disabled>
-        <option value="">Wybierz salę</option>
-      </select>
-
-      <h3>Wybierz miejsca:</h3>
-      <div id="seats-container">
-        <!-- Dynamicznie generowane miejsca w sali -->
-      </div>
-
-      <label for="selected-seats">Wybrane miejsca:</label>
-      <input type="text" id="selected-seats" readonly>
-
-      <button type="submit">Kup bilety</button>
-    </form>
-  </section>
-
-  <footer>
-    &copy; 2023 Kino XYZ. Wszelkie prawa zastrzeżone.
-  </footer>
+  <label for="miesiac">Miesiąc:</label>
+  <select id="miesiac">
+    <option value="Czerwiec">Styczeń</option>
+  </select>
+  <br>
+  <label for="dni">Dzień:</label>
+  <div id="dni">
+    <button value="5">5</button>
+    <button value="6">6</button>
+    <button value="7">7</button>
+  </div>
+  <br>
+  <label for="film">Film:</label>
+  <select id="film" disabled>
+    <option value="">Wybierz film</option>
+  </select>
+  <br>
+  <label for="godzina">Godzina:</label>
+  <select id="godzina" disabled>
+    <option value="">Wybierz godzinę</option>
+  </select>
+  <br>
+  <label for="sala">Sala:</label>
+  <select id="sala" disabled>
+    <option value="">Wybierz salę</option>
+  </select>
+  <br>
+  <div id="seats-container"></div>
+  <input type="text" id="selected-seats" readonly>
 
   <script>
     const repertuar = {
-      6: {
+      Czerwiec: {
         5: {
           film1: {
-            godziny: ['15:00', '18:00'],
+            godziny: ['12:00', '15:00', '18:00'],
             sale: ['sala1', 'sala2']
           },
           film2: {
-            godziny: ['17:30'],
-            sale: ['sala3']
+            godziny: ['13:00', '16:00', '19:00'],
+            sale: ['sala1', 'sala2']
           }
         },
         6: {
-          film3: {
-            godziny: ['14:00', '19:30'],
+          film1: {
+            godziny: ['14:00', '17:00', '20:00'],
+            sale: ['sala1', 'sala3']
+          },
+          film2: {
+            godziny: ['13:30', '16:30', '19:30'],
             sale: ['sala1', 'sala3']
           }
         },
         7: {
-          film4: {
-            godziny: ['20:00'],
-            sale: ['sala2']
+          film1: {
+            godziny: ['12:30', '15:30', '18:30'],
+            sale: ['sala2', 'sala3']
+          },
+          film2: {
+            godziny: ['14:30', '17:30', '20:30'],
+            sale: ['sala2', 'sala3']
           }
         }
-      }
-      // Dodaj dane dla innych dni
     };
 
     const seatsData = {
       sala1: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+        ['A1', 'A2', 'A3', '', '', 'A6', 'A7', 'A8'],
+        ['B1', 'B2', 'B3', '', '', 'B6', 'B7', 'B8'],
+        ['C1', 'C2', '', '', '', '', 'C7', 'C8'],
+        ['', '', '', '', '', '', '', ''],
+        ['E1', 'E2', '', '', '', '', 'E7', 'E8'],
+        ['F1', 'F2', 'F3', '', '', 'F6', 'F7', 'F8']
       ],
       sala2: [
-        ['A1', 'A2', '', '', 'A5', 'A6'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6']
+        ['A1', 'A2', 'A3', '', '', 'A6', 'A7', 'A8'],
+        ['B1', 'B2', 'B3', '', '', 'B6', 'B7', 'B8'],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['E1', 'E2', '', '', '', '', 'E7', 'E8'],
+        ['F1', 'F2', 'F3', '', '', 'F6', 'F7', 'F8']
       ],
       sala3: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'],
-        ['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
-        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6']
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['C1', 'C2', '', '', '', '', 'C7', 'C8'],
+        ['', '', '', '', '', '', '', ''],
+        ['E1', 'E2', '', '', '', '', 'E7', 'E8'],
+        ['F1', 'F2', 'F3', '', '', 'F6', 'F7', 'F8']
       ]
     };
 
@@ -122,44 +109,42 @@
     const seatsContainer = document.getElementById('seats-container');
     const selectedSeatsInput = document.getElementById('selected-seats');
 
-    miesiacSelect.addEventListener('change', updateDniOptions);
-    dniContainer.addEventListener('click', selectDzien);
-    filmSelect.addEventListener('change', updateGodzinaOptions);
-    godzinaSelect.addEventListener('change', updateSalaOptions);
-    salaSelect.addEventListener('change', generateSeats);
-
-    function updateDniOptions() {
-      const selectedMiesiac = miesiacSelect.value;
-      dniContainer.innerHTML = '';
-
-      for (let dzien in repertuar[selectedMiesiac]) {
-        const dzienButton = document.createElement('button');
-        dzienButton.textContent = dzien;
-        dniContainer.appendChild(dzienButton);
-      }
-    }
-
-    function selectDzien(event) {
+    dniContainer.addEventListener('click', (event) => {
       if (event.target.tagName === 'BUTTON') {
-        const selectedDzien = event.target.textContent;
-        const selectedMiesiac = miesiacSelect.value;
-        const filmy = repertuar[selectedMiesiac][selectedDzien];
+        const selectedButton = event.target;
+        const selectedDzien = selectedButton.textContent;
 
-        filmSelect.innerHTML = '<option value="">Wybierz film</option>';
-        godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
-        salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-        seatsContainer.innerHTML = '';
-        selectedSeatsInput.value = '';
+        // Remove selected class from all buttons
+        const buttons = dniContainer.querySelectorAll('button');
+        buttons.forEach(button => button.classList.remove('selected'));
 
-        for (let film in filmy) {
-          const filmOption = document.createElement('option');
-          filmOption.value = film;
-          filmOption.textContent = film;
-          filmSelect.appendChild(filmOption);
-        }
+        // Add selected class to the clicked button
+        selectedButton.classList.add('selected');
 
-        filmSelect.disabled = false;
+        updateFilmOptions();
       }
+    });
+
+    function updateFilmOptions() {
+      const selectedMiesiac = miesiacSelect.value;
+      const selectedDzien = getSelectedDzien();
+
+      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
+      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+      seatsContainer.innerHTML = '';
+      selectedSeatsInput.value = '';
+
+      const filmy = repertuar[selectedMiesiac][selectedDzien];
+
+      for (let film in filmy) {
+        const filmOption = document.createElement('option');
+        filmOption.value = film;
+        filmOption.textContent = film;
+        filmSelect.appendChild(filmOption);
+      }
+
+      filmSelect.disabled = false;
     }
 
     function updateGodzinaOptions() {
@@ -206,41 +191,93 @@
       salaSelect.disabled = false;
     }
 
-    function generateSeats() {
+    function updateSeats() {
       const selectedSala = salaSelect.value;
       const seats = seatsData[selectedSala];
 
       seatsContainer.innerHTML = '';
 
       for (let row of seats) {
-        const seatRow = document.createElement('div');
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('seat-row');
 
         for (let seat of row) {
           const seatButton = document.createElement('button');
-          seatButton.className = 'seat';
+          seatButton.classList.add('seat');
           seatButton.textContent = seat;
-          seatButton.addEventListener('click', () => selectSeat(seatButton));
-          seatRow.appendChild(seatButton);
+          seatButton.addEventListener('click', () => {
+            seatButton.classList.toggle('selected');
+            updateSelectedSeats();
+          });
+          rowDiv.appendChild(seatButton);
         }
 
-        seatsContainer.appendChild(seatRow);
+        seatsContainer.appendChild(rowDiv);
       }
     }
 
-    function selectSeat(seatButton) {
-      seatButton.classList.toggle('selected');
-
-      const selectedSeats = Array.from(seatsContainer.querySelectorAll('.selected'))
-        .map(selectedSeat => selectedSeat.textContent);
-
-      selectedSeatsInput.value = selectedSeats.join(', ');
+    function updateSelectedSeats() {
+      const selectedSeats = seatsContainer.querySelectorAll('.seat.selected');
+      const selectedSeatCodes = Array.from(selectedSeats).map(seat => seat.textContent);
+      selectedSeatsInput.value = selectedSeatCodes.join(', ');
     }
 
     function getSelectedDzien() {
-      return Array.from(dniContainer.querySelectorAll('button.selected'))[0].textContent;
+      const selectedButton = dniContainer.querySelector('.selected');
+      if (selectedButton) {
+        return selectedButton.textContent;
+      }
+      return null;
     }
 
-    updateDniOptions();
+    miesiacSelect.addEventListener('change', () => {
+      filmSelect.disabled = true;
+      godzinaSelect.disabled = true;
+      salaSelect.disabled = true;
+
+      dniContainer.innerHTML = '';
+      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
+      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+      seatsContainer.innerHTML = '';
+      selectedSeatsInput.value = '';
+
+      const selectedMiesiac = miesiacSelect.value;
+      const dni = Object.keys(repertuar[selectedMiesiac]);
+
+      for (let dzien of dni) {
+        const dzienButton = document.createElement('button');
+        dzienButton.textContent = dzien;
+        dniContainer.appendChild(dzienButton);
+      }
+    });
+
+    filmSelect.addEventListener('change', () => {
+      godzinaSelect.disabled = true;
+      salaSelect.disabled = true;
+
+      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+      seatsContainer.innerHTML = '';
+      selectedSeatsInput.value = '';
+
+      updateGodzinaOptions();
+    });
+
+    godzinaSelect.addEventListener('change', () => {
+      salaSelect.disabled = true;
+
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+      seatsContainer.innerHTML = '';
+      selectedSeatsInput.value = '';
+
+      updateSalaOptions();
+    });
+
+    salaSelect.addEventListener('change', () => {
+      updateSeats();
+      updateSelectedSeats();
+    });
   </script>
 </body>
 </html>
