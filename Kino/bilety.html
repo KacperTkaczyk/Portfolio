@@ -27,26 +27,19 @@
       <input type="text" id="imie" name="imie" required>
       <label for="nazwisko">Nazwisko:</label>
       <input type="text" id="nazwisko" name="nazwisko" required>
+      <label for="data">Wybierz datę:</label>
+      <input type="date" id="data" name="data">
       <label for="film">Wybierz film:</label>
-      <select id="film" name="film">
-        <option value="film1" data-date="2023-06-05">Tytuł filmu 1 - 5 czerwca</option>
-        <option value="film2" data-date="2023-06-06">Tytuł filmu 2 - 6 czerwca</option>
-        <option value="film3" data-date="2023-06-07">Tytuł filmu 3 - 7 czerwca</option>
-        <!-- Dodaj więcej filmów -->
+      <select id="film" name="film" disabled>
+        <option value="">Wybierz film</option>
       </select>
       <label for="godzina">Wybierz godzinę:</label>
-      <select id="godzina" name="godzina">
-        <option value="18:00">18:00</option>
-        <option value="20:00">20:00</option>
-        <option value="22:00">22:00</option>
-        <!-- Dodaj więcej godzin -->
+      <select id="godzina" name="godzina" disabled>
+        <option value="">Wybierz godzinę</option>
       </select>
       <label for="sala">Wybierz salę:</label>
-      <select id="sala" name="sala">
-        <option value="sala1">Sala 1</option>
-        <option value="sala2">Sala 2</option>
-        <option value="sala3">Sala 3</option>
-        <!-- Dodaj więcej sal -->
+      <select id="sala" name="sala" disabled>
+        <option value="">Wybierz salę</option>
       </select>
       <label for="miejsce">Wybierz miejsce:</label>
       <div id="seat-map">
@@ -65,6 +58,92 @@
     // Skrypt obsługujący wybór miejsc
     const seatMap = document.getElementById('seat-map');
     const selectedSeatsInput = document.getElementById('selected-seats');
+    const filmSelect = document.getElementById('film');
+    const godzinaSelect = document.getElementById('godzina');
+    const salaSelect = document.getElementById('sala');
+
+    const filmsData = {
+      '2023-06-05': [
+        { title: 'Tytuł filmu 1', showtimes: ['18:00', '20:00', '22:00'], salas: ['sala1', 'sala2', 'sala3'] },
+      ],
+      '2023-06-06': [
+        { title: 'Tytuł filmu 2', showtimes: ['18:00', '20:00'], salas: ['sala1', 'sala3'] },
+      ],
+      '2023-06-07': [
+        { title: 'Tytuł filmu 3', showtimes: ['20:00', '22:00'], salas: ['sala2', 'sala3'] },
+      ],
+    }; // Dane dotyczące filmów w różnych dniach
+
+    const dataInput = document.getElementById('data');
+    dataInput.addEventListener('change', () => {
+      const selectedDate = dataInput.value;
+      generateFilmsOptions(selectedDate);
+      enableFilmSelect();
+    });
+
+    filmSelect.addEventListener('change', () => {
+      const selectedOption = filmSelect.options[filmSelect.selectedIndex];
+      const showtimes = selectedOption.getAttribute('data-showtimes').split(',');
+      const salas = selectedOption.getAttribute('data-salas').split(',');
+      generateShowtimesOptions(showtimes);
+      generateSalasOptions(salas);
+      enableGodzinaSelect();
+      enableSalaSelect();
+    });
+
+    function generateFilmsOptions(selectedDate) {
+      const films = filmsData[selectedDate];
+      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
+
+      if (films) {
+        films.forEach(film => {
+          const option = document.createElement('option');
+          option.value = film.title;
+          option.text = film.title;
+          option.setAttribute('data-showtimes', film.showtimes.join(','));
+          option.setAttribute('data-salas', film.salas.join(','));
+          filmSelect.appendChild(option);
+        });
+      }
+    }
+
+    function generateShowtimesOptions(showtimes) {
+      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+
+      showtimes.forEach(showtime => {
+        const option = document.createElement('option');
+        option.value = showtime;
+        option.text = showtime;
+        godzinaSelect.appendChild(option);
+      });
+    }
+
+    function generateSalasOptions(salas) {
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+
+      salas.forEach(sala => {
+        const option = document.createElement('option');
+        option.value = sala;
+        option.text = sala;
+        salaSelect.appendChild(option);
+      });
+    }
+
+    function enableFilmSelect() {
+      filmSelect.disabled = false;
+    }
+
+    function enableGodzinaSelect() {
+      godzinaSelect.disabled = false;
+    }
+
+    function enableSalaSelect() {
+      salaSelect.disabled = false;
+    }
+  </script>
+
+  <script>
+    // Kontynuacja skryptu obsługującego wybór miejsc
     const seatsData = {
       sala1: [
         ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
@@ -96,18 +175,6 @@
     salaSelect.addEventListener('change', () => {
       const selectedSala = salaSelect.value;
       generateSeats(selectedSala);
-    });
-
-    filmSelect.addEventListener('change', () => {
-      const selectedOption = filmSelect.options[filmSelect.selectedIndex];
-      const movieTitle = selectedOption.text.split(' - ')[0];
-      const date = selectedOption.getAttribute('data-date');
-      showtime.textContent = `${date}, film: ${movieTitle}`;
-    });
-
-    godzinaSelect.addEventListener('change', () => {
-      const selectedGodzina = godzinaSelect.value;
-      updateShowtime(selectedGodzina);
     });
 
     function generateSeats(selectedSala) {
