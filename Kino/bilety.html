@@ -1,287 +1,238 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kino KapePL - Bilety</title>
+  <meta charset="UTF-8">
+  <title>Kino KapePL - Repertuar</title>
   <link rel="stylesheet" href="style.css">
-  </style>
+
 </head>
 <body>
-  <label for="miesiac">Miesiąc:</label>
-  <select id="miesiac">
-    <option value="Czerwiec">Styczeń</option>
-  </select>
-  <br>
-  <label for="dni">Dzień:</label>
-  <div id="dni">
-    <button value="5">5</button>
-    <button value="6">6</button>
-    <button value="7">7</button>
+  <header>
+    <h1>Kino KapePL</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="filmy.html">Filmy</a></li>
+        <li><a href="repertuar.html">Repertuar</a></li>
+        <li><a href="bilety.html">Bilety</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="content">
+    <h2>Rezerwacja biletów</h2>
+
+    <form>
+      <label for="month">Miesiąc:</label>
+      <select id="month">
+        <option value="czerwiec">Czerwiec</option>
+        <!-- Dodaj opcje dla pozostałych miesięcy tutaj -->
+      </select>
+
+      <label for="day">Dzień:</label>
+      <select id="day">
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <!-- Dodaj opcje dla pozostałych dni tutaj -->
+      </select>
+
+      <label for="movie">Film:</label>
+      <select id="movie">
+        <!-- Dynamicznie generowane opcje filmów -->
+      </select>
+
+      <label for="time">Godzina:</label>
+      <select id="time">
+        <!-- Dynamicznie generowane opcje godzin -->
+      </select>
+
+      <label for="hall">Sala:</label>
+      <select id="hall">
+        <!-- Dynamicznie generowane opcje sal -->
+      </select>
+
+      <div id="seats"></div>
+
+      <button type="submit" disabled>Zarezerwuj</button>
+    </form>
   </div>
-  <br>
-  <label for="film">Film:</label>
-  <select id="film" disabled>
-    <option value="">Wybierz film</option>
-  </select>
-  <br>
-  <label for="godzina">Godzina:</label>
-  <select id="godzina" disabled>
-    <option value="">Wybierz godzinę</option>
-  </select>
-  <br>
-  <label for="sala">Sala:</label>
-  <select id="sala" disabled>
-    <option value="">Wybierz salę</option>
-  </select>
-  <br>
-  <div id="seats-container"></div>
-  <input type="text" id="selected-seats" readonly>
+
+  <footer>
+    <p>© 2023 Kino KapePL. Wszelkie prawa zastrzeżone.</p>
+  </footer>
 
   <script>
-    const repertuar = {
-      Czerwiec: {
-        5: {
-          film1: {
-            godziny: ['12:00', '15:00', '18:00'],
-            sale: ['sala1', 'sala2']
-          },
-          film2: {
-            godziny: ['13:00', '16:00', '19:00'],
-            sale: ['sala1', 'sala2']
-          }
-        },
-        6: {
-          film1: {
-            godziny: ['14:00', '17:00', '20:00'],
-            sale: ['sala1', 'sala3']
-          },
-          film2: {
-            godziny: ['13:30', '16:30', '19:30'],
-            sale: ['sala1', 'sala3']
-          }
-        },
-        7: {
-          film1: {
-            godziny: ['12:30', '15:30', '18:30'],
-            sale: ['sala2', 'sala3']
-          },
-          film2: {
-            godziny: ['14:30', '17:30', '20:30'],
-            sale: ['sala2', 'sala3']
-          }
-        }
-    };
-
     const seatsData = {
       sala1: [
-        ['A1', 'A2', 'A3', '', '', 'A6', 'A7', 'A8'],
-        ['B1', 'B2', 'B3', '', '', 'B6', 'B7', 'B8'],
-        ['C1', 'C2', '', '', '', '', 'C7', 'C8'],
-        ['', '', '', '', '', '', '', ''],
-        ['E1', 'E2', '', '', '', '', 'E7', 'E8'],
-        ['F1', 'F2', 'F3', '', '', 'F6', 'F7', 'F8']
+        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'],
+        ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8'],
+        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8']
       ],
       sala2: [
-        ['A1', 'A2', 'A3', '', '', 'A6', 'A7', 'A8'],
-        ['B1', 'B2', 'B3', '', '', 'B6', 'B7', 'B8'],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['E1', 'E2', '', '', '', '', 'E7', 'E8'],
-        ['F1', 'F2', 'F3', '', '', 'F6', 'F7', 'F8']
+        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'],
+        ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8'],
+        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8']
       ],
       sala3: [
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['C1', 'C2', '', '', '', '', 'C7', 'C8'],
-        ['', '', '', '', '', '', '', ''],
-        ['E1', 'E2', '', '', '', '', 'E7', 'E8'],
-        ['F1', 'F2', 'F3', '', '', 'F6', 'F7', 'F8']
+        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
+        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8'],
+        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'],
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'],
+        ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8'],
+        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8']
       ]
     };
 
-    const miesiacSelect = document.getElementById('miesiac');
-    const dniContainer = document.getElementById('dni');
-    const filmSelect = document.getElementById('film');
-    const godzinaSelect = document.getElementById('godzina');
-    const salaSelect = document.getElementById('sala');
-    const seatsContainer = document.getElementById('seats-container');
-    const selectedSeatsInput = document.getElementById('selected-seats');
-
-    dniContainer.addEventListener('click', (event) => {
-      if (event.target.tagName === 'BUTTON') {
-        const selectedButton = event.target;
-        const selectedDzien = selectedButton.textContent;
-
-        // Remove selected class from all buttons
-        const buttons = dniContainer.querySelectorAll('button');
-        buttons.forEach(button => button.classList.remove('selected'));
-
-        // Add selected class to the clicked button
-        selectedButton.classList.add('selected');
-
-        updateFilmOptions();
+    const filmsData = {
+      czerwiec: {
+        5: [
+          { name: 'Film 1', times: ['10:00', '15:00'], halls: ['sala1', 'sala2'] },
+          { name: 'Film 2', times: ['12:00', '17:00'], halls: ['sala2', 'sala3'] }
+        ],
+        6: [
+          { name: 'Film 3', times: ['11:00', '16:00'], halls: ['sala1', 'sala3'] },
+          { name: 'Film 4', times: ['13:00', '18:00'], halls: ['sala1', 'sala2'] }
+        ],
+        7: [
+          { name: 'Film 5', times: ['14:00', '19:00'], halls: ['sala2', 'sala3'] },
+          { name: 'Film 6', times: ['10:30', '15:30'], halls: ['sala1', 'sala3'] }
+        ],
+        8: [
+          { name: 'Film 7', times: ['11:30', '16:30'], halls: ['sala1', 'sala2'] },
+          { name: 'Film 8', times: ['13:30', '18:30'], halls: ['sala2', 'sala3'] }
+        ],
+        9: [
+          { name: 'Film 9', times: ['12:30', '17:30'], halls: ['sala1', 'sala3'] },
+          { name: 'Film 10', times: ['14:30', '19:30'], halls: ['sala1', 'sala2'] }
+        ]
       }
-    });
+    };
 
-    function updateFilmOptions() {
-      const selectedMiesiac = miesiacSelect.value;
-      const selectedDzien = getSelectedDzien();
+    const monthSelect = document.getElementById('month');
+    const daySelect = document.getElementById('day');
+    const movieSelect = document.getElementById('movie');
+    const timeSelect = document.getElementById('time');
+    const hallSelect = document.getElementById('hall');
+    const seatsDiv = document.getElementById('seats');
+    const submitButton = document.querySelector('button[type="submit"]');
 
-      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
-      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-      seatsContainer.innerHTML = '';
-      selectedSeatsInput.value = '';
+    function updateMovieList() {
+      const selectedMonth = monthSelect.value;
+      const selectedDay = daySelect.value;
 
-      const filmy = repertuar[selectedMiesiac][selectedDzien];
+      const films = filmsData[selectedMonth][selectedDay];
 
-      for (let film in filmy) {
-        const filmOption = document.createElement('option');
-        filmOption.value = film;
-        filmOption.textContent = film;
-        filmSelect.appendChild(filmOption);
+      while (movieSelect.options.length > 0) {
+        movieSelect.remove(0);
       }
 
-      filmSelect.disabled = false;
+      films.forEach(film => {
+        const option = document.createElement('option');
+        option.value = film.name;
+        option.text = film.name;
+        movieSelect.add(option);
+      });
+
+      updateTimeList();
     }
 
-    function updateGodzinaOptions() {
-      const selectedFilm = filmSelect.value;
-      const selectedMiesiac = miesiacSelect.value;
-      const selectedDzien = getSelectedDzien();
+    function updateTimeList() {
+      const selectedMonth = monthSelect.value;
+      const selectedDay = daySelect.value;
+      const selectedFilm = movieSelect.value;
 
-      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-      seatsContainer.innerHTML = '';
-      selectedSeatsInput.value = '';
+      const films = filmsData[selectedMonth][selectedDay];
+      const selectedFilmData = films.find(film => film.name === selectedFilm);
 
-      const godziny = repertuar[selectedMiesiac][selectedDzien][selectedFilm].godziny;
-
-      for (let godzina of godziny) {
-        const godzinaOption = document.createElement('option');
-        godzinaOption.value = godzina;
-        godzinaOption.textContent = godzina;
-        godzinaSelect.appendChild(godzinaOption);
+      while (timeSelect.options.length > 0) {
+        timeSelect.remove(0);
       }
 
-      godzinaSelect.disabled = false;
+      selectedFilmData.times.forEach(time => {
+        const option = document.createElement('option');
+        option.value = time;
+        option.text = time;
+        timeSelect.add(option);
+      });
+
+      updateHallList();
     }
 
-    function updateSalaOptions() {
-      const selectedFilm = filmSelect.value;
-      const selectedMiesiac = miesiacSelect.value;
-      const selectedDzien = getSelectedDzien();
-      const selectedGodzina = godzinaSelect.value;
+    function updateHallList() {
+      const selectedMonth = monthSelect.value;
+      const selectedDay = daySelect.value;
+      const selectedFilm = movieSelect.value;
+      const selectedTime = timeSelect.value;
 
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-      seatsContainer.innerHTML = '';
-      selectedSeatsInput.value = '';
+      const films = filmsData[selectedMonth][selectedDay];
+      const selectedFilmData = films.find(film => film.name === selectedFilm);
 
-      const sale = repertuar[selectedMiesiac][selectedDzien][selectedFilm].sale;
-
-      for (let sala of sale) {
-        const salaOption = document.createElement('option');
-        salaOption.value = sala;
-        salaOption.textContent = sala;
-        salaSelect.appendChild(salaOption);
+      while (hallSelect.options.length > 0) {
+        hallSelect.remove(0);
       }
 
-      salaSelect.disabled = false;
+      selectedFilmData.halls.forEach(hall => {
+        const option = document.createElement('option');
+        option.value = hall;
+        option.text = hall;
+        hallSelect.add(option);
+      });
+
+      updateSeats();
     }
 
     function updateSeats() {
-      const selectedSala = salaSelect.value;
-      const seats = seatsData[selectedSala];
+      const selectedHall = hallSelect.value;
 
-      seatsContainer.innerHTML = '';
+      while (seatsDiv.firstChild) {
+        seatsDiv.firstChild.remove();
+      }
 
-      for (let row of seats) {
+      const seats = seatsData[selectedHall];
+
+      seats.forEach(row => {
         const rowDiv = document.createElement('div');
-        rowDiv.classList.add('seat-row');
 
-        for (let seat of row) {
-          const seatButton = document.createElement('button');
-          seatButton.classList.add('seat');
-          seatButton.textContent = seat;
-          seatButton.addEventListener('click', () => {
-            seatButton.classList.toggle('selected');
-            updateSelectedSeats();
-          });
-          rowDiv.appendChild(seatButton);
+        row.forEach(seat => {
+          const seatDiv = document.createElement('div');
+          seatDiv.classList.add('seat');
+          seatDiv.textContent = seat;
+          rowDiv.appendChild(seatDiv);
+        });
+
+        seatsDiv.appendChild(rowDiv);
+      });
+
+      seatsDiv.addEventListener('click', e => {
+        if (e.target.classList.contains('seat')) {
+          e.target.classList.toggle('selected');
+          updateSubmitButton();
         }
-
-        seatsContainer.appendChild(rowDiv);
-      }
+      });
     }
 
-    function updateSelectedSeats() {
-      const selectedSeats = seatsContainer.querySelectorAll('.seat.selected');
-      const selectedSeatCodes = Array.from(selectedSeats).map(seat => seat.textContent);
-      selectedSeatsInput.value = selectedSeatCodes.join(', ');
+    function updateSubmitButton() {
+      const selectedSeats = Array.from(seatsDiv.getElementsByClassName('selected'));
+
+      submitButton.disabled = selectedSeats.length === 0;
     }
 
-    function getSelectedDzien() {
-      const selectedButton = dniContainer.querySelector('.selected');
-      if (selectedButton) {
-        return selectedButton.textContent;
-      }
-      return null;
-    }
+    monthSelect.addEventListener('change', updateMovieList);
+    daySelect.addEventListener('change', updateMovieList);
+    movieSelect.addEventListener('change', updateTimeList);
+    timeSelect.addEventListener('change', updateHallList);
+    hallSelect.addEventListener('change', updateSeats);
 
-    miesiacSelect.addEventListener('change', () => {
-      filmSelect.disabled = true;
-      godzinaSelect.disabled = true;
-      salaSelect.disabled = true;
-
-      dniContainer.innerHTML = '';
-      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
-      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-      seatsContainer.innerHTML = '';
-      selectedSeatsInput.value = '';
-
-      const selectedMiesiac = miesiacSelect.value;
-      const dni = Object.keys(repertuar[selectedMiesiac]);
-
-      for (let dzien of dni) {
-        const dzienButton = document.createElement('button');
-        dzienButton.textContent = dzien;
-        dniContainer.appendChild(dzienButton);
-      }
-    });
-
-    filmSelect.addEventListener('change', () => {
-      godzinaSelect.disabled = true;
-      salaSelect.disabled = true;
-
-      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-      seatsContainer.innerHTML = '';
-      selectedSeatsInput.value = '';
-
-      updateGodzinaOptions();
-    });
-
-    godzinaSelect.addEventListener('change', () => {
-      salaSelect.disabled = true;
-
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-      seatsContainer.innerHTML = '';
-      selectedSeatsInput.value = '';
-
-      updateSalaOptions();
-    });
-
-    salaSelect.addEventListener('change', () => {
-      updateSeats();
-      updateSelectedSeats();
-    });
+    updateMovieList();
   </script>
-  
-    <footer>
-    <p>© 2023 Kino KapePL. Wszelkie prawa zastrzeżone.</p>
-  </footer>
-  
 </body>
 </html>
