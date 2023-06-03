@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kino KinoKapePL - Bilety</title>
+  <title>Wybór biletów</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Kino KapePL</h1>
     <nav>
       <ul>
         <li><a href="index.html">Strona główna</a></li>
-        <li><a href="filmy.html">Filmy</a></li>
         <li><a href="repertuar.html">Repertuar</a></li>
         <li><a href="bilety.html">Bilety</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
@@ -21,129 +19,77 @@
   </header>
 
   <section id="content">
-    <h2>Kup bilet</h2>
-    <label for="miesiac">Wybierz miesiąc:</label>
-    <select id="miesiac" name="miesiac" onchange="generateDayButtons()">
-      <option value="6">Czerwiec</option>
-      <!-- Dodaj opcje dla innych miesięcy -->
-    </select>
+    <h2>Wybierz film, godzinę i miejsce</h2>
+    <form>
+      <label for="miesiac">Miesiąc:</label>
+      <select id="miesiac">
+        <option value="6">Czerwiec</option>
+      </select>
 
-    <div id="dni">
-      <!-- Tutaj zostaną wstawione przyciski na wybór dnia -->
-    </div>
-
-    <form action="kup-bilet.php" method="post">
-      <label for="imie">Imię:</label>
-      <input type="text" id="imie" name="imie" required>
-      <label for="nazwisko">Nazwisko:</label>
-      <input type="text" id="nazwisko" name="nazwisko" required>
-      <label for="film">Wybierz film:</label>
-      <select id="film" name="film" disabled>
-        <option value="">Wybierz film</option>
-      </select>
-      <label for="godzina">Wybierz godzinę:</label>
-      <select id="godzina" name="godzina" disabled>
-        <option value="">Wybierz godzinę</option>
-      </select>
-      <label for="sala">Wybierz salę:</label>
-      <select id="sala" name="sala" onchange="generateSeats()" disabled>
-        <option value="">Wybierz salę</option>
-        <option value="sala1">Sala 1</option>
-        <option value="sala2">Sala 2</option>
-        <option value="sala3">Sala 3</option>
-      </select>
-      <label for="miejsce">Wybierz miejsce:</label>
-      <div id="seat-map">
-        <!-- Tutaj zostanie wstawiona siatka miejsc -->
+      <label for="dni">Dzień:</label>
+      <div id="dni">
+        <!-- Dynamicznie generowane przyciski dni -->
       </div>
-      <div id="showtime"></div>
-      <input type="hidden" id="selected-seats" name="selected-seats">
-      <button type="submit">Kup bilet</button>
+
+      <label for="film">Film:</label>
+      <select id="film" disabled>
+        <!-- Dynamicznie generowane opcje filmów -->
+      </select>
+
+      <label for="godzina">Godzina:</label>
+      <select id="godzina" disabled>
+        <!-- Dynamicznie generowane opcje godzin -->
+      </select>
+
+      <label for="sala">Sala:</label>
+      <select id="sala" disabled>
+        <option value="">Wybierz salę</option>
+      </select>
+
+      <h3>Wybierz miejsca:</h3>
+      <div id="seats-container">
+        <!-- Dynamicznie generowane miejsca w sali -->
+      </div>
+
+      <label for="selected-seats">Wybrane miejsca:</label>
+      <input type="text" id="selected-seats" readonly>
+
+      <button type="submit">Kup bilety</button>
     </form>
   </section>
 
+  <footer>
+    &copy; 2023 Kino XYZ. Wszelkie prawa zastrzeżone.
+  </footer>
+
   <script>
-    function generateDayButtons() {
-      const miesiacSelect = document.getElementById('miesiac');
-      const selectedMonth = parseInt(miesiacSelect.value);
-
-      const dniContainer = document.getElementById('dni');
-      dniContainer.innerHTML = '';
-
-      const startDay = 5; // Początkowy dzień (5 czerwca)
-      const endDay = 9; // Końcowy dzień (9 czerwca)
-
-      for (let i = startDay; i <= endDay; i++) {
-        const button = document.createElement('button');
-        button.textContent = `${i} Czerwca`;
-        button.value = i;
-        button.addEventListener('click', () => selectDay(i));
-        dniContainer.appendChild(button);
-      }
-    }
-
-    function selectDay(day) {
-      const selectedDate = new Date(2023, 5, day);
-      // Tutaj możesz dodać logikę obsługi wybranego dnia
-      console.log(`Wybrano ${day} czerwca`);
-
-      enableFilmSelection(); // Włącz możliwość wyboru filmu
-    }
-
-    function enableFilmSelection() {
-      const filmSelect = document.getElementById('film');
-      filmSelect.disabled = false;
-
-      const salaSelect = document.getElementById('sala');
-      salaSelect.disabled = true;
-
-      const godzinaSelect = document.getElementById('godzina');
-      godzinaSelect.disabled = true;
-    }
-
-    function generateSeats() {
-      const salaSelect = document.getElementById('sala');
-      const selectedSala = salaSelect.value;
-      const salaData = seatsData[selectedSala];
-
-      const seatsContainer = document.getElementById('seat-map');
-      seatsContainer.innerHTML = '';
-
-      for (let i = 0; i < salaData.length; i++) {
-        const row = salaData[i];
-        const rowElement = document.createElement('div');
-        rowElement.classList.add('row');
-
-        for (let j = 0; j < row.length; j++) {
-          const seat = row[j];
-          const seatElement = document.createElement('div');
-          seatElement.classList.add('seat');
-          seatElement.textContent = seat;
-          seatElement.addEventListener('click', () => selectSeat(seat));
-          rowElement.appendChild(seatElement);
+    const repertuar = {
+      6: {
+        5: {
+          film1: {
+            godziny: ['15:00', '18:00'],
+            sale: ['sala1', 'sala2']
+          },
+          film2: {
+            godziny: ['17:30'],
+            sale: ['sala3']
+          }
+        },
+        6: {
+          film3: {
+            godziny: ['14:00', '19:30'],
+            sale: ['sala1', 'sala3']
+          }
+        },
+        7: {
+          film4: {
+            godziny: ['20:00'],
+            sale: ['sala2']
+          }
         }
-
-        seatsContainer.appendChild(rowElement);
       }
-    }
-
-    function selectSeat(seat) {
-      const seatElement = event.target;
-
-      if (seatElement.classList.contains('selected')) {
-        seatElement.classList.remove('selected');
-        const index = selectedSeats.indexOf(seat);
-        if (index > -1) {
-          selectedSeats.splice(index, 1);
-        }
-      } else {
-        seatElement.classList.add('selected');
-        selectedSeats.push(seat);
-      }
-
-      const selectedSeatsInput = document.getElementById('selected-seats');
-      selectedSeatsInput.value = selectedSeats.join(',');
-    }
+      // Dodaj dane dla innych dni
+    };
 
     const seatsData = {
       sala1: [
@@ -168,12 +114,132 @@
       ]
     };
 
-    generateDayButtons();
+    const miesiacSelect = document.getElementById('miesiac');
+    const dniContainer = document.getElementById('dni');
+    const filmSelect = document.getElementById('film');
+    const godzinaSelect = document.getElementById('godzina');
+    const salaSelect = document.getElementById('sala');
+    const seatsContainer = document.getElementById('seats-container');
+    const selectedSeatsInput = document.getElementById('selected-seats');
+
+    miesiacSelect.addEventListener('change', updateDniOptions);
+    dniContainer.addEventListener('change', updateFilmOptions);
+    filmSelect.addEventListener('change', updateGodzinaOptions);
+    godzinaSelect.addEventListener('change', updateSalaOptions);
+    salaSelect.addEventListener('change', generateSeats);
+
+    function updateDniOptions() {
+      const selectedMiesiac = miesiacSelect.value;
+      dniContainer.innerHTML = '';
+
+      for (let dzien in repertuar[selectedMiesiac]) {
+        const dzienButton = document.createElement('button');
+        dzienButton.textContent = dzien;
+        dzienButton.addEventListener('click', () => selectDzien(dzien));
+        dniContainer.appendChild(dzienButton);
+      }
+    }
+
+    function selectDzien(dzien) {
+      const selectedMiesiac = miesiacSelect.value;
+      const selectedDzien = dzien;
+      const filmy = repertuar[selectedMiesiac][selectedDzien];
+
+      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
+      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+      seatsContainer.innerHTML = '';
+      selectedSeatsInput.value = '';
+
+      for (let film in filmy) {
+        const filmOption = document.createElement('option');
+        filmOption.value = film;
+        filmOption.textContent = film;
+        filmSelect.appendChild(filmOption);
+      }
+
+      filmSelect.disabled = false;
+    }
+
+    function updateGodzinaOptions() {
+      const selectedFilm = filmSelect.value;
+      const selectedMiesiac = miesiacSelect.value;
+      const selectedDzien = getSelectedDzien();
+
+      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+      seatsContainer.innerHTML = '';
+      selectedSeatsInput.value = '';
+
+      const godziny = repertuar[selectedMiesiac][selectedDzien][selectedFilm].godziny;
+
+      for (let godzina of godziny) {
+        const godzinaOption = document.createElement('option');
+        godzinaOption.value = godzina;
+        godzinaOption.textContent = godzina;
+        godzinaSelect.appendChild(godzinaOption);
+      }
+
+      godzinaSelect.disabled = false;
+    }
+
+    function updateSalaOptions() {
+      const selectedFilm = filmSelect.value;
+      const selectedMiesiac = miesiacSelect.value;
+      const selectedDzien = getSelectedDzien();
+      const selectedGodzina = godzinaSelect.value;
+
+      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+      seatsContainer.innerHTML = '';
+      selectedSeatsInput.value = '';
+
+      const sale = repertuar[selectedMiesiac][selectedDzien][selectedFilm].sale;
+
+      for (let sala of sale) {
+        const salaOption = document.createElement('option');
+        salaOption.value = sala;
+        salaOption.textContent = sala;
+        salaSelect.appendChild(salaOption);
+      }
+
+      salaSelect.disabled = false;
+    }
+
+    function generateSeats() {
+      const selectedSala = salaSelect.value;
+      const seats = seatsData[selectedSala];
+
+      seatsContainer.innerHTML = '';
+
+      for (let row of seats) {
+        const seatRow = document.createElement('div');
+
+        for (let seat of row) {
+          const seatButton = document.createElement('button');
+          seatButton.className = 'seat';
+          seatButton.textContent = seat;
+          seatButton.addEventListener('click', () => selectSeat(seatButton));
+          seatRow.appendChild(seatButton);
+        }
+
+        seatsContainer.appendChild(seatRow);
+      }
+    }
+
+    function selectSeat(seatButton) {
+      seatButton.classList.toggle('selected');
+
+      const selectedSeats = Array.from(seatsContainer.querySelectorAll('.selected'))
+        .map(selectedSeat => selectedSeat.textContent);
+
+      selectedSeatsInput.value = selectedSeats.join(', ');
+    }
+
+    function getSelectedDzien() {
+      return Array.from(dniContainer.querySelectorAll('button.selected'))[0].textContent;
+    }
+
+    updateDniOptions();
   </script>
-  
-  <footer>
-    <p>© 2023 Kino KapePL. Wszelkie prawa zastrzeżone.</p>
-  </footer>
-  
 </body>
 </html>
