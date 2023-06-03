@@ -123,7 +123,7 @@
     const selectedSeatsInput = document.getElementById('selected-seats');
 
     miesiacSelect.addEventListener('change', updateDniOptions);
-    dniContainer.addEventListener('change', updateFilmOptions);
+    dniContainer.addEventListener('click', selectDzien);
     filmSelect.addEventListener('change', updateGodzinaOptions);
     godzinaSelect.addEventListener('change', updateSalaOptions);
     salaSelect.addEventListener('change', generateSeats);
@@ -135,30 +135,31 @@
       for (let dzien in repertuar[selectedMiesiac]) {
         const dzienButton = document.createElement('button');
         dzienButton.textContent = dzien;
-        dzienButton.addEventListener('click', () => selectDzien(dzien));
         dniContainer.appendChild(dzienButton);
       }
     }
 
-    function selectDzien(dzien) {
-      const selectedMiesiac = miesiacSelect.value;
-      const selectedDzien = dzien;
-      const filmy = repertuar[selectedMiesiac][selectedDzien];
+    function selectDzien(event) {
+      if (event.target.tagName === 'BUTTON') {
+        const selectedDzien = event.target.textContent;
+        const selectedMiesiac = miesiacSelect.value;
+        const filmy = repertuar[selectedMiesiac][selectedDzien];
 
-      filmSelect.innerHTML = '<option value="">Wybierz film</option>';
-      godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
-      salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
-      seatsContainer.innerHTML = '';
-      selectedSeatsInput.value = '';
+        filmSelect.innerHTML = '<option value="">Wybierz film</option>';
+        godzinaSelect.innerHTML = '<option value="">Wybierz godzinę</option>';
+        salaSelect.innerHTML = '<option value="">Wybierz salę</option>';
+        seatsContainer.innerHTML = '';
+        selectedSeatsInput.value = '';
 
-      for (let film in filmy) {
-        const filmOption = document.createElement('option');
-        filmOption.value = film;
-        filmOption.textContent = film;
-        filmSelect.appendChild(filmOption);
+        for (let film in filmy) {
+          const filmOption = document.createElement('option');
+          filmOption.value = film;
+          filmOption.textContent = film;
+          filmSelect.appendChild(filmOption);
+        }
+
+        filmSelect.disabled = false;
       }
-
-      filmSelect.disabled = false;
     }
 
     function updateGodzinaOptions() {
