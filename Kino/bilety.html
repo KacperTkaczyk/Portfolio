@@ -38,17 +38,16 @@
         <option value="">Wybierz godzinę</option>
       </select>
       <label for="sala">Wybierz salę:</label>
-<select id="sala" name="sala" disabled>
-  <option value="">Wybierz salę</option>
-</select>
-<label for="miejsce">Wybierz miejsce:</label>
-<div id="seat-map">
-  <!-- Tutaj zostanie wstawiona siatka miejsc -->
-</div>
-<div id="showtime"></div>
-<input type="hidden" id="selected-seats" name="selected-seats">
-<button type="submit">Kup bilet</button>
-
+      <select id="sala" name="sala" disabled>
+        <option value="">Wybierz salę</option>
+      </select>
+      <label for="miejsce">Wybierz miejsce:</label>
+      <div id="seat-map">
+        <!-- Tutaj zostanie wstawiona siatka miejsc -->
+      </div>
+      <div id="showtime"></div>
+      <input type="hidden" id="selected-seats" name="selected-seats">
+      <button type="submit">Kup bilet</button>
     </form>
   </section>
 
@@ -234,6 +233,10 @@
     function updateShowtime(selectedGodzina) {
       showtime.textContent += `, godzina: ${selectedGodzina}`;
     }
+
+    const selectedDate = dataInput.value;
+    generateFilmsOptions(selectedDate);
+    enableFilmSelect();
   </script>
 
 </body>
