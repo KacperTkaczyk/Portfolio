@@ -19,7 +19,7 @@
       </ul>
     </nav>
   </header>
-  <div id="content">
+<div id="content">
   <h2>Rezerwacja biletów</h2>
 
   <form>
@@ -31,6 +31,7 @@
 
     <label for="day">Dzień:</label>
     <select id="day">
+      <option value="">WYBIERZ</option>
       <option value="5">5</option>
       <option value="6">6</option>
       <option value="7">7</option>
@@ -59,10 +60,10 @@
     <button type="submit" disabled>Zarezerwuj</button>
   </form>
 </div>
-  
-  <footer>
-    <p>© 2023 Kinomax. Wszelkie prawa zastrzeżone.</p>
-  </footer>
+
+<footer>
+  <p>© 2023 Kinomax. Wszelkie prawa zastrzeżone.</p>
+</footer>
 
 <script>
   const seatsData = {
@@ -135,6 +136,12 @@
       movieSelect.remove(0);
     }
 
+    // Add initial "WYBIERZ" option
+    const initialOption = document.createElement('option');
+    initialOption.value = '';
+    initialOption.text = 'WYBIERZ';
+    movieSelect.add(initialOption);
+
     films.forEach(film => {
       const option = document.createElement('option');
       option.value = film.name;
@@ -156,6 +163,12 @@
     while (timeSelect.options.length > 0) {
       timeSelect.remove(0);
     }
+
+    // Add initial "WYBIERZ" option
+    const initialOption = document.createElement('option');
+    initialOption.value = '';
+    initialOption.text = 'WYBIERZ';
+    timeSelect.add(initialOption);
 
     selectedFilmData.times.forEach(time => {
       const option = document.createElement('option');
@@ -179,6 +192,12 @@
     while (hallSelect.options.length > 0) {
       hallSelect.remove(0);
     }
+
+    // Add initial "WYBIERZ" option
+    const initialOption = document.createElement('option');
+    initialOption.value = '';
+    initialOption.text = 'WYBIERZ';
+    hallSelect.add(initialOption);
 
     selectedFilmData.halls.forEach(hall => {
       const option = document.createElement('option');
