@@ -113,7 +113,6 @@
       return;
     }
 
-    // Tutaj możesz dostosować warunek, aby pobierał filmy w zależności od miesiąca i dnia
     const movies = getMoviesByDate(month, day);
 
     if (movies.length === 0) {
@@ -146,7 +145,6 @@
       return;
     }
 
-    // Tutaj możesz dostosować warunek, aby pobierał godziny i sale w zależności od wybranego filmu
     const { time, halls } = getTimesAndHallsByMovie(movie);
 
     if (time.length === 1) {
@@ -154,10 +152,8 @@
       optionElement.value = time[0];
       optionElement.textContent = time[0];
       timeSelect.appendChild(optionElement);
-      timeSelect.disabled = true;
     } else {
       generateOptions(timeSelect, time);
-      timeSelect.disabled = false;
     }
 
     if (halls.length === 1) {
@@ -165,10 +161,8 @@
       optionElement.value = halls[0];
       optionElement.textContent = halls[0];
       hallSelect.appendChild(optionElement);
-      hallSelect.disabled = true;
     } else {
       generateOptions(hallSelect, halls);
-      hallSelect.disabled = false;
     }
 
     updateSeatSelection();
@@ -206,11 +200,7 @@
     submitButton.disabled = true;
   }
 
-  // Przykładowe funkcje pomocnicze do pobierania filmów, godzin i sal
   function getMoviesByDate(month, day) {
-    // W tej funkcji możesz zaimplementować logikę pobierania filmów na podstawie wybranego miesiąca i dnia
-    // Zwróć listę filmów dostępnych w danym dniu
-    // Przykładowo:
     if (month === 'czerwiec' && day === '5') {
       return ['Film 1', 'Film 2'];
     } else if (month === 'czerwiec' && day === '6') {
@@ -218,14 +208,10 @@
     } else if (month === 'czerwiec' && day === '7') {
       return ['Film 5', 'Film 6'];
     }
-    // itd.
     return [];
   }
 
   function getTimesAndHallsByMovie(movie) {
-    // W tej funkcji możesz zaimplementować logikę pobierania dostępnych godzin i sal na podstawie wybranego filmu
-    // Zwróć obiekt zawierający listę godzin i sal dla danego filmu
-    // Przykładowo:
     if (movie === 'Film 1') {
       return {
         time: ['17:00'],
@@ -242,7 +228,6 @@
         halls: ['sala2']
       };
     }
-    // itd.
     return {
       time: [],
       halls: []
@@ -252,7 +237,7 @@
   document.getElementById('month').addEventListener('change', updateMovieOptions);
   document.getElementById('day').addEventListener('change', updateMovieOptions);
   document.getElementById('movie').addEventListener('change', updateHallOptions);
-  document.getElementById('time').addEventListener('change', updateHallOptions);
+  document.getElementById('time').addEventListener('change', updateSeatSelection);
   document.getElementById('hall').addEventListener('change', updateSeatSelection);
   document.getElementById('seats').addEventListener('click', enableSubmitButton);
   document.querySelector('form').addEventListener('submit', (event) => {
@@ -261,7 +246,6 @@
     disableSubmitButton();
   });
 
-  // Inicjalizacja
   updateMovieOptions();
 </script>
 </div>
