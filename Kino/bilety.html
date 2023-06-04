@@ -88,6 +88,8 @@
     ]
   };
 
+  const bookedHalls = {}; // Obiekt przechowujący przypisane sale w danym czasie
+
   function generateOptions(selectElement, options) {
     options.forEach((option) => {
       const optionElement = document.createElement('option');
@@ -156,13 +158,19 @@
       generateOptions(timeSelect, time);
     }
 
-    if (halls.length === 1) {
+    // Filtrujemy dostępne sale, aby wykluczyć te, które są już zajęte w danym czasie
+    const availableHalls = halls.filter((hall) => {
+      const bookedHall = bookedHalls[timeSelect.value];
+      return !bookedHall || bookedHall !== hall;
+    });
+
+    if (availableHalls.length === 1) {
       const optionElement = document.createElement('option');
-      optionElement.value = halls[0];
-      optionElement.textContent = halls[0];
+      optionElement.value = availableHalls[0];
+      optionElement.textContent = availableHalls[0];
       hallSelect.appendChild(optionElement);
     } else {
-      generateOptions(hallSelect, halls);
+      generateOptions(hallSelect, availableHalls);
     }
 
     updateSeatSelection();
@@ -220,7 +228,7 @@
     } else if (movie === 'Film 2') {
       return {
         time: ['17:00', '21:00'],
-        halls: ['sala1', 'sala2']
+        halls: ['sala2']
       };
     } else if (movie === 'Film 3') {
       return {
