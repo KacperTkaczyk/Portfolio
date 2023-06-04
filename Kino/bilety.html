@@ -42,16 +42,19 @@
 
     <label for="movie">Film:</label>
     <select id="movie">
+      <option value="" disabled selected>Wybierz</option>
       <!-- Dynamicznie generowane opcje filmów -->
     </select>
 
     <label for="time">Godzina:</label>
     <select id="time">
+      <option value="" disabled selected>Wybierz</option>
       <!-- Dynamicznie generowane opcje godzin -->
     </select>
 
     <label for="hall">Sala:</label>
     <select id="hall">
+      <option value="" disabled selected>Wybierz</option>
       <!-- Dynamicznie generowane opcje sal -->
     </select>
 
@@ -98,11 +101,20 @@
     const month = document.getElementById('month').value;
     const day = document.getElementById('day').value;
 
-    // Tutaj możesz dostosować warunek, aby pobierał filmy w zależności od miesiąca i dnia
-    const movies = getMoviesByDate(month, day);
-
     const movieSelect = document.getElementById('movie');
     movieSelect.innerHTML = '';
+
+    if (day === '') {
+      const optionElement = document.createElement('option');
+      optionElement.disabled = true;
+      optionElement.selected = true;
+      optionElement.textContent = 'Wybierz';
+      movieSelect.appendChild(optionElement);
+      return;
+    }
+
+    // Tutaj możesz dostosować warunek, aby pobierał filmy w zależności od miesiąca i dnia
+    const movies = getMoviesByDate(month, day);
 
     if (movies.length === 0) {
       const optionElement = document.createElement('option');
@@ -113,28 +125,52 @@
     }
 
     generateOptions(movieSelect, movies);
-    updateHallOptions(); // Dodano aktualizację sal po wybraniu filmu
+    updateHallOptions();
   }
 
   function updateHallOptions() {
     const movie = document.getElementById('movie').value;
-    const time = document.getElementById('time').value;
-
-    // Tutaj możesz dostosować warunek, aby pobierał sale w zależności od wybranego filmu i godziny
-    const halls = getHallsByMovieAndTime(movie, time);
-
+    const timeSelect = document.getElementById('time');
     const hallSelect = document.getElementById('hall');
+
+    timeSelect.innerHTML = '';
     hallSelect.innerHTML = '';
 
-    if (halls.length === 0) {
+    if (movie === '') {
       const optionElement = document.createElement('option');
       optionElement.disabled = true;
-      optionElement.textContent = 'Brak dostępnych sal';
-      hallSelect.appendChild(optionElement);
+      optionElement.selected = true;
+      optionElement.textContent = 'Wybierz';
+      timeSelect.appendChild(optionElement);
+      hallSelect.appendChild(optionElement.cloneNode(true));
       return;
     }
 
-    generateOptions(hallSelect, halls);
+    // Tutaj możesz dostosować warunek, aby pobierał godziny i sale w zależności od wybranego filmu
+    const { time, halls } = getTimesAndHallsByMovie(movie);
+
+    if (time.length === 1) {
+      const optionElement = document.createElement('option');
+      optionElement.value = time[0];
+      optionElement.textContent = time[0];
+      timeSelect.appendChild(optionElement);
+      timeSelect.disabled = true;
+    } else {
+      generateOptions(timeSelect, time);
+      timeSelect.disabled = false;
+    }
+
+    if (halls.length === 1) {
+      const optionElement = document.createElement('option');
+      optionElement.value = halls[0];
+      optionElement.textContent = halls[0];
+      hallSelect.appendChild(optionElement);
+      hallSelect.disabled = true;
+    } else {
+      generateOptions(hallSelect, halls);
+      hallSelect.disabled = false;
+    }
+
     updateSeatSelection();
   }
 
@@ -170,7 +206,7 @@
     submitButton.disabled = true;
   }
 
-  // Przykładowe funkcje pomocnicze do pobierania filmów i sal
+  // Przykładowe funkcje pomocnicze do pobierania filmów, godzin i sal
   function getMoviesByDate(month, day) {
     // W tej funkcji możesz zaimplementować logikę pobierania filmów na podstawie wybranego miesiąca i dnia
     // Zwróć listę filmów dostępnych w danym dniu
@@ -186,21 +222,31 @@
     return [];
   }
 
-  function getHallsByMovieAndTime(movie, time) {
-    // W tej funkcji możesz zaimplementować logikę pobierania dostępnych sal na podstawie wybranego filmu i godziny
-    // Zwróć listę sal dostępnych dla danego filmu i godziny
+  function getTimesAndHallsByMovie(movie) {
+    // W tej funkcji możesz zaimplementować logikę pobierania dostępnych godzin i sal na podstawie wybranego filmu
+    // Zwróć obiekt zawierający listę godzin i sal dla danego filmu
     // Przykładowo:
-    if (movie === 'Film 1' && time === '17:00') {
-      return ['sala1'];
-    } else if (movie === 'Film 1' && time === '21:00') {
-      return ['sala2'];
-    } else if (movie === 'Film 2' && time === '17:00') {
-      return ['sala2'];
-    } else if (movie === 'Film 2' && time === '21:00') {
-      return ['sala1'];
+    if (movie === 'Film 1') {
+      return {
+        time: ['17:00'],
+        halls: ['sala1']
+      };
+    } else if (movie === 'Film 2') {
+      return {
+        time: ['17:00', '21:00'],
+        halls: ['sala1', 'sala2']
+      };
+    } else if (movie === 'Film 3') {
+      return {
+        time: ['19:00'],
+        halls: ['sala2']
+      };
     }
     // itd.
-    return [];
+    return {
+      time: [],
+      halls: []
+    };
   }
 
   document.getElementById('month').addEventListener('change', updateMovieOptions);
