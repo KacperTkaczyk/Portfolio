@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Nowy styl dla zaznaczonych miejsc */
+    /* Nowy styl dla zaznaczonego kwadratu */
     .selected-seat {
       background-color: red;
     }
@@ -147,121 +147,168 @@
       const selectedMonth = monthSelect.value;
       const selectedDay = daySelect.value;
       const key = `${selectedMonth}-${selectedDay}`;
-      const movies = moviesData[key] || [];
 
+      // Wyczyść opcje filmów
       movieSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
 
-      for (const movie of movies) {
-        const option = document.createElement('option');
-        option.value = movie.title;
-        option.textContent = movie.title;
-        movieSelect.appendChild(option);
+      if (movies.hasOwnProperty(key)) {
+        // Pobierz filmy dla wybranego dnia
+        const moviesForDay = movies[key];
+
+        // Dodaj opcje filmów do listy rozwijanej
+        moviesForDay.forEach(movie => {
+          const option = document.createElement('option');
+          option.value = movie.title;
+          option.textContent = movie.title;
+          movieSelect.appendChild(option);
+        });
       }
 
-      timeSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      seatsContainer.innerHTML = '';
-      submitButton.disabled = true;
+      updateButtonState();
     }
 
     function updateTimeOptions() {
+      const selectedMovie = movieSelect.value;
       const selectedMonth = monthSelect.value;
       const selectedDay = daySelect.value;
-      const selectedMovie = movieSelect.value;
       const key = `${selectedMonth}-${selectedDay}`;
-      const movies = moviesData[key] || [];
 
+      // Wyczyść opcje godzin
       timeSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
 
-      for (const movie of movies) {
-        if (movie.title === selectedMovie) {
-          const option = document.createElement('option');
-          option.value = movie.time;
-          option.textContent = movie.time;
-          timeSelect.appendChild(option);
+      if (movies.hasOwnProperty(key)) {
+        // Pobierz filmy dla wybranego dnia
+        const moviesForDay = movies[key];
+
+        // Znajdź wybrany film
+        const selectedMovieData = moviesForDay.find(movie => movie.title === selectedMovie);
+
+        if (selectedMovieData) {
+          // Pobierz godziny dla wybranego filmu
+          const { hall } = selectedMovieData;
+          const timesForMovie = seatsData[hall];
+
+          // Dodaj opcje godzin do listy rozwijanej
+          timesForMovie.forEach(time => {
+            const option = document.createElement('option');
+            option.value = time;
+            option.textContent = time;
+            timeSelect.appendChild(option);
+          });
         }
       }
 
-      hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      seatsContainer.innerHTML = '';
-      submitButton.disabled = true;
+      updateButtonState();
     }
 
     function updateHallOptions() {
-      const selectedTime = timeSelect.value;
       const selectedMovie = movieSelect.value;
-      const selectedDay = daySelect.value;
       const selectedMonth = monthSelect.value;
+      const selectedDay = daySelect.value;
+      const selectedTime = timeSelect.value;
       const key = `${selectedMonth}-${selectedDay}`;
-      const movies = moviesData[key] || [];
 
+      // Wyczyść opcje sal
       hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
 
-      for (const movie of movies) {
-        if (movie.title === selectedMovie && movie.time === selectedTime) {
-          const option = document.createElement('option');
-          option.value = movie.hall;
-          option.textContent = movie.hall;
-          hallSelect.appendChild(option);
+      if (movies.hasOwnProperty(key)) {
+        // Pobierz filmy dla wybranego dnia
+        const moviesForDay = movies[key];
+
+        // Znajdź wybrany film
+        const selectedMovieData = moviesForDay.find(movie => movie.title === selectedMovie);
+
+        if (selectedMovieData) {
+          // Pobierz sale dla wybranego filmu
+          const hallsForMovie = seatsData[selectedMovieData.hall];
+
+          // Dodaj opcje sal do listy rozwijanej
+          hallsForMovie.forEach(hall => {
+            const option = document.createElement('option');
+            option.value = hall;
+            option.textContent = hall;
+            hallSelect.appendChild(option);
+          });
         }
       }
 
-      seatsContainer.innerHTML = '';
-      submitButton.disabled = true;
+      updateButtonState();
     }
 
-      function updateSeatsOptions() {
-    const selectedHall = hallSelect.value;
-    const seats = seatsData[selectedHall] || [];
+    function generateSeats() {
+      const selectedMovie = movieSelect.value;
+      const selectedMonth = monthSelect.value;
+      const selectedDay = daySelect.value;
+      const selectedTime = timeSelect.value;
+      const selectedHall = hallSelect.value;
+      const key = `${selectedMonth}-${selectedDay}`;
 
-    seatsContainer.innerHTML = '';
+      seatsContainer.innerHTML = ''; // Wyczyść poprzednie miejsca
 
-    const rowOrder = ['A', 'B', 'C']; // Nowa kolejność rzędów
+      if (movies.hasOwnProperty(key)) {
+        // Pobierz filmy dla wybranego dnia
+        const moviesForDay = movies[key];
 
-    for (const rowId of rowOrder) {
-      const row = seats.find(row => row[0].startsWith(rowId)); // Znajdujemy odpowiedni rząd
+        // Znajdź wybrany film
+        const selectedMovieData = moviesForDay.find(movie => movie.title === selectedMovie);
 
-      if (row) {
-        const rowContainer = document.createElement('div');
-        rowContainer.className = 'row-container';
+        if (selectedMovieData) {
+          // Pobierz miejsca dla wybranej sali
+          const seatsForHall = seatsData[selectedHall];
 
-        for (const seat of row) {
-          const seatContainer = document.createElement('div');
-          seatContainer.className = 'seat-container';
+          // Generuj miejsca dla wybranej sali
+          seatsForHall.forEach(row => {
+            const rowContainer = document.createElement('div');
+            rowContainer.classList.add('row-container');
 
-          const label = document.createElement('label');
-          label.textContent = seat;
-          label.setAttribute('for', seat);
-          label.addEventListener('click', handleSeatSelection);
+            row.forEach(seat => {
+              const seatContainer = document.createElement('div');
+              seatContainer.classList.add('seat-container');
+              seatContainer.textContent = seat;
 
-          seatContainer.appendChild(label);
-          rowContainer.appendChild(seatContainer);
+              seatContainer.addEventListener('click', () => {
+                seatContainer.classList.toggle('selected'); // Dodaj/usuń klasę "selected" po kliknięciu
+
+                updateButtonState();
+              });
+
+              rowContainer.appendChild(seatContainer);
+            });
+
+            seatsContainer.appendChild(rowContainer);
+          });
         }
-
-        seatsContainer.appendChild(rowContainer);
       }
+
+      updateButtonState();
     }
 
-    submitButton.disabled = true;
-  }
-
-    function handleSeatSelection(event) {
-      const selectedSeats = document.querySelectorAll('.selected-seat');
-      selectedSeats.forEach(seat => {
-        seat.classList.remove('selected-seat');
-      });
-
-      const seatContainer = event.target;
-      seatContainer.classList.add('selected-seat');
-
-      submitButton.disabled = false;
+    function updateButtonState() {
+      submitButton.disabled = !(
+        movieSelect.value &&
+        timeSelect.value &&
+        hallSelect.value &&
+        seatsContainer.querySelector('.seat-container.selected') !== null
+      );
     }
 
+    // Nasłuchuj zmiany w wyborze miesiąca
     monthSelect.addEventListener('change', updateMovieOptions);
+
+    // Nasłuchuj zmiany w wyborze dnia
     daySelect.addEventListener('change', updateMovieOptions);
+
+    // Nasłuchuj zmiany w wyborze filmu
     movieSelect.addEventListener('change', updateTimeOptions);
+
+    // Nasłuchuj zmiany w wyborze godziny
     timeSelect.addEventListener('change', updateHallOptions);
-    hallSelect.addEventListener('change', updateSeatsOptions);
+
+    // Nasłuchuj zmiany w wyborze sali
+    hallSelect.addEventListener('change', generateSeats);
+
+    // Inicjalizuj opcje filmów dla aktualnej daty
+    updateMovieOptions();
   </script>
 </body>
 </html>
