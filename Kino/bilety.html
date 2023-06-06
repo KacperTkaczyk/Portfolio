@@ -152,6 +152,107 @@
     document.getElementById('hall').addEventListener('change', updateSeatSelection);
 
     updateSeatSelection();
+    
+    // Znacznik div przechowujący aktualnie wybrane miejsca
+const selectedSeatsContainer = document.getElementById('selected-seats');
+
+function toggleSeatSelection(hall, seat) {
+  const seatKey = `${hall}-${seat}`;
+  const seatElement = document.querySelector(`.seat[data-seat="${seatKey}"]`);
+
+  if (selectedSeats.has(seatKey)) {
+    selectedSeats.delete(seatKey);
+    seatElement.classList.remove('selected');
+  } else {
+    selectedSeats.add(seatKey);
+    seatElement.classList.add('selected');
+  }
+
+  updateSubmitButtonState();
+  updateSelectedSeats();
+}
+
+function updateSelectedSeats() {
+  selectedSeatsContainer.innerHTML = '';
+
+  if (selectedSeats.size === 0) {
+    const placeholder = document.createElement('p');
+    placeholder.textContent = 'Wybierz miejsca';
+    selectedSeatsContainer.appendChild(placeholder);
+  } else {
+    selectedSeats.forEach((seat) => {
+      const seatElement = document.createElement('span');
+      seatElement.textContent = seat;
+      selectedSeatsContainer.appendChild(seatElement);
+    });
+  }
+}
+
+// Funkcja do wyśrodkowania miejsc w kontenerze
+function centerSeats() {
+  const seatRows = document.querySelectorAll('.seat-row');
+
+  seatRows.forEach((row) => {
+    const seatElements = row.querySelectorAll('.seat');
+    const rowWidth = row.offsetWidth;
+
+    // Obliczanie szerokości całego rzędu miejsc
+    let seatsWidth = 0;
+    seatElements.forEach((seatElement) => {
+      seatsWidth += seatElement.offsetWidth;
+    });
+
+    // Obliczanie marginesu lewego dla wycentrowania
+    const margin = (rowWidth - seatsWidth) / 2;
+
+    // Ustawienie marginesu dla każdego miejsca w rzędzie
+    seatElements.forEach((seatElement) => {
+      seatElement.style.marginLeft = `${margin}px`;
+    });
+  });
+}
+
+// Funkcja wywoływana po każdej aktualizacji miejsc
+function updateSeatSelection() {
+  const hall = document.getElementById('hall').value;
+  const seats = seatsData[hall];
+
+  const seatsContainer = document.getElementById('seats');
+  seatsContainer.innerHTML = '';
+
+  seats.forEach((row) => {
+    const rowElement = document.createElement('div');
+    rowElement.classList.add('seat-row');
+
+    row.forEach((seat) => {
+      const seatElement = document.createElement('div');
+      seatElement.classList.add('seat');
+      seatElement.textContent = seat;
+
+      // Sprawdzamy, czy dane miejsce jest już zarezerwowane
+      if (isSeatBooked(hall, seat)) {
+        seatElement.classList.add('booked');
+      } else {
+        seatElement.addEventListener('click', () => toggleSeatSelection(hall, seat));
+      }
+
+      rowElement.appendChild(seatElement);
+    });
+
+    seatsContainer.appendChild(rowElement);
+  });
+
+  centerSeats();
+  updateSelectedSeats();
+}
+
+// Inicjalizacja
+window.addEventListener('resize', centerSeats);
+
+// Dodaj te linie kodu na koniec skryptu
+
+updateSelectedSeats();
+centerSeats();
   </script>
 </div>
 </body>
