@@ -284,9 +284,10 @@ td a:hover {
   justify-content: center;
   align-items: center;
   margin-right: 5px;
+  cursor: pointer;
 }
 
-.seat-container input[type="checkbox"]:checked + label {
+.seat-container.selected-seat {
   background-color: red;
 }
 
@@ -312,8 +313,8 @@ td a:hover {
   cursor: pointer;
 }
 
-.seat.selected {
-  background-color: #007bff;
+.seat.selected-seat {
+  background-color: red;
   color: #fff;
 }
 
@@ -321,6 +322,7 @@ td a:hover {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
 
 
 /* ~~~~~~~~~~~~~~ */
