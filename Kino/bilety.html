@@ -12,14 +12,15 @@
     }
 
     /* Nowy styl dla układu miejsc */
-  .row-container {
-    display: flex;
-    flex-direction: column;
-  }
+    .row-container {
+      display: flex;
+      flex-wrap: wrap; /* Dodana właściwość flex-wrap */
+    }
 
-  .seat-container {
-    margin-bottom: 5px;
-  }
+    .seat-container {
+      flex-basis: 12.5%; /* Ustalamy szerokość na 12.5% (1/8) */
+      margin-bottom: 5px;
+    }
 
     .seat-container.selected {
       background-color: red;
