@@ -97,6 +97,7 @@
   };
 
   const bookedHalls = {}; // Obiekt przechowujący przypisane sale w danym czasie
+  const selectedSeats = new Set(); // Zbiór wybranych miejsc
 
   function generateOptions(selectElement, options) {
     options.forEach((option) => {
@@ -199,11 +200,39 @@
         const seatElement = document.createElement('div');
         seatElement.classList.add('seat');
         seatElement.textContent = seat;
+
+        // Sprawdzamy, czy dane miejsce jest już zarezerwowane
+        if (isSeatBooked(hall, seat)) {
+          seatElement.classList.add('booked');
+        } else {
+          seatElement.addEventListener('click', () => toggleSeatSelection(hall, seat));
+        }
+
         rowElement.appendChild(seatElement);
       });
 
       seatsContainer.appendChild(rowElement);
     });
+  }
+
+  function toggleSeatSelection(hall, seat) {
+    const seatKey = `${hall}-${seat}`;
+    const seatElement = document.querySelector(`.seat[data-seat="${seatKey}"]`);
+
+    if (selectedSeats.has(seatKey)) {
+      selectedSeats.delete(seatKey);
+      seatElement.classList.remove('selected');
+    } else {
+      selectedSeats.add(seatKey);
+      seatElement.classList.add('selected');
+    }
+
+    updateSubmitButtonState();
+  }
+
+  function updateSubmitButtonState() {
+    const submitButton = document.querySelector('button[type="submit"]');
+    submitButton.disabled = selectedSeats.size === 0;
   }
 
   function enableSubmitButton() {
@@ -216,6 +245,11 @@
     submitButton.disabled = true;
   }
 
+  function isSeatBooked(hall, seat) {
+    const seatKey = `${hall}-${seat}`;
+    return selectedSeats.has(seatKey) || (bookedHalls[hall] && bookedHalls[hall].includes(seat));
+  }
+
   function getMoviesByDate(month, day) {
     if (month === 'czerwiec' && day === '5') {
       return ['SPIDER-MAN: POPRZEZ MULTIWERSUM', 'SZYBCY I WŚCIEKLI 10'];
@@ -224,62 +258,62 @@
     } else if (month === 'czerwiec' && day === '7') {
       return ['MOJE WAKACJE Z RUDYM', 'PADDINGTON 2'];
     } else if (month === 'czerwiec' && day === '8') {
-      return ['MOJE WAKACJE Z RUDYM', 'MILCZENIE'];
+      return ['MOJE WAKACJE Z RUDYM', 'MILCZENIE OWIEC'];
     } else if (month === 'czerwiec' && day === '9') {
-      return ['	STRAŻNICY GALAKTYKI: VOLUME 3', 'PADDINGTON 2'];
+      return ['PADDINGTON 2', 'MILCZENIE OWIEC'];
+    } else {
+      return [];
     }
-    return [];
   }
 
   function getTimesAndHallsByMovie(movie) {
-    if (movie === 'SZYBCY I WŚCIEKLI 10') {
+    if (movie === 'SPIDER-MAN: POPRZEZ MULTIWERSUM') {
       return {
-        time: ['19:00'],
-        halls: ['sala1']
+        time: ['14:00', '16:30', '19:00'],
+        halls: ['sala1', 'sala2']
       };
-    } else if (movie === 'SPIDER-MAN: POPRZEZ MULTIWERSUM') {
+    } else if (movie === 'SZYBCY I WŚCIEKLI 10') {
       return {
-        time: ['15:00'],
-        halls: ['sala1']
+        time: ['15:00', '17:30', '20:00'],
+        halls: ['sala2']
       };
     } else if (movie === 'STRAŻNICY GALAKTYKI: VOLUME 3') {
       return {
-        time: ['14:00'],
-        halls: ['sala2']
+        time: ['14:30', '17:00', '19:30'],
+        halls: ['sala1']
       };
     } else if (movie === 'MOJE WAKACJE Z RUDYM') {
       return {
-        time: ['16:00'],
-        halls: ['sala2']
-      };
-    } else if (movie === 'MILCZENIE') {
-      return {
-        time: ['18:00'],
-        halls: ['sala3']
+        time: ['14:00', '16:30', '19:00'],
+        halls: ['sala1', 'sala2', 'sala3']
       };
     } else if (movie === 'PADDINGTON 2') {
       return {
-        time: ['14:00'],
-        halls: ['sala3']
+        time: ['14:00', '16:30'],
+        halls: ['sala2', 'sala3']
+      };
+    } else if (movie === 'MILCZENIE OWIEC') {
+      return {
+        time: ['15:00', '17:30', '20:00'],
+        halls: ['sala1', 'sala3']
+      };
+    } else {
+      return {
+        time: [],
+        halls: []
       };
     }
-    return {
-      time: [],
-      halls: []
-    };
   }
 
-  document.getElementById('month').addEventListener('change', updateMovieOptions);
-  document.getElementById('day').addEventListener('change', updateMovieOptions);
-  document.getElementById('movie').addEventListener('change', updateHallOptions);
-  document.getElementById('time').addEventListener('change', updateSeatSelection);
-  document.getElementById('hall').addEventListener('change', updateSeatSelection);
-  document.getElementById('seats').addEventListener('click', enableSubmitButton);
-  document.querySelector('form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    alert('Bilet zarezerwowany!');
-    disableSubmitButton();
-  });
+  // Inicjalizacja
+  const monthSelect = document.getElementById('month');
+  const daySelect = document.getElementById('day');
+
+  monthSelect.addEventListener('change', updateMovieOptions);
+  daySelect.addEventListener('change', updateMovieOptions);
+  movieSelect.addEventListener('change', updateHallOptions);
+  timeSelect.addEventListener('change', updateSeatSelection);
+  hallSelect.addEventListener('change', updateSeatSelection);
 
   updateMovieOptions();
 </script>
