@@ -210,15 +210,15 @@
 
   function getMoviesByDate(month, day) {
     if (month === 'czerwiec' && day === '5') {
-      return ['SZYBCY I WŚCIEKLI 10', 'SPIDER-MAN: POPRZEZ MULTIWERSUM'];
+      return ['SPIDER-MAN: POPRZEZ MULTIWERSUM', 'SZYBCY I WŚCIEKLI 10'];
     } else if (month === 'czerwiec' && day === '6') {
-      return ['SPIDER-MAN: POPRZEZ MULTIWERSUM', '	STRAŻNICY GALAKTYKI: VOLUME 3'];
+      return ['SPIDER-MAN: POPRZEZ MULTIWERSUM', 'STRAŻNICY GALAKTYKI: VOLUME 3'];
     } else if (month === 'czerwiec' && day === '7') {
-      return ['MOJE WAKACJE Z RUDYM', '	PADDINGTON 2'];
+      return ['MOJE WAKACJE Z RUDYM', 'PADDINGTON 2'];
     } else if (month === 'czerwiec' && day === '8') {
-      return ['MILCZENIE', 'MOJE WAKACJE Z RUDYM'];
+      return ['MOJE WAKACJE Z RUDYM', 'MILCZENIE'];
     } else if (month === 'czerwiec' && day === '9') {
-      return ['	STRAŻNICY GALAKTYKI: VOLUME 3', '	PADDINGTON 2'];
+      return ['	STRAŻNICY GALAKTYKI: VOLUME 3', 'PADDINGTON 2'];
     }
     return [];
   }
@@ -226,18 +226,33 @@
   function getTimesAndHallsByMovie(movie) {
     if (movie === 'SZYBCY I WŚCIEKLI 10') {
       return {
-        time: ['12:00'],
+        time: ['19:00'],
         halls: ['sala1']
       };
     } else if (movie === 'SPIDER-MAN: POPRZEZ MULTIWERSUM') {
       return {
         time: ['15:00'],
+        halls: ['sala1']
+      };
+    } else if (movie === 'STRAŻNICY GALAKTYKI: VOLUME 3') {
+      return {
+        time: ['14:00'],
         halls: ['sala2']
       };
-    } else if (movie === 'Film 3') {
+    } else if (movie === 'MOJE WAKACJE Z RUDYM') {
       return {
-        time: ['19:00'],
+        time: ['16:00'],
         halls: ['sala2']
+      };
+    } else if (movie === 'MILCZENIE') {
+      return {
+        time: ['18:00'],
+        halls: ['sala3']
+      };
+    } else if (movie === 'PADDINGTON 2') {
+      return {
+        time: ['14:00'],
+        halls: ['sala3']
       };
     }
     return {
