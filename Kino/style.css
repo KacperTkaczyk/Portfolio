@@ -218,68 +218,79 @@ td a:hover {
 
 
 /* bilety.html */
+#content {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+#content h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#content form {
+  margin-top: 20px;
+}
+
+#content label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#content input[type="text"],
+#content select {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#content button[type="submit"] {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#content button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.seat-row {
+  display: flex;
+  margin-bottom: 10px;
+}
 
 .seat {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      margin: 5px;
-      background-color: #ccc;
-      border: 1px solid #aaa;
-      cursor: pointer;
-    }
-    .selected {
-      background-color: #ff0000;
-    }
-	
-  #content {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-  }
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}
 
-  #content h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
+.seat.selected {
+  background-color: #57aaff;
+}
 
-  #content form {
-    margin-top: 20px;
-  }
-
-  #content label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-	  #content input[type="text"],
-	#content select {
-	  width: 50%;
-	  padding: 10px;
-	  border: 1px solid #ccc;
-	  border-radius: 4px;
-	  font-size: 16px;
-	  margin-bottom: 10px;
-	}
-
-
-  #content button[type="submit"] {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  #content button[type="submit"]:hover {
-    background-color: #45a049;
-  }
+.seat.booked {
+  background-color: #ff0000;
+  cursor: not-allowed;
+}
 
 /* ~~~~~~~~~~~~~~ */
 
