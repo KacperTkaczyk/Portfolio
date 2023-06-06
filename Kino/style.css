@@ -277,15 +277,20 @@ td a:hover {
 }
 
 .seat-container {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 5px;
 }
 
-#seats {
-  display: flex;
-  justify-content: center;
+.seat-container input[type="checkbox"]:checked + label {
+  background-color: red;
 }
 
-.row-container {
+#seats {
   display: flex;
   justify-content: center;
 }
@@ -316,6 +321,7 @@ td a:hover {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
 
 /* ~~~~~~~~~~~~~~ */
 
