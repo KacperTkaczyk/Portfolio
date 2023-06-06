@@ -316,6 +316,36 @@
   hallSelect.addEventListener('change', updateSeatSelection);
 
   updateMovieOptions();
+
+  function toggleSeatSelection(hall, seat) {
+    const seatKey = `${hall}-${seat}`;
+    const seatElement = document.querySelector(`.seat[data-seat="${seatKey}"]`);
+
+    if (selectedSeats.has(seatKey)) {
+      selectedSeats.delete(seatKey);
+      seatElement.classList.remove('selected');
+    } else {
+      selectedSeats.add(seatKey);
+      seatElement.classList.add('selected');
+    }
+
+    updateSubmitButtonState();
+  }
+
+
+  function initializeSeatSelection() {
+    const seatsContainer = document.getElementById('seats');
+    seatsContainer.addEventListener('click', (event) => {
+      const clickedSeat = event.target;
+      const seatKey = clickedSeat.dataset.seat;
+      if (seatKey) {
+        const [hall, seat] = seatKey.split('-');
+        toggleSeatSelection(hall, seat);
+      }
+    });
+  }
+
+  initializeSeatSelection();
 </script>
 </div>
 </body>
