@@ -210,13 +210,18 @@
       submitButton.disabled = true;
     }
 
-    function updateSeatsOptions() {
-      const selectedHall = hallSelect.value;
-      const seats = seatsData[selectedHall] || [];
+      function updateSeatsOptions() {
+    const selectedHall = hallSelect.value;
+    const seats = seatsData[selectedHall] || [];
 
-      seatsContainer.innerHTML = '';
+    seatsContainer.innerHTML = '';
 
-      for (const row of seats) {
+    const rowOrder = ['A', 'B', 'C']; // Nowa kolejność rzędów
+
+    for (const rowId of rowOrder) {
+      const row = seats.find(row => row[0].startsWith(rowId)); // Znajdujemy odpowiedni rząd
+
+      if (row) {
         const rowContainer = document.createElement('div');
         rowContainer.className = 'row-container';
 
@@ -235,9 +240,10 @@
 
         seatsContainer.appendChild(rowContainer);
       }
-
-      submitButton.disabled = true;
     }
+
+    submitButton.disabled = true;
+  }
 
     function handleSeatSelection(event) {
       const selectedSeats = document.querySelectorAll('.selected-seat');
