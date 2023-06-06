@@ -267,6 +267,29 @@ td a:hover {
   background-color: #45a049;
 }
 
+.selected-seat {
+  background-color: red;
+}
+
+.row-container {
+  display: flex;
+  justify-content: center;
+}
+
+.seat-container {
+  margin-right: 5px;
+}
+
+#seats {
+  display: flex;
+  justify-content: center;
+}
+
+.row-container {
+  display: flex;
+  justify-content: center;
+}
+
 .seat-row {
   display: flex;
   justify-content: center;
