@@ -49,7 +49,7 @@
   <div id="content">
     <h2>Rezerwacja biletów</h2>
 
-    <form>
+    <form id="reservation-form">
       <label for="month">Miesiąc:</label>
       <select id="month">
         <option value="czerwiec" selected>Czerwiec</option>
@@ -142,6 +142,9 @@
     const hallSelect = document.getElementById('hall');
     const seatsContainer = document.getElementById('seats');
     const submitButton = document.querySelector('button[type="submit"]');
+    const form = document.querySelector('form');
+
+    let selectedSeats = [];
 
     function updateMovieOptions() {
       const selectedMonth = monthSelect.value;
@@ -210,51 +213,70 @@
       submitButton.disabled = true;
     }
 
-      function updateSeatsOptions() {
-    const selectedHall = hallSelect.value;
-    const seats = seatsData[selectedHall] || [];
+    function updateSeatsOptions() {
+      const selectedHall = hallSelect.value;
+      const seats = seatsData[selectedHall] || [];
 
-    seatsContainer.innerHTML = '';
+      seatsContainer.innerHTML = '';
 
-    const rowOrder = ['A', 'B', 'C']; // Nowa kolejność rzędów
+      const rowOrder = ['A', 'B', 'C', 'D']; // Nowa kolejność rzędów
 
-    for (const rowId of rowOrder) {
-      const row = seats.find(row => row[0].startsWith(rowId)); // Znajdujemy odpowiedni rząd
+      for (const rowId of rowOrder) {
+        const row = seats.find(row => row[0].startsWith(rowId)); // Znajdujemy odpowiedni rząd
 
-      if (row) {
-        const rowContainer = document.createElement('div');
-        rowContainer.className = 'row-container';
+        if (row) {
+          const rowContainer = document.createElement('div');
+          rowContainer.className = 'row-container';
 
-        for (const seat of row) {
-          const seatContainer = document.createElement('div');
-          seatContainer.className = 'seat-container';
+          for (const seat of row) {
+            const seatContainer = document.createElement('div');
+            seatContainer.className = 'seat-container';
 
-          const label = document.createElement('label');
-          label.textContent = seat;
-          label.setAttribute('for', seat);
-          label.addEventListener('click', handleSeatSelection);
+            const label = document.createElement('label');
+            label.textContent = seat;
+            label.setAttribute('for', seat);
+            label.addEventListener('click', handleSeatSelection);
 
-          seatContainer.appendChild(label);
-          rowContainer.appendChild(seatContainer);
+            seatContainer.appendChild(label);
+            rowContainer.appendChild(seatContainer);
+          }
+
+          seatsContainer.appendChild(rowContainer);
         }
-
-        seatsContainer.appendChild(rowContainer);
       }
+
+      submitButton.disabled = true;
     }
 
-    submitButton.disabled = true;
-  }
-
     function handleSeatSelection(event) {
-      const selectedSeats = document.querySelectorAll('.selected-seat');
-      selectedSeats.forEach(seat => {
-        seat.classList.remove('selected-seat');
-      });
+      const selectedSeat = event.target.textContent;
 
-      const seatContainer = event.target;
-      seatContainer.classList.add('selected-seat');
+      if (selectedSeats.includes(selectedSeat)) {
+        selectedSeats = selectedSeats.filter(seat => seat !== selectedSeat);
+        event.target.parentElement.classList.remove('selected');
+      } else {
+        selectedSeats.push(selectedSeat);
+        event.target.parentElement.classList.add('selected');
+      }
 
-      submitButton.disabled = false;
+      submitButton.disabled = selectedSeats.length === 0;
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+
+      const selectedMonth = monthSelect.value;
+      const selectedDay = daySelect.value;
+      const selectedMovie = movieSelect.value;
+      const selectedTime = timeSelect.value;
+      const selectedHall = hallSelect.value;
+
+      console.log('Miesiąc:', selectedMonth);
+      console.log('Dzień:', selectedDay);
+      console.log('Film:', selectedMovie);
+      console.log('Godzina:', selectedTime);
+      console.log('Sala:', selectedHall);
+      console.log('Wybrane miejsca:', selectedSeats);
     }
 
     monthSelect.addEventListener('change', updateMovieOptions);
@@ -262,6 +284,7 @@
     movieSelect.addEventListener('change', updateTimeOptions);
     timeSelect.addEventListener('change', updateHallOptions);
     hallSelect.addEventListener('change', updateSeatsOptions);
+    form.addEventListener('submit', handleFormSubmit);
   </script>
 </body>
 </html>
