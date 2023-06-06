@@ -14,12 +14,18 @@
     /* Nowy styl dla układu miejsc */
     .row-container {
       display: flex;
-      flex-wrap: wrap; /* Dodana właściwość flex-wrap */
+      justify-content: center;
     }
 
     .seat-container {
-      flex-basis: 12.5%; /* Ustalamy szerokość na 12.5% (1/8) */
-      margin-bottom: 5px;
+      margin: 5px;
+      width: 20px;
+      height: 20px;
+      border: 1px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
 
     .seat-container.selected {
