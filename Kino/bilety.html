@@ -3,23 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Kinomax - Bilety</title>
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* Nowy styl dla zaznaczonych miejsc */
-    .selected-seat {
-      background-color: red;
-    }
-
-    /* Nowy styl dla układu miejsc */
-    .row-container {
-      display: flex;
-    }
-
-    .seat-container {
-      margin-right: 5px;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -94,33 +77,9 @@
         { title: 'STRAŻNICY GALAKTYKI: VOLUME 3', time: '17:30', hall: 'sala2' }
       ],
       'czerwiec-7': [
-        { title: 'MOJE WAKACJE Z RUDYM', time: '16:00', hall: 'sala1' },
-        { title: 'PADDINGTON 2', time: '19:00', hall: 'sala2' }
-      ],
-      'czerwiec-8': [
-        { title: 'MOJE WAKACJE Z RUDYM', time: '15:30', hall: 'sala1' },
-        { title: 'MILCZENIE OWIEC', time: '18:30', hall: 'sala2' }
-      ],
-      'czerwiec-9': [
-        { title: 'PADDINGTON 2', time: '16:30', hall: 'sala1' },
-        { title: 'MILCZENIE OWIEC', time: '19:30', hall: 'sala2' }
+        { title: 'SZYBCY I WŚCIEKLI 10', time: '15:15', hall: 'sala1' },
+        { title: 'KAC VEGAS', time: '18:30', hall: 'sala2' }
       ]
-      // Dodaj filmy dla pozostałych dni/miesięcy tutaj
-    };
-
-    const seatsData = {
-      sala1: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8']
-      ],
-      sala2: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8']
-      ]
-      // Dodaj sale dla pozostałych kin tutaj
     };
 
     const monthSelect = document.getElementById('month');
@@ -131,130 +90,94 @@
     const seatsContainer = document.getElementById('seats');
     const submitButton = document.querySelector('button[type="submit"]');
 
-    function updateMovieOptions() {
+    // Wygeneruj opcje dla miesięcy
+    for (const month in moviesData) {
+      const option = document.createElement('option');
+      option.value = month;
+      option.textContent = month.charAt(0).toUpperCase() + month.slice(1);
+      monthSelect.appendChild(option);
+    }
+
+    // Obsługa zmiany miesiąca
+    monthSelect.addEventListener('change', () => {
       const selectedMonth = monthSelect.value;
-      const selectedDay = daySelect.value;
-      const key = `${selectedMonth}-${selectedDay}`;
-      const movies = moviesData[key] || [];
+      daySelect.innerHTML = '<option value="">WYBIERZ</option>'; // Wyczyść opcje dni
 
-      movieSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
+      if (selectedMonth) {
+        const movies = moviesData[selectedMonth];
 
-      for (const movie of movies) {
+        for (const movie of movies) {
+          const option = document.createElement('option');
+          option.value = movie.title;
+          option.textContent = movie.title;
+          movieSelect.appendChild(option);
+        }
+      }
+    });
+
+    // Obsługa zmiany filmu
+    movieSelect.addEventListener('change', () => {
+      const selectedMonth = monthSelect.value;
+      const selectedMovie = movieSelect.value;
+      timeSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>'; // Wyczyść opcje godzin
+      hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>'; // Wyczyść opcje sal
+      seatsContainer.innerHTML = ''; // Wyczyść miejsca
+
+      if (selectedMonth && selectedMovie) {
+        const movies = moviesData[selectedMonth];
+        const selectedMovieData = movies.find(movie => movie.title === selectedMovie);
+
         const option = document.createElement('option');
-        option.value = movie.title;
-        option.textContent = movie.title;
-        movieSelect.appendChild(option);
+        option.value = selectedMovieData.time;
+        option.textContent = selectedMovieData.time;
+        timeSelect.appendChild(option);
+
+        const hallOption = document.createElement('option');
+        hallOption.value = selectedMovieData.hall;
+        hallOption.textContent = selectedMovieData.hall;
+        hallSelect.appendChild(hallOption);
+
+        generateSeats(); // Wygeneruj miejsca
       }
+    });
 
-      timeSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      seatsContainer.innerHTML = '';
-      submitButton.disabled = true;
-    }
+    // Obsługa zmiany godziny
+    timeSelect.addEventListener('change', generateSeats);
 
-    function updateTimeOptions() {
-      const selectedMonth = monthSelect.value;
-      const selectedDay = daySelect.value;
-      const selectedMovie = movieSelect.value;
-      const key = `${selectedMonth}-${selectedDay}`;
-      const movies = moviesData[key] || [];
-
-      timeSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-
-      for (const movie of movies) {
-        if (movie.title === selectedMovie) {
-          const option = document.createElement('option');
-          option.value = movie.time;
-          option.textContent = movie.time;
-          timeSelect.appendChild(option);
-        }
-      }
-
-      hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      seatsContainer.innerHTML = '';
-      submitButton.disabled = true;
-    }
-
-    function updateHallOptions() {
-      const selectedTime = timeSelect.value;
-      const selectedMovie = movieSelect.value;
-      const selectedDay = daySelect.value;
-      const selectedMonth = monthSelect.value;
-      const key = `${selectedMonth}-${selectedDay}`;
-      const movies = moviesData[key] || [];
-
-      hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-
-      for (const movie of movies) {
-        if (movie.title === selectedMovie && movie.time === selectedTime) {
-          const option = document.createElement('option');
-          option.value = movie.hall;
-          option.textContent = movie.hall;
-          hallSelect.appendChild(option);
-        }
-      }
-
-      seatsContainer.innerHTML = '';
-      submitButton.disabled = true;
-    }
-
-    function updateSeatsOptions() {
+    // Generowanie miejsc
+    function generateSeats() {
+      seatsContainer.innerHTML = ''; // Wyczyść miejsca
       const selectedHall = hallSelect.value;
-      const seats = seatsData[selectedHall] || [];
+      const selectedTime = timeSelect.value;
 
-      seatsContainer.innerHTML = '';
+      if (selectedHall && selectedTime) {
+        const rowLetters = ['A', 'B', 'C', 'D', 'E'];
+        const seatCount = 8;
 
-      for (const row of seats) {
-        const rowContainer = document.createElement('div');
-        rowContainer.className = 'row-container';
+        for (const rowLetter of rowLetters) {
+          const seatRow = document.createElement('div');
+          seatRow.className = 'seat-row';
 
-        for (const seat of row) {
-          const seatContainer = document.createElement('div');
-          seatContainer.className = 'seat-container';
+          for (let i = 1; i <= seatCount; i++) {
+            const seat = document.createElement('div');
+            seat.className = 'seat';
+            seat.textContent = rowLetter + i;
+            seat.addEventListener('click', toggleSeat);
+            seatRow.appendChild(seat);
+          }
 
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.id = seat;
-          checkbox.name = 'seats';
-          checkbox.value = seat;
-          checkbox.addEventListener('change', handleSeatSelection);
-
-          const label = document.createElement('label');
-          label.textContent = seat;
-          label.setAttribute('for', seat);
-
-          seatContainer.appendChild(checkbox);
-          seatContainer.appendChild(label);
-          rowContainer.appendChild(seatContainer);
+          seatsContainer.appendChild(seatRow);
         }
 
-        seatsContainer.appendChild(rowContainer);
-      }
-
-      submitButton.disabled = true;
-    }
-
-    function handleSeatSelection(event) {
-      const selectedSeats = document.querySelectorAll('input[name="seats"]:checked');
-      if (selectedSeats.length > 0) {
         submitButton.disabled = false;
-      } else {
-        submitButton.disabled = true;
-      }
-
-      const seatContainer = event.target.parentNode;
-      if (event.target.checked) {
-        seatContainer.classList.add('selected');
-      } else {
-        seatContainer.classList.remove('selected');
       }
     }
 
-    monthSelect.addEventListener('change', updateMovieOptions);
-    daySelect.addEventListener('change', updateMovieOptions);
-    movieSelect.addEventListener('change', updateTimeOptions);
-    timeSelect.addEventListener('change', updateHallOptions);
-    hallSelect.addEventListener('change', updateSeatsOptions);
+    // Obsługa kliknięcia na miejsce
+    function toggleSeat(event) {
+      const selectedSeat = event.target;
+      selectedSeat.classList.toggle('selected');
+    }
   </script>
 </body>
 </html>
