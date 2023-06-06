@@ -269,26 +269,28 @@ td a:hover {
 
 .seat-row {
   display: flex;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
 .seat {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   width: 30px;
   height: 30px;
-  margin-right: 5px;
-  border: 1px solid black;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
   cursor: pointer;
 }
 
 .seat.selected {
-  background-color: #57aaff;
+  background-color: #007bff;
+  color: #fff;
 }
 
 .seat.booked {
-  background-color: #ff0000;
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
