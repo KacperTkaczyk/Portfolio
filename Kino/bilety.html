@@ -10,27 +10,6 @@
     .selected-seat {
       background-color: red;
     }
-
-    /* Nowy styl dla układu miejsc */
-    .row-container {
-      display: flex;
-      justify-content: center;
-    }
-
-    .seat-container {
-      margin: 5px;
-      width: 20px;
-      height: 20px;
-      border: 1px solid black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .seat-container.selected {
-      background-color: red;
-    }
   </style>
 </head>
 <body>
@@ -85,8 +64,6 @@
         <!-- Dynamicznie generowane opcje sal -->
       </select>
 
-      <div id="seats"></div>
-
       <button type="submit" disabled>Zarezerwuj</button>
     </form>
   </div>
@@ -120,27 +97,11 @@
       // Dodaj filmy dla pozostałych dni/miesięcy tutaj
     };
 
-    const seatsData = {
-      sala1: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8']
-      ],
-      sala2: [
-        ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
-        ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8'],
-        ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'],
-        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8']
-      ]
-      // Dodaj sale dla pozostałych kin tutaj
-    };
-
     const monthSelect = document.getElementById('month');
     const daySelect = document.getElementById('day');
     const movieSelect = document.getElementById('movie');
     const timeSelect = document.getElementById('time');
     const hallSelect = document.getElementById('hall');
-    const seatsContainer = document.getElementById('seats');
     const submitButton = document.querySelector('button[type="submit"]');
 
     function updateMovieOptions() {
@@ -160,7 +121,6 @@
 
       timeSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
       hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      seatsContainer.innerHTML = '';
       submitButton.disabled = true;
     }
 
@@ -183,7 +143,6 @@
       }
 
       hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
-      seatsContainer.innerHTML = '';
       submitButton.disabled = true;
     }
 
@@ -206,62 +165,13 @@
         }
       }
 
-      seatsContainer.innerHTML = '';
       submitButton.disabled = true;
-    }
-
-      function updateSeatsOptions() {
-    const selectedHall = hallSelect.value;
-    const seats = seatsData[selectedHall] || [];
-
-    seatsContainer.innerHTML = '';
-
-    const rowOrder = ['A', 'B', 'C']; // Nowa kolejność rzędów
-
-    for (const rowId of rowOrder) {
-      const row = seats.find(row => row[0].startsWith(rowId)); // Znajdujemy odpowiedni rząd
-
-      if (row) {
-        const rowContainer = document.createElement('div');
-        rowContainer.className = 'row-container';
-
-        for (const seat of row) {
-          const seatContainer = document.createElement('div');
-          seatContainer.className = 'seat-container';
-
-          const label = document.createElement('label');
-          label.textContent = seat;
-          label.setAttribute('for', seat);
-          label.addEventListener('click', handleSeatSelection);
-
-          seatContainer.appendChild(label);
-          rowContainer.appendChild(seatContainer);
-        }
-
-        seatsContainer.appendChild(rowContainer);
-      }
-    }
-
-    submitButton.disabled = true;
-  }
-
-    function handleSeatSelection(event) {
-      const selectedSeats = document.querySelectorAll('.selected-seat');
-      selectedSeats.forEach(seat => {
-        seat.classList.remove('selected-seat');
-      });
-
-      const seatContainer = event.target;
-      seatContainer.classList.add('selected-seat');
-
-      submitButton.disabled = false;
     }
 
     monthSelect.addEventListener('change', updateMovieOptions);
     daySelect.addEventListener('change', updateMovieOptions);
     movieSelect.addEventListener('change', updateTimeOptions);
     timeSelect.addEventListener('change', updateHallOptions);
-    hallSelect.addEventListener('change', updateSeatsOptions);
   </script>
 </body>
 </html>
