@@ -205,37 +205,6 @@ td a:hover {
 
 
 /* bilety.html */
-/* Nowy styl dla zaznaczonych miejsc */
-.selected-seat,
-.seat-container.selected-seat,
-.seat.selected-seat {
-  background-color: red;
-}
-
-/* Nowy styl dla układu miejsc */
-.row-container,
-.seat-row {
-  display: flex;
-  justify-content: center;
-}
-
-.seat-container,
-.seat,
-.seat-row .seat {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-.seat.selected-seat,
-.seat.selected-seat .seat {
-  color: #fff;
-}
 
 #content {
   background-color: #f2f2f2;
