@@ -165,6 +165,11 @@
     daySelect.addEventListener('change', updateMovieOptions);
     movieSelect.addEventListener('change', updateTimeOptions);
     timeSelect.addEventListener('change', updateHallOptions);
+    
+    submitButton.addEventListener('click', function(event) {
+  event.preventDefault(); // Zapobieganie domyślnej akcji formularza
+  alert('Bilet Zarezerwowany!');
+});
   </script>
 </body>
 </html>
