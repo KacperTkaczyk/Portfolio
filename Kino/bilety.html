@@ -159,6 +159,11 @@
       }
 
       reserveButton.disabled = true;
+
+      // Sprawdzamy, czy wszystkie pola zostały wybrane
+      if (selectedMonth && selectedDay && selectedMovie && selectedTime && hallSelect.value) {
+        reserveButton.disabled = false;
+      }
     }
 
     monthSelect.addEventListener('change', updateMovieOptions);
