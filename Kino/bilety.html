@@ -159,22 +159,12 @@
       }
 
       reserveButton.disabled = true;
-
-      // Sprawdzamy, czy wszystkie pola zostały wybrane
-      if (selectedMonth && selectedDay && selectedMovie && selectedTime && hallSelect.value) {
-        reserveButton.disabled = false;
-      }
     }
 
     monthSelect.addEventListener('change', updateMovieOptions);
     daySelect.addEventListener('change', updateMovieOptions);
     movieSelect.addEventListener('change', updateTimeOptions);
     timeSelect.addEventListener('change', updateHallOptions);
-
-    reserveButton.addEventListener('click', function(event) {
-      event.preventDefault(); // Zapobieganie domyślnej akcji formularza
-      alert('Bilet Zarezerwowany!');
-    });
   </script>
 </body>
 </html>
