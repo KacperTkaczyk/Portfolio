@@ -160,11 +160,21 @@
 
       reserveButton.disabled = true;
     }
+    
+    function resetForm() {
+      monthSelect.value = 'czerwiec';
+      daySelect.value = '';
+      movieSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
+      timeSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
+      hallSelect.innerHTML = '<option value="" disabled selected>Wybierz</option>';
+      reserveButton.disabled = true;
+    }
 
     monthSelect.addEventListener('change', updateMovieOptions);
     daySelect.addEventListener('change', updateMovieOptions);
     movieSelect.addEventListener('change', updateTimeOptions);
     timeSelect.addEventListener('change', updateHallOptions);
+    reserveButton.addEventListener('click', resetForm);
   </script>
 </body>
 </html>
