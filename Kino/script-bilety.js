@@ -1,23 +1,23 @@
 const moviesData = {
   'czerwiec-5': [
     { title: 'SPIDER-MAN: POPRZEZ MULTIWERSUM', time: '15:00', hall: 'sala1' },
-    { title: 'SZYBCY I WŚCIEKLI 10', time: '18:00', hall: 'sala2' }
+    { title: 'SZYBCY I WŚCIEKLI 10', time: '19:00', hall: 'sala2' }
   ],
   'czerwiec-6': [
     { title: 'SPIDER-MAN: POPRZEZ MULTIWERSUM', time: '14:30', hall: 'sala1' },
-    { title: 'STRAŻNICY GALAKTYKI: VOLUME 3', time: '17:30', hall: 'sala2' }
+    { title: 'STRAŻNICY GALAKTYKI: VOLUME 3', time: '17:30', hall: 'sala3' }
   ],
   'czerwiec-7': [
-    { title: 'MOJE WAKACJE Z RUDYM', time: '16:00', hall: 'sala1' },
-    { title: 'PADDINGTON 2', time: '19:00', hall: 'sala2' }
+    { title: 'MOJE WAKACJE Z RUDYM', time: '16:00', hall: 'sala2' },
+    { title: 'PADDINGTON 2', time: '18:30', hall: 'sala3' }
   ],
   'czerwiec-8': [
     { title: 'MOJE WAKACJE Z RUDYM', time: '15:30', hall: 'sala1' },
-    { title: 'MILCZENIE OWIEC', time: '18:30', hall: 'sala2' }
+    { title: 'MILCZENIE', time: '18:30', hall: 'sala2' }
   ],
   'czerwiec-9': [
     { title: 'PADDINGTON 2', time: '16:30', hall: 'sala1' },
-    { title: 'MILCZENIE OWIEC', time: '19:30', hall: 'sala2' }
+    { title: 'MILCZENIE', time: '19:30', hall: 'sala3' }
   ]
   // Dodaj filmy dla pozostałych dni/miesięcy tutaj
 };
