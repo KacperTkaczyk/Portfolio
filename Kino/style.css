@@ -26,6 +26,11 @@ header {
   color: #fff;
 }
 
+#content {
+  text-align: center;
+  flex-grow: 1;
+}
+
 nav ul {
   list-style: none;
 }
