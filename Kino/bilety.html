@@ -56,9 +56,9 @@
         <option value="" disabled selected>Wybierz</option>
         <!-- Dynamicznie generowane opcje sal -->
       </select>
-    </form>
 
-    <button type="submit" disabled>Zarezerwuj</button>
+      <button type="submit" disabled>Zarezerwuj</button>
+    </form>
   </div>
 
   <footer>
@@ -167,9 +167,9 @@
     timeSelect.addEventListener('change', updateHallOptions);
     
     submitButton.addEventListener('click', function(event) {
-  event.preventDefault(); // Zapobieganie domyślnej akcji formularza
-  alert('Bilet Zarezerwowany!');
-});
+      event.preventDefault(); // Zapobieganie domyślnej akcji formularza
+      alert('Bilet Zarezerwowany!');
+    });
   </script>
 </body>
 </html>
