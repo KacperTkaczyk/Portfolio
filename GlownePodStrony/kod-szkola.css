@@ -1,0 +1,107 @@
+/* Global styles */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+h2 {
+  color: #666;
+}
+
+p {
+  color: #777;
+  line-height: 1.5;
+}
+
+/* Header styles */
+
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a {
+  color: #333;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+}
+
+nav ul li:hover ul {
+  display: block;
+}
+
+/* Section styles */
+
+section {
+  padding: 20px;
+}
+
+/* Footer styles */
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+  /* Dodatkowe style dla podmenu */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+nav ul li ul li {
+  display: block;
+  margin-bottom: 10px;
+}
+
+nav ul li ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+nav ul li ul li a:hover {
+  color: #ff0000;
+}
+
+#psi-section,
+#pai-section {
+  display: none;
+}
+
