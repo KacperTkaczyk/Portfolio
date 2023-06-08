@@ -74,3 +74,28 @@ footer {
 a {
   text-decoration: none;
 }
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+  /* Dodatkowe style dla podmenu */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+nav ul li ul li {
+  display: block;
+  margin-bottom: 10px;
+}
+
+nav ul li ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+nav ul li ul li a:hover {
+  color: #ff0000;
+}
