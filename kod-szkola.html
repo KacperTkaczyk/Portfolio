@@ -12,82 +12,24 @@
     <nav>
       <ul>
         <li>
-          <a href="">PSI</a>
-          <ul>
-            <li><a href="PSI/Tabela.html">Kod Planu Lekcji (Dodaj Opis)</a></li>
-            <li><a href="PSI/formularz.html">Kod Formularzu (Dodaj Opis)</a></li>
-            <li><a href="PSI/rekrutacja/rekrutacja.html">Rekrutacja Elektronika</a></li>
-          </ul>
+          <a href="PSI/psi.html">PSI</a>
         </li>
         <li>
-          <a href="">PAI</a>
-          <ul>
-            <li><a href="PAI/Noc-Dzien.html">Zmiana koloru strony Przyciskiem (Dodaj Opis)</a></li>
-            <li><a href="PAI/zgadnij-liczbe.html">Zgadnij Liczbę (Dodaj Opis)</a></li>
-            <li><a href="#">Kod-3 (Dodaj Opis)</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="">Nowy dział</a>
-          <ul>
-            <li><a href="#">Kod-4 (Dodaj Opis)</a></li>
-            <li><a href="#">Kod-5 (Dodaj Opis)</a></li>
-            <li><a href="#">Kod-6 (Dodaj Opis)</a></li>
-          </ul>
+          <a href="PAI/pai.html">PAI</a>
         </li>
       </ul>
     </nav>
   </header>
 
-  <section id="psi-section">
-    <h2>Witaj w sekcji Kody Szkoły</h2>
+  <section>
+    <h2>Witaj w Kody z Szkoły</h2>
     <p>Tutaj znajdziesz różne kody związane z nauką i programowaniem, które tworzyłem na zapotrzebowanie szkolne.</p>
     <p>Przeglądaj dostępne działy i wybieraj interesujące Cię kody. Każdy kod posiada opis, który pomaga zrozumieć jego działanie.</p>
   </section>
 
-  <section id="pai-section">
-    <h2>Witaj w sekcji PAI</h2>
-    <p>Tutaj znajdziesz kody związane z programowaniem aplikacji internetowych.</p>
-    <p>Przeglądaj dostępne działy i wybieraj interesujące Cię kody. Każdy kod posiada opis, który pomaga zrozumieć jego działanie.</p>
-  </section>
 
   <footer>
     <p>© 2023 Kody Szkoła. Wszelkie prawa zastrzeżone.</p>
   </footer>
-
-  <script>
-    // Kod JavaScript obsługujący zdarzenia kliknięcia na elementy nawigacji
-
-    // Pobierz wszystkie elementy <a>, które mają podmenu
-    var menuLinks = document.querySelectorAll("nav ul li a");
-
-    // Pobierz sekcje, w których będą wyświetlane elementy dla PSI i PAI
-    var psiSection = document.getElementById("psi-section");
-    var paiSection = document.getElementById("pai-section");
-
-    // Iteruj przez wszystkie elementy <a>
-    menuLinks.forEach(function(link) {
-      // Dodaj zdarzenie kliknięcia
-      link.addEventListener("click", function(event) {
-        event.preventDefault(); // Zapobiegaj domyślnej akcji po kliknięciu na link
-
-        // Sprawdź, czy kliknięty link jest linkiem PSI
-        if (this.innerText === "PSI") {
-          psiSection.style.display = "block"; // Wyświetl sekcję PSI
-          paiSection.style.display = "none"; // Ukryj sekcję PAI
-        } 
-        // Sprawdź, czy kliknięty link jest linkiem PAI
-        else if (this.innerText === "PAI") {
-          psiSection.style.display = "none"; // Ukryj sekcję PSI
-          paiSection.style.display = "block"; // Wyświetl sekcję PAI
-        }
-        // W przypadku innych linków ukryj obie sekcje
-        else {
-          psiSection.style.display = "none";
-          paiSection.style.display = "none";
-        }
-      });
-    });
-  </script>
 </body>
 </html>
