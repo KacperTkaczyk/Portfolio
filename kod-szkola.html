@@ -41,12 +41,35 @@
 
   <section>
     <h2>Witaj w sekcji Kody Szkoły</h2>
-    <p>Tutaj znajdziesz różne kody związane z nauką i programowaniem, które tworzyłem na zapotrzebowania szkolne.</p>
+    <p>Tutaj znajdziesz różne kody związane z nauką i programowaniem, które tworzyłem na zapotrzebowanie szkolne.</p>
     <p>Przeglądaj dostępne działy i wybieraj interesujące Cię kody. Każdy kod posiada opis, który pomaga zrozumieć jego działanie.</p>
   </section>
 
   <footer>
     <p>© 2023 Kody Szkoła. Wszelkie prawa zastrzeżone.</p>
   </footer>
+
+  <script>
+    // Kod JavaScript obsługujący zdarzenia kliknięcia na elementy nawigacji
+
+    // Pobierz wszystkie elementy <a>, które mają podmenu
+    var menuLinks = document.querySelectorAll("nav ul li a");
+
+    // Iteruj przez wszystkie elementy <a>
+    menuLinks.forEach(function(link) {
+      // Dodaj zdarzenie kliknięcia
+      link.addEventListener("click", function(event) {
+        event.preventDefault(); // Zapobiegaj domyślnej akcji po kliknięciu na link
+
+        var submenu = this.nextElementSibling; // Pobierz podmenu dla klikniętego linku
+
+        if (submenu.style.display === "block") {
+          submenu.style.display = "none"; // Jeśli podmenu jest widoczne, ukryj je
+        } else {
+          submenu.style.display = "block"; // W przeciwnym razie pokaż podmenu
+        }
+      });
+    });
+  </script>
 </body>
 </html>
