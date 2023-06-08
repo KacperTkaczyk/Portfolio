@@ -99,3 +99,9 @@ nav ul li ul li a {
 nav ul li ul li a:hover {
   color: #ff0000;
 }
+
+#psi-section,
+#pai-section {
+  display: none;
+}
+
