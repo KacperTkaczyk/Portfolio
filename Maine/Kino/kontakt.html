@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Kinomax - Kontakt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Kinomax</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="filmy.html">Filmy</a></li>
+        <li><a href="repertuar.html">Repertuar</a></li>
+        <li><a href="bilety.html">Bilety</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="content">
+    <h2>Kontakt</h2>
+    <p>Adres: ul. Przykładowa 123, 00-000 Miasto</p>
+    <p>Telefon: 123 456 789</p>
+    <p>Email: kontakt@Kinomax.pl</p><br>
+    
+    <p>Godziny otwarcia:</p><br>
+    
+      <p>Poniedziałek - Piątek: 9:00 - 21:00</p>
+      <p>Sobota: 10:00 - 22:00</p>
+      <p>Niedziela: 12:00 - 20:00</p><br>
+    
+    <h3>Formularz kontaktowy</h3>
+      <label for="imie">Imię Nazwisko:</label>
+      <input type="text" id="imie" name="imie"><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br>
+      <label for="wiadomosc">Wiadomość:</label>
+      <textarea id="wiadomosc" name="wiadomosc" required></textarea><br>
+      <input type="submit" value="Wyślij" onclick="showSuccessMessage()">
+    </form>
+
+    <script>
+    function showSuccessMessage() {
+      alert("Wiadomość została wysłana. Skontaktujemy się z Tobą wkrótce!");
+    }
+    </script>
+  </section>
+
+  <footer>
+    <p>© 2023 Kinomax. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+</body>
+</html>

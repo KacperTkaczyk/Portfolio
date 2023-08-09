@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Kinomax - Bilety</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Kinomax</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="filmy.html">Filmy</a></li>
+        <li><a href="repertuar.html">Repertuar</a></li>
+        <li><a href="bilety.html">Bilety</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="content">
+    <h2>Rezerwacja biletów</h2>
+
+    <form>
+      <label for="month">Miesiąc:</label>
+      <select id="month">
+        <option value="czerwiec" selected>Czerwiec</option>
+        <!-- Dodaj opcje dla pozostałych miesięcy tutaj -->
+      </select>
+
+      <label for="day">Dzień:</label>
+      <select id="day">
+        <option value="">Wybierz</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <!-- Dodaj opcje dla pozostałych dni tutaj -->
+      </select>
+
+      <label for="movie">Film:</label>
+      <select id="movie">
+        <option value="" disabled selected>Wybierz</option>
+        <!-- Dynamicznie generowane opcje filmów -->
+      </select>
+
+      <label for="time">Godzina:</label>
+      <select id="time">
+        <option value="" disabled selected>Wybierz</option>
+        <!-- Dynamicznie generowane opcje godzin -->
+      </select>
+
+      <label for="hall">Sala:</label>
+      <select id="hall">
+        <option value="" disabled selected>Wybierz</option>
+        <!-- Dynamicznie generowane opcje sal -->
+      </select>
+      
+    </form>
+    <button type="submit" id="reserveButton" disabled>Zarezerwuj</button>
+  </div>
+
+  <footer>
+    <p>© 2023 Kinomax. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+
+  <script src="script-bilety.js"></script>
+</body>
+</html>
